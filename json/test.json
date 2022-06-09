@@ -1,0 +1,415 @@
+{
+    "char_str": "This is a base char type",
+    "char_num": 30,
+    "char_bool": true,
+    "uchar_str": "This is a base unsigned char type",
+    "uchar_num": -1,
+    "uchar_bool": false,
+    "short_str": "This is a base short int type",
+    "short_num": -25,
+    "short_bool": "true",
+    "ushort_str": "This is a base unsigned short int type",
+    "ushort_num": "0xa",
+    "ushort_bool": "false",
+    "int_str": "This is a base int type",
+    "int_num": -32768,
+    "int_bool": true,
+    "uint_str": "This is a base unsigned int type",
+    "uint_num": -300,
+    "uint_bool": false,
+    "ll_str": "This is a base long long int type",
+    "ll_num": -1235,
+    "ll_bool": false,
+    "ull_str": "This is a base unsigned long long int type",
+    "ull_num": 369,
+    "ull_bool": false,
+    "float_str": "This is a base float type",
+    "float_num": 123.321,
+    "float_bool": false,
+    "double_str": "This is a base double type",
+    "double_num": -456.654,
+    "double_bool": true,
+    "p_char_str": "This is a base char pointor type",
+    "p_char_num": 26,
+    "p_char_bool": true,
+    "p_uchar_str": "This is a base unsigned char pointor type",
+    "p_uchar_num": -1,
+    "p_uchar_bool": false,
+    "p_short_str": "This is a base short int pointor type",
+    "p_short_num": -19,
+    "p_short_bool": "true",
+    "p_ushort_str": "This is a base unsigned short int pointor type",
+    "p_ushort_num": "0xa",
+    "p_ushort_bool": false,
+    "p_int_str": "This is a base int pointor type",
+    "p_int_num": -32768,
+    "p_int_bool": true,
+    "p_uint_str": "This is a base unsigned int pointor type",
+    "p_uint_num": -300,
+    "p_uint_bool": false,
+    "p_ll_str": "This is a base long long int pointor type",
+    "p_ll_num": -1235,
+    "p_ll_bool": false,
+    "p_ull_str": "This is a base unsigned long long int pointor type",
+    "p_ull_num": 369,
+    "p_ull_bool": false,
+    "p_float_str": "This is a base float pointor type",
+    "p_float_num": 123.321,
+    "p_float_bool": false,
+    "p_double_str": "This is a base double pointor type",
+    "p_double_num": -258.852,
+    "p_double_bool": true,
+    "arr_char_str": "This is a base arr char type",
+    "arr_char_num": [
+        1
+    ],
+    "arr_char_bool": [
+        true
+    ],
+    "arr_uchar_str": "This is a base arr unsigned char type",
+    "arr_uchar_num": [
+        -5
+    ],
+    "arr_uchar_bool": [
+        false
+    ],
+    "arr_short_str": "This is a base arr short type",
+    "arr_short_num": [
+        -50
+    ],
+    "arr_short_bool": [
+        "false"
+    ],
+    "arr_ushort_str": "This is a base arr unsigned short type",
+    "arr_ushort_num": [
+        2563
+    ],
+    "arr_ushort_bool": [
+        "false"
+    ],
+    "arr_int_str": "This is a base arr int type",
+    "arr_int_num": [
+        1,
+        2
+    ],
+    "arr_int_bool": [
+        false
+    ],
+    "arr_uint_str": "This is a base arr unsigned int type",
+    "arr_uint_num": [
+        963,
+        2
+    ],
+    "arr_uint_bool": [
+        false
+    ],
+    "arr_ll_str": "This is a base arr long long int type",
+    "arr_ll_num": 52142548545,
+    "arr_ll_bool": [
+        false
+    ],
+    "arr_ull_str": "This is a base arr unsigned long long int type",
+    "arr_ull_num": 1254251,
+    "arr_ull_bool": [
+        true
+    ],
+    "arr_float_str": "This is a base arr float type",
+    "arr_float_num": [
+        1.245e2,
+        1.22
+    ],
+    "arr_float_bool": [
+        true
+    ],
+    "arr_double_str": "This is a base arr double type",
+    "arr_double_num": [
+        4.245e2,
+        1.22
+    ],
+    "arr_double_bool": [
+        true
+    ],
+    "p_arr_char_str": "This is a base arr char pointor type",
+    "p_arr_char_num": [
+        30,
+        50
+    ],
+    "p_arr_char_bool": [
+        true,
+        true
+    ],
+    "p_arr_uchar_str": "This is a base arr unsigned char pointor type",
+    "p_arr_uchar_num": [
+        80,
+        50
+    ],
+    "p_arr_uchar_bool": [
+        true,
+        true
+    ],
+    "p_arr_short_str": "This is a base arr short pointor type",
+    "p_arr_short_num": [
+        -65,
+        50
+    ],
+    "p_arr_short_bool": [
+        false,
+        true
+    ],
+    "p_arr_ushort_str": "This is a base arr unsigned short pointor type",
+    "p_arr_ushort_num": [
+        -65,
+        50
+    ],
+    "p_arr_ushort_bool": [
+        false,
+        true
+    ],
+    "p_arr_int_str": "This is a base arr int pointor type",
+    "p_arr_int_num": [
+        -159,
+        50
+    ],
+    "p_arr_int_bool": [
+        false,
+        true
+    ],
+    "p_arr_uint_str": "This is a base arr unsigned int pointor type",
+    "p_arr_uint_num": [
+        -489,
+        50
+    ],
+    "p_arr_uint_bool": [
+        false,
+        true
+    ],
+    "p_arr_ll_str": "This is a base arr long long int pointor type",
+    "p_arr_ll_num": [
+        -5000
+    ],
+    "p_arr_ll_bool": [
+        true
+    ],
+    "p_arr_ull_str": "This is a base arr unsigned long long int pointor type",
+    "p_arr_ull_num": [
+        3000
+    ],
+    "p_arr_ull_bool": [
+        true
+    ],
+    "p_arr_float_str": "This is a base arr float pointor type",
+    "p_arr_float_num": [
+        1.2345e2
+    ],
+    "p_arr_float_bool": [
+        false,
+        true
+    ],
+    "p_arr_double_str": "This is a base arr float pointor type",
+    "p_arr_double_num": [
+        -6.2345e2
+    ],
+    "p_arr_double_bool": [
+        false,
+        true
+    ],
+    "test_st": {
+        "char_str": "This is a base char type",
+        "char_num": 30,
+        "char_bool": true,
+        "uchar_str": "This is a base unsigned char type",
+        "uchar_num": -1,
+        "uchar_bool": false,
+        "short_str": "This is a base short int type",
+        "short_num": -25,
+        "short_bool": "true",
+        "ushort_str": "This is a base unsigned short int type",
+        "ushort_num": "0xa",
+        "ushort_bool": "false",
+        "int_str": "This is a base int type",
+        "int_num": -32768,
+        "int_bool": true,
+        "uint_str": "This is a base unsigned int type",
+        "uint_num": -300,
+        "uint_bool": false,
+        "ll_str": "This is a base long long int type",
+        "ll_num": -1235,
+        "ll_bool": false,
+        "ull_str": "This is a base unsigned long long int type",
+        "ull_num": 369,
+        "ull_bool": false,
+        "float_str": "This is a base float type",
+        "float_num": 123.321,
+        "float_bool": false,
+        "double_str": "This is a base double type",
+        "double_num": -456.654,
+        "double_bool": true
+    },
+    "p_test_st": {
+        "char_str": "This is a base char type",
+        "char_num": 30,
+        "char_bool": true,
+        "uchar_str": "This is a base unsigned char type",
+        "uchar_num": -1,
+        "uchar_bool": false,
+        "short_str": "This is a base short int type",
+        "short_num": -25,
+        "short_bool": "true",
+        "ushort_str": "This is a base unsigned short int type",
+        "ushort_num": "0xa",
+        "ushort_bool": "false",
+        "int_str": "This is a base int type",
+        "int_num": -32768,
+        "int_bool": true,
+        "uint_str": "This is a base unsigned int type",
+        "uint_num": -300,
+        "uint_bool": false,
+        "ll_str": "This is a base long long int type",
+        "ll_num": -1235,
+        "ll_bool": false,
+        "ull_str": "This is a base unsigned long long int type",
+        "ull_num": 369,
+        "ull_bool": false,
+        "float_str": "This is a base float type",
+        "float_num": 123.321,
+        "float_bool": false,
+        "double_str": "This is a base double type",
+        "double_num": -300.0001,
+        "double_bool": true
+    },
+    "arr_test_st": [
+        {
+            "char_str": "This is a base char type",
+            "char_num": 30,
+            "char_bool": true,
+            "uchar_str": "This is a base unsigned char type",
+            "uchar_num": -1,
+            "uchar_bool": false,
+            "short_str": "This is a base short int type",
+            "short_num": -25,
+            "short_bool": "true",
+            "ushort_str": "This is a base unsigned short int type",
+            "ushort_num": "0xa",
+            "ushort_bool": "false",
+            "int_str": "This is a base int type",
+            "int_num": -32768,
+            "int_bool": true,
+            "uint_str": "This is a base unsigned int type",
+            "uint_num": -300,
+            "uint_bool": false,
+            "ll_str": "This is a base long long int type",
+            "ll_num": -1235,
+            "ll_bool": false,
+            "ull_str": "This is a base unsigned long long int type",
+            "ull_num": 369,
+            "ull_bool": false,
+            "float_str": "This is a base float type",
+            "float_num": 123.321,
+            "float_bool": false,
+            "double_str": "This is a base double type",
+            "double_num": 999.99,
+            "double_bool": true
+        },
+        {
+            "char_str": "This is a base char type",
+            "char_num": 30,
+            "char_bool": true,
+            "uchar_str": "This is a base unsigned char type",
+            "uchar_num": -1,
+            "uchar_bool": false,
+            "short_str": "This is a base short int type",
+            "short_num": -25,
+            "short_bool": "true",
+            "ushort_str": "This is a base unsigned short int type",
+            "ushort_num": "0xa",
+            "ushort_bool": "false",
+            "int_str": "This is a base int type",
+            "int_num": -32768,
+            "int_bool": true,
+            "uint_str": "This is a base unsigned int type",
+            "uint_num": -300,
+            "uint_bool": false,
+            "ll_str": "This is a base long long int type",
+            "ll_num": -1235,
+            "ll_bool": false,
+            "ull_str": "This is a base unsigned long long int type",
+            "ull_num": 369,
+            "ull_bool": false,
+            "float_str": "This is a base float type",
+            "float_num": 123.321,
+            "float_bool": false,
+            "double_str": "This is a base double type",
+            "double_num": 888.88,
+            "double_bool": true
+        }
+    ],
+    "p_arr_test_st": [
+        {
+            "char_str": "This is a base char type",
+            "char_num": 30,
+            "char_bool": true,
+            "uchar_str": "This is a base unsigned char type",
+            "uchar_num": -1,
+            "uchar_bool": false,
+            "short_str": "This is a base short int type",
+            "short_num": -25,
+            "short_bool": "true",
+            "ushort_str": "This is a base unsigned short int type",
+            "ushort_num": "0xa",
+            "ushort_bool": "false",
+            "int_str": "This is a base int type",
+            "int_num": -32768,
+            "int_bool": true,
+            "uint_str": "This is a base unsigned int type",
+            "uint_num": -300,
+            "uint_bool": false,
+            "ll_str": "This is a base long long int type",
+            "ll_num": -1235,
+            "ll_bool": false,
+            "ull_str": "This is a base unsigned long long int type",
+            "ull_num": 369,
+            "ull_bool": false,
+            "float_str": "This is a base float type",
+            "float_num": 123.321,
+            "float_bool": false,
+            "double_str": "This is a base double type",
+            "double_num": -1999.99,
+            "double_bool": true
+        },
+        {
+            "char_str": "This is a base char type",
+            "char_num": 30,
+            "char_bool": true,
+            "uchar_str": "This is a base unsigned char type",
+            "uchar_num": -1,
+            "uchar_bool": false,
+            "short_str": "This is a base short int type",
+            "short_num": -25,
+            "short_bool": "true",
+            "ushort_str": "This is a base unsigned short int type",
+            "ushort_num": "0xa",
+            "ushort_bool": "false",
+            "int_str": "This is a base int type",
+            "int_num": -32768,
+            "int_bool": true,
+            "uint_str": "This is a base unsigned int type",
+            "uint_num": -300,
+            "uint_bool": false,
+            "ll_str": "This is a base long long int type",
+            "ll_num": -1235,
+            "ll_bool": false,
+            "ull_str": "This is a base unsigned long long int type",
+            "ull_num": 369,
+            "ull_bool": false,
+            "float_str": "This is a base float type",
+            "float_num": 123.321,
+            "float_bool": false,
+            "double_str": "This is a base double type",
+            "double_num": -2888.88,
+            "double_bool": true
+        }
+    ],
+    "test_un": {
+        "arr_char_str": "This is a union arr char type"
+    }
+}
