@@ -1,22 +1,12 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 10:30:52
- * @LastEditTime : 2022-06-09 15:21:09
+ * @LastEditTime : 2022-06-09 15:51:48
  * @LastEditors  : lqm283 lanqianming@hotmail.com
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
  * @FilePath     : /jsonc/main.h
- */
-/*
- * @Author       : lqm283 lanqianming@hotmail.com
- * @Date         : 2022-05-21 16:17:39
- * @LastEditTime : 2022-06-09 08:23:06
- * @LastEditors  : lqm283 lanqianming@hotmail.com
- * --------------------------------------------------------------------------------<
- * @Description  : Please edit a descrition about this file at here.
- * --------------------------------------------------------------------------------<
- * @FilePath     : /bjsonc/main.h
  */
 #ifndef __MAIN_H_
 #define __MAIN_H_
