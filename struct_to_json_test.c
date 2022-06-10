@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:59
- * @LastEditTime : 2022-06-09 15:50:39
+ * @LastEditTime : 2022-06-10 10:53:41
  * @LastEditors  : lqm283 lanqianming@hotmail.com
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -159,7 +159,7 @@ int struct_to_json_test(void) {
         .p_double_num_base_arr = {&p_double_num_base_arr[0], &p_double_num_base_arr[1]},
         .p_double_bool_base_arr = {&p_double_bool_base_arr[0], &p_double_bool_base_arr[1]},
     };
-    json = jsonc_serialize(buf, &struct_to_json_base_test, STRUCT(test1));
+    json = JsoncSerialize(buf, &struct_to_json_base_test, test1);
     printf("%s\n", json);
 
     test2 struct_to_json_nult_test =
@@ -440,7 +440,7 @@ int struct_to_json_test(void) {
          .ptr_val = &struct_to_json_base_test,
          .ptr_arr_val = {&struct_to_json_base_test, &struct_to_json_base_test}};
 
-    json = jsonc_serialize(buf, &struct_to_json_nult_test, STRUCT(test2));
+    json = JsoncSerialize(buf, &struct_to_json_nult_test, test2);
     printf("%s\n", json);
 
     return 0;

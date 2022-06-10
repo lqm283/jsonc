@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:45
- * @LastEditTime : 2022-06-09 15:51:26
+ * @LastEditTime : 2022-06-10 10:58:47
  * @LastEditors  : lqm283 lanqianming@hotmail.com
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -196,7 +196,7 @@ int json_to_struct_test(void) {
     unsigned long n = fread(buf, 1, sizeof(buf), file);
     buf[n] = 0;
 
-    ret = jsonc_deserialize(buf, &test, STRUCT(test));
+    ret = JsoncDeserialize(buf, &test, test);
 
     printf("test.char_str = %c\n", test.char_str);
     printf("test.char_num = %d\n", test.char_num);
