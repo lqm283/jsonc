@@ -201,6 +201,7 @@ int json_to_struct_test(void) {
     printf("test.char_str = %c\n", test.char_str);
     printf("test.char_num = %d\n", test.char_num);
     printf("test.char_bool = %s\n", BOOL[(uint8_t)test.char_bool]);
+    printf("test.char_bool_null = %s\n", BOOL[(uint8_t)test.char_null]);
 
     printf("test.uchar_str = %c\n", test.uchar_str);
     printf("test.uchar_num = %d\n", test.uchar_num);

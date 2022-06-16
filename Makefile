@@ -1,6 +1,6 @@
 #### PROJECT SETTINGS ####
 # The name of the executable to be created
-BIN_NAME := bjsonc
+BIN_NAME := jsonc
 # Compiler used
 CC ?= gcc
 # Extension of source files used in the project
@@ -17,7 +17,6 @@ RCOMPILE_FLAGS = -D NDEBUG
 DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
 INCLUDES = -I $(SRC_PATH)
-INCLUDES += -I $(SRC_PATH)/jsonc/inc
 # General linker settings
 LINK_FLAGS =
 # Additional release-specific linker settings

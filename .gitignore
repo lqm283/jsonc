@@ -54,3 +54,4 @@ dkms.conf
 bjsonc
 compile_commands.json
 .cache
+jsonc

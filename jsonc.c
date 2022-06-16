@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2022-06-09 15:49:27
+ * @LastEditTime : 2022-06-16 14:11:49
  * @LastEditors  : lqm283 lanqianming@hotmail.com
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -10,6 +10,8 @@
  */
 
 #include "jsonc.h"
+
+#include <string.h>
 
 enum mult_type { Struct, Union };
 enum c_base_type { cInt8, cUInt8, cInt16, cUInt16, cInt32, cUInt32, cInt64, cUInt64, cFloat, cDouble };
@@ -64,6 +66,8 @@ static const char** jsonc_c_base_type[] = {jsonc_type_int8,
 #define JSON_GET_OBJ 20     /* 获取obj发生错误 */
 #define JSON_GET_ARR 21     /* 获取arr发生错误 */
 #define JSON_GET_NUM 22     /* 获取num发生错误 */
+#define JSON_NULL_VAL 23    /* null值错误 */
+#define JSON_GET_NULL 24    /* 获取null发生错误 */
 
 static void* jsonc_change_cbasearr_to_json(char* buf, void* st, const struct struct_mem* mem);
 static void* jsonc_change_cmultarr_to_json(char* buf, void* st, const struct struct_mem* mem);
@@ -73,6 +77,7 @@ static void* jsonc_change_cptrbasearr_to_json(char* buf, void* st, const struct 
 static void* jsonc_change_cptrmultarr_to_json(char* buf, void* st, const struct struct_mem* mem);
 
 static int jsonc_check_obj(char* start_obj, char** end_obj);
+static int jsonc_check_null(char* start_obj, char** end_obj);
 static jsonc_obj* jsonc_get_obj(char* start_str, char** end_str);
 static jsonc_arr* jsonc_get_arr(char* start_str, char** end_str);
 static int jsonc_destroy_obj(jsonc_obj* obj);
@@ -221,6 +226,16 @@ static int jsonc_change_bool_to_json(void* buf_start, void** buf_end, void* st, 
     return 0;
 }
 
+static int jsonc_change_null_to_json(void* buf_start, void** buf_end) {
+    strcpy(buf_start, "null");
+
+    buf_start += 4;
+
+    *buf_end = buf_start;
+
+    return 0;
+}
+
 static enum c_type jsonc_get_ctype(const struct struct_mem* mem) {
     enum c_type c_type = cBase;
 
@@ -336,14 +351,22 @@ static void* jsonc_change_cmultarr_to_json(char* buf, void* st, const struct str
 static void* jsonc_change_cptrbase_to_json(char* buf, void* st, const struct struct_mem* mem) {
     void* ret = NULL;
     st = (void*)(*(long*)st);
-    ret = jsonc_change_cbase_to_json(buf, st, mem);
+    if (st == NULL) {
+        jsonc_change_null_to_json(buf, &ret);
+    } else {
+        ret = jsonc_change_cbase_to_json(buf, st, mem);
+    }
     return ret;
 }
 
 static void* jsonc_change_cptrmult_to_json(char* buf, void* st, const struct struct_mem* mem) {
     void* ret = NULL;
     st = (void*)(*(long*)st);
-    ret = jsonc_obj_to_json(buf, st, mem->type_info);
+    if (st == NULL) {
+        jsonc_change_null_to_json(buf, &ret);
+    } else {
+        ret = jsonc_obj_to_json(buf, st, mem->type_info);
+    }
     return ret;
 }
 
@@ -354,7 +377,12 @@ static void* jsonc_change_cptrbasearr_to_json(char* buf, void* st, const struct 
     for (int i = 0; i < length; i++) {
         addr = st + (i * mem->type_length);
         addr = (void*)(*(long*)addr);
-        buf = jsonc_change_cbase_to_json(buf, addr, mem);
+
+        if (addr == NULL) {
+            jsonc_change_null_to_json(buf, (void*)&buf);
+        } else {
+            buf = jsonc_change_cbase_to_json(buf, addr, mem);
+        }
         if ((i + 1) != length) {
             *buf++ = ',';
         }
@@ -370,7 +398,11 @@ static void* jsonc_change_cptrmultarr_to_json(char* buf, void* st, const struct 
     for (int i = 0; i < length; i++) {
         addr = st + (i * mem->type_length);
         addr = (void*)(*(long*)addr);
-        buf = jsonc_obj_to_json(buf, addr, mem->type_info);
+        if (addr == NULL) {
+            jsonc_change_null_to_json(buf, (void*)&buf);
+        } else {
+            buf = jsonc_obj_to_json(buf, addr, mem->type_info);
+        }
         if ((i + 1) != length) {
             *buf++ = ',';
         }
@@ -585,6 +617,9 @@ static int jsonc_check_array(char* start_array, char** end_array) {
                     goto array_end;
                 }
                 break;
+            case 'n':
+                ret = jsonc_check_null(start_array, &start_array);
+                break;
             default:
                 ret = -JSON_ARRAY;
                 goto array_end;
@@ -646,6 +681,9 @@ static int jsonc_check_element(char* start_element, char** end_element) {
         case '{':
             ret = jsonc_check_obj(start_element, &start_element);
             break;
+        case 'n':
+            ret = jsonc_check_null(start_element, &start_element);
+            break;
         default:
             ret = -JSON_ELE;
             break;
@@ -689,6 +727,19 @@ static int jsonc_check_obj(char* start_obj, char** end_obj) {
     if (end_obj != NULL) {
         *end_obj = str;
     }
+    return ret;
+}
+
+static int jsonc_check_null(char* start_obj, char** end_obj) {
+    int ret = 0;
+    char temp[5];
+
+    memcpy(temp, start_obj, 4);
+    start_obj += 4;
+    if (strcmp(temp, "null") != 0) {
+        return -JSON_NULL_VAL;
+    }
+    *end_obj = start_obj;
     return ret;
 }
 
@@ -816,6 +867,12 @@ static char* jsonc_get_num(char* start_str, char** end_str) {
     return num;
 }
 
+static int jsonc_get_null(char* start_str, char** end_str) {
+    start_str += 4;
+    *end_str = start_str;
+    return True;
+}
+
 static int json_get_ele(char* start_str, char** end_str, jsonc_obj* obj) {
     int ret = 0;
     struct jsonc_ele* ele;
@@ -887,6 +944,13 @@ static int json_get_ele(char* start_str, char** end_str, jsonc_obj* obj) {
             ele->value.num = jsonc_get_num(start_str, &start_str);
             if (!ele->value.num) {
                 return -JSON_GET_NUM;
+            }
+            break;
+        case 'n':
+            ele->type = Null;
+            ele->value.null = jsonc_get_null(start_str, &start_str);
+            if (!ele->value.null) {
+                return -JSON_GET_NULL;
             }
             break;
     }
@@ -1061,6 +1125,10 @@ static jsonc_arr* jsonc_get_arr(char* start_str, char** end_str) {
             case '-':
                 mem->type = Num;
                 mem->value.num = jsonc_get_num(start_str, &start_str);
+                break;
+            case 'n':
+                mem->type = Null;
+                mem->value.null = jsonc_get_null(start_str, &start_str);
                 break;
             default:
                 break;
@@ -1369,6 +1437,43 @@ static int jsonc_jsonbool_to_multbool(const struct jsonc_ele* ele) {
     return jsonc_jsonbool_to_multnum(ele);
 }
 
+static int jsonc_jsonnull_to_multstr(const struct jsonc_ele* ele) {
+    *(char*)ele->mem_addr = 0;
+    return 0;
+}
+
+static int jsonc_jsonnull_to_multnum(const struct jsonc_ele* ele) {
+    int ret = 0;
+
+    switch (is_base_type(ele->mem.mem_type)) {
+        case cInt8:
+        case cUInt8:
+        case cInt16:
+        case cUInt16:
+        case cInt32:
+        case cUInt32:
+        case cInt64:
+        case cUInt64:
+            *(char*)ele->mem_addr = 0;
+            break;
+        case cFloat:
+            *(float*)ele->mem_addr = 0;
+            break;
+        case cDouble:
+            *(double*)ele->mem_addr = 0;
+            break;
+        default:
+            ret = -JSON_TYPE;
+            break;
+    }
+
+    return ret;
+}
+
+static int jsonc_jsonnull_to_multbool(const struct jsonc_ele* ele) {
+    return jsonc_jsonnull_to_multnum(ele);
+}
+
 static int jsonc_get_cbase(const struct jsonc_ele* ele) {
     int ret = 0;
 
@@ -1413,6 +1518,21 @@ static int jsonc_get_cbase(const struct jsonc_ele* ele) {
                     break;
                 case Bool:
                     ret = jsonc_jsonbool_to_multbool(ele);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case Null:
+            switch (ele->mem.struct_type) {
+                case Str:
+                    ret = jsonc_jsonnull_to_multstr(ele);
+                    break;
+                case Num:
+                    ret = jsonc_jsonnull_to_multnum(ele);
+                    break;
+                case Bool:
+                    ret = jsonc_jsonnull_to_multbool(ele);
                     break;
                 default:
                     break;
@@ -1527,6 +1647,10 @@ static int jsonc_obj_to_struct(const jsonc_obj* obj) {
 
 void* jsonc_serialize(char* buf, void* st, const struct type* type) {
     void* ret = NULL;
+
+    if (st == NULL) {
+        return ret;
+    }
     ret = jsonc_obj_to_json(buf, st, type);
     if (ret) {
         *(char*)ret++ = '\0';

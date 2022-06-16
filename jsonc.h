@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2022-06-10 10:57:56
+ * @LastEditTime : 2022-06-16 14:18:38
  * @LastEditors  : lqm283 lanqianming@hotmail.com
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum json_type { Str, Num, Bool, MultArr, Obj, Arr };
+enum json_type { Str, Num, Bool, MultArr, Obj, Arr, Null };
 enum json_bool { False, True };
 enum c_type {
     cBase,
@@ -42,6 +42,7 @@ union jsonc_type {
     char* str;
     char* num;
     enum json_bool bool;
+    int null;
 } jsonc_type;
 
 struct struct_mem {
