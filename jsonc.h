@@ -1,8 +1,8 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2022-06-16 14:18:38
- * @LastEditors  : lqm283 lanqianming@hotmail.com
+ * @LastEditTime : 2023-01-03 16:10:50
+ * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
@@ -17,6 +17,7 @@
 #include <string.h>
 
 enum json_type { Str, Num, Bool, MultArr, Obj, Arr, Null };
+
 enum json_bool { False, True };
 enum c_type {
     cBase,
@@ -37,12 +38,12 @@ typedef struct list_head jsonc_obj;
 typedef struct list_head jsonc_arr;
 
 union jsonc_type {
-    jsonc_obj* obj;
-    jsonc_arr* arr;
-    char* str;
-    char* num;
-    enum json_bool bool;
-    int null;
+    jsonc_obj* Obj;
+    jsonc_arr* Arr;
+    char* Str;
+    char* Num;
+    enum json_bool Bool;
+    int Null;
 } jsonc_type;
 
 struct struct_mem {
