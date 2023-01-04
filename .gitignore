@@ -55,3 +55,5 @@ bjsonc
 compile_commands.json
 .cache
 jsonc
+build
+.debug_time
