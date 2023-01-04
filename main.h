@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 10:30:52
- * @LastEditTime : 2023-01-03 16:19:31
+ * @LastEditTime : 2023-01-04 19:11:51
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1236,7 +1236,7 @@ struct test1 {
     double double_num_base_arr[2];
     double double_bool_base_arr[2];
     double double_bool_base_arr_null[2];
-    //指针
+    // 指针
     char *p_char_str_base;
     char *p_char_str_base_null;
     char *p_char_num_base;
@@ -1339,7 +1339,7 @@ INIT(test1,
      MEM(struct test1, Num, double, double_num_base, NULL),
      MEM(struct test1, Bool, double, double_bool_base, NULL),
      MEM(struct test1, Bool, double, double_bool_base_null, NULL),
-     //数组
+     // 数组
      MEM(struct test1, Str, char, char_str_base_arr, NULL),
      MEM(struct test1, Str, char, char_str_base_arr_null, NULL),
      MEM(struct test1, Num, char, char_num_base_arr, NULL),
@@ -1445,14 +1445,14 @@ INIT(test1,
      MEM(struct test1, Bool, double *, p_double_bool_base_arr_null, NULL));
 
 typedef struct {
-    //常规变量
+    // 常规变量
     struct test1 normal_val;
-    //数组
+    // 数组
     struct test1 arr_val[2];
-    //指针
+    // 指针
     struct test1 *ptr_val;
     struct test1 *ptr_val_null;
-    //指针数组
+    // 指针数组
     struct test1 *ptr_arr_val[2];
     struct test1 *ptr_arr_val_null[2];
 } test2;
