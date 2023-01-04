@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-01-04 14:31:40
+ * @LastEditTime : 2023-01-04 14:05:24
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -20,14 +20,18 @@ enum json_type { Str, Num, Bool, MultArr, Obj, Arr, Null };
 
 enum json_bool { False, True };
 enum c_type {
-    cBase,
-    cMult,
-    cBaseArr,
-    cMultArr,
-    cPtrBase,
-    cPtrMult,
-    cPtrBaseArr,
-    cPtrMultArr,
+    cBase = 0,
+    cStruct = 1,
+    cUnion = 3,
+    cBaseArr = 4,
+    cStructArr = 5,
+    cUnionArr = 7,
+    cPtrBase = 8,
+    cPtrStruct = 9,
+    cPtrUnion = 11,
+    cPtrBaseArr = 12,
+    cPtrStructArr = 13,
+    cPtrUnionArr = 15
 };
 
 struct list_head {
@@ -37,7 +41,7 @@ struct list_head {
 typedef struct list_head jsonc_obj;
 typedef struct list_head jsonc_arr;
 
-union jsonc_type {
+typedef union jsonc_type {
     jsonc_obj* Obj;
     jsonc_arr* Arr;
     char* Str;
@@ -46,7 +50,7 @@ union jsonc_type {
     int Null;
 } jsonc_type;
 
-struct struct_mem {
+typedef struct struct_mem {
     char* mem_type;
     char* mem_name;
     enum json_type struct_type;
@@ -54,9 +58,10 @@ struct struct_mem {
     int mem_length;
     int mem_offset;
     const struct type* type_info;
+    char* tag;
 } struct_mem;
 
-struct jsonc_ele {
+typedef struct jsonc_ele {
     struct list_head sibling;
     char* name;
     enum json_type type;
@@ -68,22 +73,23 @@ struct jsonc_ele {
 
 typedef struct jsonc_ele jsonc_arr_mem;
 
-struct type {
+typedef struct type {
     char* struct_type;
     int length;
     const struct struct_mem* mem;
     int mem_num;
+    enum c_type c_type;
 } type;
 
 #define STRUCT_NAME(name) struct_type_##name
 #define struct_type_NULL NULL
 
 #define SIZEOF(type, name) sizeof(((type*)0)->name)
-#define L_MEM(s_type, json_type, mem_type, mem_name, type_info)   \
-    {                                                             \
-#mem_type, #mem_name, json_type, sizeof(mem_type),        \
-            SIZEOF(s_type, mem_name), offsetof(s_type, mem_name), \
-            struct_type##type_info                                \
+#define L_MEM(s_type, json_type, mem_type, mem_name, type_info, tag...) \
+    {                                                                   \
+#mem_type, #mem_name, json_type, sizeof(mem_type),              \
+            SIZEOF(s_type, mem_name), offsetof(s_type, mem_name),       \
+            struct_type##type_info, tag                                 \
     }
 #define L_INIT(s_name, s_type, s_mem...)                     \
     static const struct struct_mem struct_mem_##s_name[] = { \
@@ -116,8 +122,8 @@ int jsonc_deserialize(char* buf, void* st, const struct type* type);
  * @param {} mem_name 成员的名称
  * @param {} type_info 复合类型成员的信息块，基本数据类型此项填 NULL
  */
-#define MEM(s_type, json_type, mem_type, mem_name, type_info) \
-    L_MEM(s_type, json_type, mem_type, mem_name, _##type_info)
+#define MEM(s_type, json_type, mem_type, mem_name, type_info, tag...) \
+    L_MEM(s_type, json_type, mem_type, mem_name, _##type_info, tag)
 
 /**
  * @description: 将C语言的结构体序列化为json

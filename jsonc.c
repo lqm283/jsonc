@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-04 19:27:40
+ * @LastEditTime : 2023-01-04 13:52:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1304,15 +1304,6 @@ static int jsonc_match_union(void* st,
     return ret;
 }
 
-static int jsonc_bind_base_value(struct jsonc_ele* ele) {
-    int ret = 0;
-    if (is_pointor(ele->mem.mem_type)) {
-        ele->c_type |= cPtrBase;
-        ele->mem_addr = (void*)(*(long*)ele->mem_addr);
-    }
-    return ret;
-}
-
 static int jsonc_bind_arr_union(struct jsonc_ele* ele) {
     int ret = 0;
 
@@ -1392,10 +1383,13 @@ static int jsonc_match_struct(void* st,
         ele->mem_addr = NULL;
         mem = jsonc_probe_mem_and_ele(type->mem, ele);
         if (mem == NULL) {
+            list = list->next;
             continue;
         }
 
         ele->mem = *mem;
+
+        ele->mem_addr = st + mem->mem_offset;
 
         if (is_pointor(ele->mem.mem_type)) {
             ele->c_type |= cPtrBase;
