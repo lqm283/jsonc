@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 10:30:52
- * @LastEditTime : 2023-01-05 06:02:24
+ * @LastEditTime : 2023-01-05 08:53:09
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -30,32 +30,22 @@ INIT(B,
      MEM(union B, Num, int, b, NULL));
 
 struct SA {
-    int a;
-    int b[10];
-    int *c;
-    int *d[10];
-    struct A aa;
-    struct A aaa[10];
-    struct A *pa;
-    struct A *paa[10];
-    union B ub;
-    union B uba[10];
-    union B *pub;
-    union B *puba[10];
+    char a;
+    char *b;
+    char *c[2];
+    struct A mfa;
+    struct A mfaa[2];
+    struct A *pmfa;
+    struct A *pmfaa[2];
 };
 INIT(SA,
      struct SA,
-     MEM(struct SA, Num, int, a, NULL),
-     MEM(struct SA, Num, int, b, NULL, "b"),
-     MEM(struct SA, Num, int *, c, NULL),
-     MEM(struct SA, Num, int *, d, NULL),
-     MEM(struct SA, Num, struct A, aa, A),
-     MEM(struct SA, Num, struct A, aaa, A),
-     MEM(struct SA, Num, struct A *, pa, A),
-     MEM(struct SA, Num, struct A *, paa, A),
-     MEM(struct SA, Num, union B, ub, B),
-     MEM(struct SA, Num, union B, uba, B),
-     MEM(struct SA, Num, union B *, pub, B),
-     MEM(struct SA, Num, union B *, puba, B));
+     MEM(struct SA, Num, char, a, NULL, "dgade,omitempty"),
+     MEM(struct SA, Num, char *, b, NULL, "asdf,omitempty"),
+     MEM(struct SA, Str, char *, c, NULL, "_,omitempty"),
+     MEM(struct SA, Str, struct A, mfa, A, "dfrgrss,omitempty"),
+     MEM(struct SA, Str, struct A, mfaa, A, "rt,omitempty"),
+     MEM(struct SA, Str, struct A *, pmfa, A, "_,omitempty"),
+     MEM(struct SA, Str, struct A *, pmfaa, A, "_,omitempty"));
 
 #endif
