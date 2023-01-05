@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 10:30:52
- * @LastEditTime : 2023-01-05 08:53:09
+ * @LastEditTime : 2023-01-05 14:07:56
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,9 +16,9 @@
 #include "stdint.h"
 
 struct A {
-    int a;
+    float a[5];
 };
-INIT(A, struct A, MEM(struct A, Num, int, a, NULL));
+INIT(A, struct A, MEM(struct A, Num, float, a, NULL));
 
 union B {
     int a;

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-01-05 09:19:59
+ * @LastEditTime : 2023-01-05 14:08:13
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -33,13 +33,28 @@ int main(int argc, char** argv) {
 
     struct A a;
 
+    // a.a = malloc(sizeof(float));
+
+    // for (int i = 0; i < 5; i++) {
+    //     a.a[i] = malloc(100);
+    //     printf("addr &a.a[%d] = 0x%lx\n", i, (long)&a.a[i]);
+    //     printf("addr a.a[%d] = 0x%lx\n", i, (long)a.a[i]);
+    // }
+
     int ret = 0;
 
     ret = JsoncDeserialize(buf, &a, A);
 
     if (ret != 0) {
         printf("JsoncDeserialize error\n");
+        return ret;
     }
+
+    printf("a.a[0] = %f\n", a.a[0]);
+    printf("a.a[1] = %f\n", a.a[1]);
+    printf("a.a[2] = %f\n", a.a[2]);
+    printf("a.a[3] = %f\n", a.a[3]);
+    printf("a.a[4] = %f\n", a.a[4]);
 
     return 0;
 }
