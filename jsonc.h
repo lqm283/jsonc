@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-01-04 14:05:24
+ * @LastEditTime : 2023-01-05 06:09:57
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -22,16 +22,16 @@ enum json_bool { False, True };
 enum c_type {
     cBase = 0,
     cStruct = 1,
-    cUnion = 3,
+    cUnion = 2,
     cBaseArr = 4,
     cStructArr = 5,
-    cUnionArr = 7,
+    cUnionArr = 6,
     cPtrBase = 8,
     cPtrStruct = 9,
-    cPtrUnion = 11,
+    cPtrUnion = 10,
     cPtrBaseArr = 12,
     cPtrStructArr = 13,
-    cPtrUnionArr = 15
+    cPtrUnionArr = 14
 };
 
 struct list_head {
@@ -41,6 +41,33 @@ struct list_head {
 typedef struct list_head jsonc_obj;
 typedef struct list_head jsonc_arr;
 
+/**
+ * @description: 复合对象成员的相关参数和信息
+ */
+typedef struct struct_mem {
+    const char* mem_type;        // 成员的类型
+    const char* mem_name;        // 成员的名称
+    enum json_type struct_type;  // 成员的 json 数据类型
+    int type_length;             // 成员类型的长度
+    int mem_length;              // 成员的长度
+    int mem_offset;              // 成员在对象中的偏移量
+    const struct type* type_info;  // 如果成员是对象，则该对象的信息
+    const char* tag;
+} struct_mem;
+
+/**
+ * @description: 复合对象的相关参数和信息
+ */
+typedef struct type {
+    const char* struct_type;       // 复合对象的类型
+    int length;                    // 复合对象的长度
+    const struct struct_mem* mem;  // 复合对象的成员信息
+    int mem_num;                   // 复合对象的成员数量
+} type;
+
+/**
+ * @description: json 可能的值类型
+ */
 typedef union jsonc_type {
     jsonc_obj* Obj;
     jsonc_arr* Arr;
@@ -50,51 +77,56 @@ typedef union jsonc_type {
     int Null;
 } jsonc_type;
 
-typedef struct struct_mem {
-    char* mem_type;
-    char* mem_name;
-    enum json_type struct_type;
-    int type_length;
-    int mem_length;
-    int mem_offset;
-    const struct type* type_info;
-    char* tag;
-} struct_mem;
-
+/**
+ * @description: json 元素的相关参数
+ */
 typedef struct jsonc_ele {
-    struct list_head sibling;
-    char* name;
-    enum json_type type;
-    union jsonc_type value;
-    struct struct_mem mem;
-    void* mem_addr;
-    enum c_type c_type;
+    struct list_head sibling;  // json 元素的子元素
+    char* name;                // json 元素的名称
+    enum json_type type;       // json 元素的类型
+    union jsonc_type value;    // json 元素的值
+    struct struct_mem mem;     // 与 json 元素对应的复合对象的成员
+    void* mem_addr;            // 复合对象成员的地址
+    enum c_type c_type;        // 复合对象成员的 C 数据类型
 } jsonc_ele;
 
 typedef struct jsonc_ele jsonc_arr_mem;
 
-typedef struct type {
-    char* struct_type;
-    int length;
-    const struct struct_mem* mem;
-    int mem_num;
-    enum c_type c_type;
-} type;
-
 #define STRUCT_NAME(name) struct_type_##name
 #define struct_type_NULL NULL
+
+#define __COUNT_ARGS(_0,   \
+                     _1,   \
+                     _2,   \
+                     _3,   \
+                     _4,   \
+                     _5,   \
+                     _6,   \
+                     _7,   \
+                     _8,   \
+                     _9,   \
+                     _10,  \
+                     _11,  \
+                     _12,  \
+                     _n,   \
+                     X...) \
+    _n
+#define COUNT_ARGS(X...) \
+    __COUNT_ARGS(, ##X, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+
+#define STR_CONNECT(str) ("" str)
 
 #define SIZEOF(type, name) sizeof(((type*)0)->name)
 #define L_MEM(s_type, json_type, mem_type, mem_name, type_info, tag...) \
     {                                                                   \
 #mem_type, #mem_name, json_type, sizeof(mem_type),              \
             SIZEOF(s_type, mem_name), offsetof(s_type, mem_name),       \
-            struct_type##type_info, tag                                 \
+            struct_type##type_info, STR_CONNECT(tag)                    \
     }
 #define L_INIT(s_name, s_type, s_mem...)                     \
     static const struct struct_mem struct_mem_##s_name[] = { \
         s_mem,                                               \
-        {NULL, NULL, 0, 0, 0, 0, NULL}};                     \
+        {NULL, NULL, Null, 0, 0, 0, NULL, NULL}};            \
     static const struct type struct_type_##s_name[] = {      \
         {#s_type,                                            \
          sizeof(s_type),                                     \

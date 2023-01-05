@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-01-04 13:42:17
+ * @LastEditTime : 2023-01-05 05:44:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,41 +16,8 @@
 
 #include "jsonc.h"
 
-extern int json_to_struct_test(void);
-extern int struct_to_json_test(void);
-
-struct SA {
-    int a;
-};
-INIT(SA, struct SA, MEM(struct SA, Num, int, a, NULL));
-
-struct SB {
-    int a;
-    int b;
-};
-INIT(SB,
-     struct SB,
-     MEM(struct SB, Num, int, a, NULL, "a"),
-     MEM(struct SB, Num, int, b, NULL, "a"));
-
-struct SC {
-    int* a;
-};
-static const struct struct_mem struct_mem_SC[] = {
-    {"int*",
-     "a",
-     Num,
-     sizeof(int*),
-     sizeof(((struct SC*)0)->a),
-     __builtin_offsetof(struct SC, a),
-     ((void*)0)},
-    {((void*)0), ((void*)0), 0, 0, 0, 0, ((void*)0)}};
-
-static const struct type struct_type_SC[] = {
-    {"struct SC",
-     sizeof(struct SC),
-     struct_mem_SC,
-     (sizeof(struct_mem_SC) / sizeof(struct struct_mem) - 1)}};
+// extern int json_to_struct_test(void);
+// extern int struct_to_json_test(void);
 
 int main(int argc, char** argv) {
     (void)argc;
@@ -66,18 +33,22 @@ int main(int argc, char** argv) {
 
     int ret = 0;
 
-    // struct D d;
-    struct SC sc;
+    struct SA sa = {10, 20};
 
-    sc.a = malloc(sizeof(int));
+    JsoncSerialize(buf, &sa, SA);
+
+    // struct D d;
+    // struct SC sc;
+
+    // sc.a = malloc(sizeof(int));
 
     // ret = struct_to_json_test();
 
     // ret = json_to_struct_test();
 
-    ret = JsoncDeserialize(buf, &sc, SC);
+    // ret = JsoncDeserialize(buf, &sc, SC);
 
-    printf("sc.a = %d\r\n", *sc.a);
+    // printf("sc.a = %d\r\n", *sc.a);
 
     return ret;
 }
