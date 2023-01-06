@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:58:17
- * @LastEditTime : 2023-01-06 14:25:17
+ * @LastEditTime : 2023-01-06 14:49:37
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -19,6 +19,7 @@ static const struct TestChangeToMult ChangeToMult[] = {
     FUNC(test_chang_single_json_to_non_non_single_char_str),
     FUNC(test_chang_mult_json_to_non_non_single_char_str),
     FUNC(test_chang_single_json_to_non_non_single_char_num),
+    FUNC(test_chang_mult_json_to_non_non_single_char_num),
     {NULL, NULL}};
 
 #endif

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-06 14:28:46
+ * @LastEditTime : 2023-01-06 14:49:18
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -70,4 +70,8 @@ int test_chang_single_json_to_non_non_single_char_num(char* json) {
         return -1;
     }
     return ret;
+}
+
+int test_chang_mult_json_to_non_non_single_char_num(char* json) {
+    return test_chang_single_json_to_non_non_single_char_num(json);
 }
