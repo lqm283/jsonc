@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-06 08:50:36
+ * @LastEditTime : 2023-01-06 14:10:31
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1419,6 +1419,7 @@ static int jsonc_match_struct(void* st, const struct type* type, const jsonc_obj
 
         if (ret == -JSON_MATCH) {
             list = list->next;
+            ret = 0;
             continue;
         } else if (ret) {
             return ret;
@@ -1829,6 +1830,11 @@ static int jsonc_obj_to_struct(const jsonc_obj* obj) {
 
     while (list != obj) {
         struct jsonc_ele* ele = (struct jsonc_ele*)list;
+
+        if (ele->mem_addr == NULL) {
+            list = list->next;
+            continue;
+        }
 
         switch (ele->c_type) {
             case cBase:

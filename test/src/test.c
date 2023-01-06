@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-06 13:43:07
+ * @LastEditTime : 2023-01-06 14:07:53
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -58,7 +58,13 @@ int test_change_json_to_mult() {
             return -1;
         }
         fread(json, 1, sizeof(json), file);
-        ret = (Change->test_change_to_mult)(json);
+        int result = Change->test_change_to_mult(json);
+        if (result) {
+            printf("\033[0m\033[1;31m%s\033[0m test err!! num = %d\n",
+                   Change->name,
+                   result);
+            ret++;
+        }
     }
     return ret;
 }

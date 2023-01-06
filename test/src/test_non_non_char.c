@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-06 13:42:47
+ * @LastEditTime : 2023-01-06 13:57:26
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -38,4 +38,9 @@ int test_chang_single_json_to_non_non_single_char_str(char* json) {
         return -1;
     }
     return ret;
+}
+
+// 多元素的 str 类型的 json 转换为单成员的 char 类型
+int test_chang_mult_json_to_non_non_single_char_str(char* json) {
+    return test_chang_single_json_to_non_non_single_char_str(json);
 }

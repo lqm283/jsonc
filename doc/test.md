@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-06 11:33:44
+ * @LastEditTime : 2023-01-06 13:55:24
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -25,6 +25,10 @@ INIT(TestNonNonSingleCharStr,
      struct TestNonNonSingleCharStr,
      MEM(struct TestNonNonSingleCharStr, Str, char, str, NULL));
 ```
+
+1. char 单成员字符串转换为 json
+2. 单元素的 str 类型 json 转换为单成员的 char
+3. 多元素的 str 类型 json 转换为单成员的 char
 
 #### char 单成员数字
 
