@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-06 14:18:54
+ * @LastEditTime : 2023-01-06 14:28:46
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -45,7 +45,7 @@ int test_chang_mult_json_to_non_non_single_char_str(char* json) {
     return test_chang_single_json_to_non_non_single_char_str(json);
 }
 
-// 单成员的 char 类型转换为 Num 类型的 json
+// 单成员的 Num类型的 char 类型转换为 json
 char* test_change_non_non_single_char_num_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"num\":10}";
@@ -54,6 +54,20 @@ char* test_change_non_non_single_char_num_to_json(char* exp, char* real) {
     ret = JsoncSerialize(real, &num, TestNonNonSingleCharNum);
     if (ret) {
         strcpy(exp, e);
+    }
+    return ret;
+}
+
+// 单元素的 Num 类型的 json 转换为单成员的 char 类型
+int test_chang_single_json_to_non_non_single_char_num(char* json) {
+    int ret = 0;
+    struct TestNonNonSingleCharNum num;
+    ret = JsoncDeserialize(json, &num, TestNonNonSingleCharNum);
+    if (ret) {
+        return ret;
+    }
+    if (num.num != 10) {
+        return -1;
     }
     return ret;
 }

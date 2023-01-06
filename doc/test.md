@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-06 14:14:38
+ * @LastEditTime : 2023-01-06 14:36:52
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -26,11 +26,47 @@ INIT(TestNonNonSingleCharStr,
      MEM(struct TestNonNonSingleCharStr, Str, char, str, NULL));
 ```
 
-1. char 单成员字符串转换为 json
-2. 单元素的 str 类型 json 转换为单成员的 char
-3. 多元素的 str 类型 json 转换为单成员的 char
+1. 单成员的 char 转换为 Str 类型的 json
+
+   ```c
+    char* test_change_non_non_single_char_str_to_json(char* exp, char* real);
+   ```
+
+2. 单元素的 json 转换为保存 Str 类型的单成员 char
+
+   ```c
+    int test_chang_single_json_to_non_non_single_char_str(char* json);
+   ```
+
+3. 多元素的 json 转换为保存 Str 类型的单成员 char
+
+   ```c
+    int test_chang_mult_json_to_non_non_single_char_str(char* json);
+   ```
+
 
 #### char 单成员数字
+
+```c
+struct TestNonNonSingleCharNum {
+    char num;
+};
+INIT(TestNonNonSingleCharNum,
+     struct TestNonNonSingleCharNum,
+     MEM(struct TestNonNonSingleCharNum, Num, char, num, NULL));
+```
+
+1. 单成员的 char 转换为 Num 类型的 json
+
+   ```c
+    char* test_change_non_non_single_char_num_to_json(char* exp, char* real);
+   ```
+
+2. 单元素的 json 转换为保存 Num 类型的单成员 char
+
+   ```c
+    int test_chang_single_json_to_non_non_single_char_num(char* json);
+   ```
 
 #### char 单成员布尔值
 

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-06 14:07:53
+ * @LastEditTime : 2023-01-06 14:33:32
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -55,9 +55,22 @@ int test_change_json_to_mult() {
 
         FILE* file = fopen(path, "r");
         if (!file) {
-            return -1;
+            printf("\033[0m\033[1;31mRead %s.json err:\033[0m file is not exist\n",
+                   Change->name);
+            ret++;
+            continue;
         }
-        fread(json, 1, sizeof(json), file);
+        int n = fread(json, 1, sizeof(json), file);
+
+        if (n == 0) {
+            printf("\033[0m\033[1;31mRead %s.json err:\033[0m file is empty\n",
+                   Change->name);
+            ret++;
+            continue;
+        }
+
+        json[n] = '\0';
+
         int result = Change->test_change_to_mult(json);
         if (result) {
             printf("\033[0m\033[1;31m%s\033[0m test err!! num = %d\n",
