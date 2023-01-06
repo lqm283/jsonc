@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-05 14:07:31
+ * @LastEditTime : 2023-01-06 03:51:57
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -50,8 +50,8 @@ static const char* jsonc_type_uint64[] = {"uint64_t",
                                           "unsigned long long int",
                                           "uint64",
                                           NULL};
-static const char* jsonc_type_float[] = {"float", NULL};
-static const char* jsonc_type_double[] = {"double", NULL};
+static const char* jsonc_type_float[] = {"float", "float32_t", "float32", NULL};
+static const char* jsonc_type_double[] = {"double", "float64_t", "float64", NULL};
 
 static const char** jsonc_c_base_type[] = {jsonc_type_int8,
                                            jsonc_type_uint8,
@@ -1274,8 +1274,11 @@ static jsonc_obj* jsonc_get_obj(char* start_str, char** end_str) {
 
 static const struct struct_mem* jsonc_probe_mem_and_ele(const struct struct_mem* mem,
                                                         struct jsonc_ele* ele) {
+    char tag_name[100];
     while (mem->mem_type != NULL) {
-        if (!strcmp(mem->mem_name, ele->name)) {
+        // 匹配成员名称和tag名称
+        get_tag_name(tag_name, mem->tag);
+        if (!strcmp(mem->mem_name, ele->name) || !strcmp(tag_name, ele->name)) {
             return mem;
         }
         mem++;
@@ -1393,9 +1396,14 @@ static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
         if (length > capacity) {
             length = capacity;
         }
-        memcpy(ele->mem_addr, ele->value.Str, length - 1);
-        char* end = (char*)ele->mem_addr;
-        end[length - 1] = '\0';
+
+        if (length > 1) {
+            memcpy(ele->mem_addr, ele->value.Str, length - 1);
+            char* end = (char*)ele->mem_addr;
+            end[length - 1] = '\0';
+        } else {
+            memcpy(ele->mem_addr, ele->value.Str, length);
+        }
     }
     return ret;
 }
@@ -1693,6 +1701,10 @@ static int jsonc_get_cbase(const struct jsonc_ele* ele) {
     return ret;
 }
 
+static int jsonc_get_cstruct(const struct jsonc_ele* ele) {
+    return jsonc_obj_to_struct(ele->value.Obj);
+}
+
 static int jsonc_get_cbasearr(const struct jsonc_ele* ele) {
     if (ele->type == Arr) {
         return jsonc_obj_to_struct(ele->value.Arr);
@@ -1702,8 +1714,27 @@ static int jsonc_get_cbasearr(const struct jsonc_ele* ele) {
     return 0;
 }
 
+static int jsonc_get_cstructarr(const struct jsonc_ele* ele) {
+    int ret = 0;
+    jsonc_arr* list = ele->value.Arr->next;
+    while (list != ele->value.Arr) {
+        jsonc_arr_mem* arr = (jsonc_arr_mem*)list;
+        ret = jsonc_obj_to_struct(arr->value.Arr);
+        if (ret) {
+            return ret;
+        }
+        list = list->next;
+    }
+
+    return ret;
+}
+
 static int jsonc_get_cptrbase(struct jsonc_ele* ele) {
     return jsonc_get_cbase(ele);
+}
+
+static int jsonc_get_cptrstruct(struct jsonc_ele* ele) {
+    return jsonc_get_cstruct(ele);
 }
 
 static int jsonc_get_cptrbasearr(const struct jsonc_ele* ele) {
@@ -1732,25 +1763,33 @@ static int jsonc_obj_to_struct(const jsonc_obj* obj) {
                 ret = jsonc_get_cbase(ele);
                 break;
             case cStruct:
-
+                ret = jsonc_get_cstruct(ele);
+                break;
+            case cUnion:
                 break;
             case cBaseArr:
                 ret = jsonc_get_cbasearr(ele);
                 break;
             case cStructArr:
-
+                ret = jsonc_get_cstructarr(ele);
+                break;
+            case cUnionArr:
                 break;
             case cPtrBase:
                 ret = jsonc_get_cptrbase(ele);
                 break;
             case cPtrStruct:
-
+                ret = jsonc_get_cptrstruct(ele);
+                break;
+            case cPtrUnion:
                 break;
             case cPtrBaseArr:
                 ret = jsonc_get_cptrbasearr(ele);
                 break;
             case cPtrStructArr:
 
+                break;
+            case cPtrUnionArr:
                 break;
             default:
                 break;

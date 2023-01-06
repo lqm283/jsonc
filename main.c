@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-01-05 14:08:13
+ * @LastEditTime : 2023-01-06 03:56:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -31,9 +31,9 @@ int main(int argc, char** argv) {
     unsigned long n = fread(buf, 1, sizeof(buf), file);
     buf[n] = 0;
 
-    struct A a;
+    struct SA sa;
 
-    // a.a = malloc(sizeof(float));
+    sa.mfa = malloc(sizeof(struct A));
 
     // for (int i = 0; i < 5; i++) {
     //     a.a[i] = malloc(100);
@@ -43,18 +43,17 @@ int main(int argc, char** argv) {
 
     int ret = 0;
 
-    ret = JsoncDeserialize(buf, &a, A);
+    ret = JsoncDeserialize(buf, &sa, SA);
 
     if (ret != 0) {
         printf("JsoncDeserialize error\n");
         return ret;
     }
 
-    printf("a.a[0] = %f\n", a.a[0]);
-    printf("a.a[1] = %f\n", a.a[1]);
-    printf("a.a[2] = %f\n", a.a[2]);
-    printf("a.a[3] = %f\n", a.a[3]);
-    printf("a.a[4] = %f\n", a.a[4]);
+    printf("sa.mfa.a = %c\n", sa.mfa[0].a);
+    printf("sa.mfa.a = %d\n", sa.mfa[0].b);
+    // printf("sa.mfa.a = %c\n", sa.mfa[1].a);
+    // printf("sa.mfa.a = %d\n", sa.mfa[1].b);
 
     return 0;
 }

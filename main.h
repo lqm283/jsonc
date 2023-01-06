@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 10:30:52
- * @LastEditTime : 2023-01-05 14:07:56
+ * @LastEditTime : 2023-01-06 03:54:57
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,9 +16,13 @@
 #include "stdint.h"
 
 struct A {
-    float a[5];
+    char a;
+    int b;
 };
-INIT(A, struct A, MEM(struct A, Num, float, a, NULL));
+INIT(A,
+     struct A,
+     MEM(struct A, Str, char, a, NULL, "start"),
+     MEM(struct A, Num, int, b, NULL));
 
 union B {
     int a;
@@ -30,22 +34,8 @@ INIT(B,
      MEM(union B, Num, int, b, NULL));
 
 struct SA {
-    char a;
-    char *b;
-    char *c[2];
-    struct A mfa;
-    struct A mfaa[2];
-    struct A *pmfa;
-    struct A *pmfaa[2];
+    struct A *mfa;
 };
-INIT(SA,
-     struct SA,
-     MEM(struct SA, Num, char, a, NULL, "dgade,omitempty"),
-     MEM(struct SA, Num, char *, b, NULL, "asdf,omitempty"),
-     MEM(struct SA, Str, char *, c, NULL, "_,omitempty"),
-     MEM(struct SA, Str, struct A, mfa, A, "dfrgrss,omitempty"),
-     MEM(struct SA, Str, struct A, mfaa, A, "rt,omitempty"),
-     MEM(struct SA, Str, struct A *, pmfa, A, "_,omitempty"),
-     MEM(struct SA, Str, struct A *, pmfaa, A, "_,omitempty"));
+INIT(SA, struct SA, MEM(struct SA, Num, struct A *, mfa, A, "dgade,omitempty"));
 
 #endif
