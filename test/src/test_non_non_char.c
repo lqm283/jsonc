@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-06 13:57:26
+ * @LastEditTime : 2023-01-06 14:18:54
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -43,4 +43,17 @@ int test_chang_single_json_to_non_non_single_char_str(char* json) {
 // 多元素的 str 类型的 json 转换为单成员的 char 类型
 int test_chang_mult_json_to_non_non_single_char_str(char* json) {
     return test_chang_single_json_to_non_non_single_char_str(json);
+}
+
+// 单成员的 char 类型转换为 Num 类型的 json
+char* test_change_non_non_single_char_num_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e = "{\"num\":10}";
+    struct TestNonNonSingleCharNum num;
+    num.num = 10;
+    ret = JsoncSerialize(real, &num, TestNonNonSingleCharNum);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
 }
