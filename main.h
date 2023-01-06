@@ -34,7 +34,7 @@ INIT(B,
      MEM(union B, Num, int, b, NULL));
 
 struct SA {
-    struct A *mfa;
+    struct A *mfa[2];
 };
 INIT(SA, struct SA, MEM(struct SA, Num, struct A *, mfa, A, "dgade,omitempty"));
 

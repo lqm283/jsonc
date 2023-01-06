@@ -1,6 +1,12 @@
 {
-    "dgade": {
-        "start": "efb",
-        "b": 50
-    }
+    "dgade": [
+        {
+            "start": "efb",
+            "b": 50
+        },
+        {
+            "start": "bds",
+            "b": 135
+        }
+    ]
 }

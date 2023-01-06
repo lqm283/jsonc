@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-01-06 03:56:12
+ * @LastEditTime : 2023-01-06 05:47:15
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -33,13 +33,13 @@ int main(int argc, char** argv) {
 
     struct SA sa;
 
-    sa.mfa = malloc(sizeof(struct A));
+    // sa.mfa = malloc(sizeof(struct A));
 
-    // for (int i = 0; i < 5; i++) {
-    //     a.a[i] = malloc(100);
-    //     printf("addr &a.a[%d] = 0x%lx\n", i, (long)&a.a[i]);
-    //     printf("addr a.a[%d] = 0x%lx\n", i, (long)a.a[i]);
-    // }
+    for (int i = 0; i < 2; i++) {
+        sa.mfa[i] = malloc(sizeof(struct A));
+        printf("addr &a.a[%d] = 0x%lx\n", i, (long)&sa.mfa[i]);
+        printf("addr a.a[%d] = 0x%lx\n", i, (long)sa.mfa[i]);
+    }
 
     int ret = 0;
 
@@ -50,8 +50,10 @@ int main(int argc, char** argv) {
         return ret;
     }
 
-    printf("sa.mfa.a = %c\n", sa.mfa[0].a);
-    printf("sa.mfa.a = %d\n", sa.mfa[0].b);
+    printf("sa.mfa.a = %c\n", sa.mfa[0]->a);
+    printf("sa.mfa.a = %d\n", sa.mfa[0]->b);
+    printf("sa.mfa.a = %c\n", sa.mfa[1]->a);
+    printf("sa.mfa.a = %d\n", sa.mfa[1]->b);
     // printf("sa.mfa.a = %c\n", sa.mfa[1].a);
     // printf("sa.mfa.a = %d\n", sa.mfa[1].b);
 

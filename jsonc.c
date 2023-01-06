@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-06 03:51:57
+ * @LastEditTime : 2023-01-06 05:45:27
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1751,6 +1751,10 @@ static int jsonc_get_cptrbasearr(const struct jsonc_ele* ele) {
     return ret;
 }
 
+static int jsonc_get_cptrstructarr(const struct jsonc_ele* ele) {
+    return jsonc_get_cstructarr(ele);
+}
+
 static int jsonc_obj_to_struct(const jsonc_obj* obj) {
     int ret = 0;
     jsonc_obj* list = obj->next;
@@ -1787,7 +1791,7 @@ static int jsonc_obj_to_struct(const jsonc_obj* obj) {
                 ret = jsonc_get_cptrbasearr(ele);
                 break;
             case cPtrStructArr:
-
+                ret = jsonc_get_cptrstructarr(ele);
                 break;
             case cPtrUnionArr:
                 break;
