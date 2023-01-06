@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-06 08:11:15
+ * @LastEditTime : 2023-01-06 08:50:36
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1418,6 +1418,7 @@ static int jsonc_match_struct(void* st, const struct type* type, const jsonc_obj
         ret = jsonc_match_ele_and_mem(st, type, ele);
 
         if (ret == -JSON_MATCH) {
+            list = list->next;
             continue;
         } else if (ret) {
             return ret;
