@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-01-05 14:09:05
+ * @LastEditTime : 2023-01-06 07:21:28
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -21,17 +21,17 @@ enum json_type { Str, Num, Bool, MultArr, Obj, Arr, Null };
 enum json_bool { False, True };
 enum c_type {
     cBase = 0,
-    cStruct = 1,
-    cUnion = 2,
+    cStruct,
+    cUnion,
     cBaseArr = 4,
-    cStructArr = 5,
-    cUnionArr = 6,
+    cStructArr,
+    cUnionArr,
     cPtrBase = 8,
-    cPtrStruct = 9,
-    cPtrUnion = 10,
+    cPtrStruct,
+    cPtrUnion,
     cPtrBaseArr = 12,
-    cPtrStructArr = 13,
-    cPtrUnionArr = 14
+    cPtrStructArr,
+    cPtrUnionArr
 };
 
 struct list_head {

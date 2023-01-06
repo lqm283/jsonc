@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-01-06 05:47:15
+ * @LastEditTime : 2023-01-06 08:14:51
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -31,31 +31,27 @@ int main(int argc, char** argv) {
     unsigned long n = fread(buf, 1, sizeof(buf), file);
     buf[n] = 0;
 
-    struct SA sa;
+    struct USA usa;
 
-    // sa.mfa = malloc(sizeof(struct A));
+    usa.ua = malloc(sizeof(union UA));
 
-    for (int i = 0; i < 2; i++) {
-        sa.mfa[i] = malloc(sizeof(struct A));
-        printf("addr &a.a[%d] = 0x%lx\n", i, (long)&sa.mfa[i]);
-        printf("addr a.a[%d] = 0x%lx\n", i, (long)sa.mfa[i]);
-    }
+    // printf("addr ua.t \t= 0x%lx\n", (long)&ua.t);
+    // printf("addr value ua.t = 0x%lx\n", (long)ua.t);
 
     int ret = 0;
 
-    ret = JsoncDeserialize(buf, &sa, SA);
+    ret = JsoncDeserialize(buf, &usa, USA);
 
     if (ret != 0) {
         printf("JsoncDeserialize error\n");
         return ret;
     }
 
-    printf("sa.mfa.a = %c\n", sa.mfa[0]->a);
-    printf("sa.mfa.a = %d\n", sa.mfa[0]->b);
-    printf("sa.mfa.a = %c\n", sa.mfa[1]->a);
-    printf("sa.mfa.a = %d\n", sa.mfa[1]->b);
-    // printf("sa.mfa.a = %c\n", sa.mfa[1].a);
-    // printf("sa.mfa.a = %d\n", sa.mfa[1].b);
+    printf("usa.a = %d\n", usa.a);
+    printf("usa.ua.b = %c\n", usa.ua->t[0].a);
+    printf("usa.ua.b = %d\n", usa.ua->t[0].b);
+    printf("usa.ua.b = %c\n", usa.ua->t[1].a);
+    printf("usa.ua.b = %d\n", usa.ua->t[1].b);
 
     return 0;
 }
