@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-01-06 07:21:28
+ * @LastEditTime : 2023-01-07 22:47:32
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum json_type { Str, Num, Bool, MultArr, Obj, Arr, Null };
+enum json_type { Str, Num, Bool, Obj, Arr, Null };
 
 enum json_bool { False, True };
 enum c_type {
@@ -66,25 +66,12 @@ typedef struct type {
 } type;
 
 /**
- * @description: json 可能的值类型
- */
-typedef union jsonc_type {
-    jsonc_obj* Obj;
-    jsonc_arr* Arr;
-    char* Str;
-    char* Num;
-    enum json_bool Bool;
-    int Null;
-} jsonc_type;
-
-/**
  * @description: json 元素的相关参数
  */
 typedef struct jsonc_ele {
-    struct list_head sibling;  // json 元素的子元素
     char* name;                // json 元素的名称
     enum json_type type;       // json 元素的类型
-    union jsonc_type value;    // json 元素的值
+    char* value;               // json 元素的值
     struct struct_mem mem;     // 与 json 元素对应的复合对象的成员
     void* mem_addr;            // 复合对象成员的地址
     enum c_type c_type;        // 复合对象成员的 C 数据类型
