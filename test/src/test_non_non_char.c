@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-06 14:49:18
+ * @LastEditTime : 2023-01-07 17:11:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -27,7 +27,7 @@ char* test_change_non_non_single_char_str_to_json(char* exp, char* real) {
 }
 
 // 单元素的 str 类型的 json 转换为单成员的 char 类型
-int test_chang_single_json_to_non_non_single_char_str(char* json) {
+int test_chang_single_str_json_to_non_non_single_char_str(char* json) {
     int ret = 0;
     struct TestNonNonSingleCharStr str;
     ret = JsoncDeserialize(json, &str, TestNonNonSingleCharStr);
@@ -35,14 +35,19 @@ int test_chang_single_json_to_non_non_single_char_str(char* json) {
         return ret;
     }
     if (str.str != 's') {
-        return -1;
+        return 1;
     }
     return ret;
 }
 
 // 多元素的 str 类型的 json 转换为单成员的 char 类型
-int test_chang_mult_json_to_non_non_single_char_str(char* json) {
-    return test_chang_single_json_to_non_non_single_char_str(json);
+int test_chang_mult_str_json_to_non_non_single_char_str(char* json) {
+    return test_chang_single_str_json_to_non_non_single_char_str(json);
+}
+
+// 单元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
+int test_chang_single_num_json_to_non_non_single_char_str(char* json) {
+    return test_chang_single_str_json_to_non_non_single_char_str(json);
 }
 
 // 单成员的 Num类型的 char 类型转换为 json
@@ -72,6 +77,7 @@ int test_chang_single_json_to_non_non_single_char_num(char* json) {
     return ret;
 }
 
+// 多元素的 json 转换为保存 Num 类型的单成员 char
 int test_chang_mult_json_to_non_non_single_char_num(char* json) {
     return test_chang_single_json_to_non_non_single_char_num(json);
 }

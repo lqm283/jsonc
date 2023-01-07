@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-06 14:54:01
+ * @LastEditTime : 2023-01-07 17:14:25
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -15,7 +15,7 @@
 
 ### char 类型
 
-#### char 单成员字符串
+#### char 单成员保存 Str
 
 ```c
 struct TestNonNonSingleCharStr {
@@ -32,18 +32,23 @@ INIT(TestNonNonSingleCharStr,
     char* test_change_non_non_single_char_str_to_json(char* exp, char* real);
    ```
 
-2. 单元素的 json 转换为保存 Str 类型的单成员 char
+2. 单元素 Str 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_single_json_to_non_non_single_char_str(char* json);
+    int test_chang_single_str_json_to_non_non_single_char_str(char* json);
    ```
 
-3. 多元素的 json 转换为保存 Str 类型的单成员 char
+3. 多元素 Str 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_mult_json_to_non_non_single_char_str(char* json);
+    int test_chang_mult_str_json_to_non_non_single_char_str(char* json);
    ```
 
+4. 单元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
+
+   ```c
+    int test_chang_single_num_json_to_non_non_single_char_str(char* json);
+   ```
 
 #### char 单成员数字
 

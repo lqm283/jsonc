@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-06 14:10:31
+ * @LastEditTime : 2023-01-07 17:10:29
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -68,7 +68,7 @@ static const char** jsonc_c_base_type[] = {jsonc_type_int8,
 /**
  * @description: jsonc 的错误定义
  */
-#define JSON_NULL 1  /* 给 json 字符串是一个空字符串 */
+#define JSON_NULL 1 /* 给定的 json 字符串是一个空字符串 */
 #define JSON_ROOT 2  /* 根节点错误，该 json 字符串不是一个有效的 json */
 #define JSON_OBJ 3   /* 对象错误，可能是由于括号或者引号不匹配引起 */
 #define JSON_TRCOM 4 /*  对象出现尾随逗号 */
@@ -1459,6 +1459,15 @@ static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
     if (ele->c_type == cPtrBase) {
         // 使用指针保存字符串的时候要自己注意指针的越界问题，越界就是自己活该了
         strcpy(ele->mem_addr, ele->value.Str);
+    } else if (ele->c_type == cBase) {  // 尝试将数字转换为一个字符
+        if (ele->type == Str) {
+            memcpy(ele->mem_addr, ele->value.Str, 1);
+        } else if (ele->type == Num) {
+            *(char*)ele->mem_addr = (char)strtoll(ele->value.Num, NULL, 0);
+        } else if (ele->type == Bool) {
+            // memcpy(ele->mem_addr, ele->value.Bool, 1);
+        }
+
     } else {  // 保存到数组中，可以知道数组的长度
         unsigned long length = strlen(ele->value.Str);
         unsigned long capacity = ele->mem.mem_length / ele->mem.type_length;
