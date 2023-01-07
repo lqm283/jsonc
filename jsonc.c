@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-07 23:03:45
+ * @LastEditTime : 2023-01-07 23:59:30
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -556,6 +556,14 @@ static inline void skipspace(char** s) {
     }
 }
 
+static inline int skipescape(char** s) {
+    if (**s == '\\') {
+        (*s) += 2;
+        return 1;
+    }
+    return 0;
+}
+
 static int jsonc_check_number(char* start_num, char** end_num) {
     int sign, decimal, index;
     sign = 0;
@@ -618,8 +626,10 @@ static int jsonc_check_string(char* start_str, char** end_str) {
     } else {
         start_str++;
     }
-    while (*start_str != '"') {
-        start_str++;
+    while (*start_str != '"' && *start_str != 0) {
+        if (!skipescape(&start_str)) {
+            start_str++;
+        }
     }
     if (*start_str == 0) {
         return -JSON_STRNOEND;
@@ -854,12 +864,23 @@ static int jsonc_check_json(char* src) {
                 return -JSON_EOFE;
             }
         }
+        // 跳过字符串
+        if (*str == '"') {
+            str++;
+            quotes++;
+            while (*str != '"' && *str++ != 0) {
+                // 忽略掉\后面的字符
+                skipescape(&str);
+            }
+            if (*str == '"') {
+                quotes++;
+            }
+        }
+
         if (*str == '{' || *str == '[') {
             brackets++;
         } else if (*str == '}' || *str == ']') {
             brackets--;
-        } else if (*str == '\"') {
-            quotes++;
         }
         str++;
     }
@@ -906,6 +927,7 @@ static void jsonc_destroy_ele(const struct jsonc_ele* ele) {
 
 static inline char* get_double_quotes(char* src) {
     while (*src++ != 0) {
+        skipescape(&src);
         if (*src == '"') {
             return src;
         }
