@@ -221,3 +221,8 @@ int test_change_mult_num_json_to_non_non_single_char_bool(char* json) {
 int test_change_single_bool_json_to_non_non_single_char_bool(char* json) {
     return test_change_single_str_json_to_non_non_single_char_bool(json);
 }
+
+// 多元素 Bool 类型的 json 转换为保存 Bool 类型的单成员 char
+int test_change_mult_bool_json_to_non_non_single_char_bool(char* json) {
+    return test_change_single_str_json_to_non_non_single_char_bool(json);
+}
