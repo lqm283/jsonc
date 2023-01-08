@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 23:09:47
+ * @LastEditTime : 2023-01-08 23:13:38
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -294,6 +294,11 @@ char* test_change_non_non_mult_char_str_to_json(char* exp, char* real);
    ```
 
 10. 元素多于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
+
+    ```c
+    int test_change_more_mult_bool_json_to_non_non_mult_char_str(char* json);
+    ```
+
 11. 元素少于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
 12. 不完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
 13. 完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
