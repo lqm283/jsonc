@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 19:48:04
+ * @LastEditTime : 2023-01-08 19:53:08
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -165,6 +165,14 @@ INIT(TestNonNonSingleCharBool,
 ```c
 char* test_change_non_non_single_char_bool_to_json(char* exp, char* real);
 ```
+
+##### json 转换为 单成员 Bool
+
+1. 单元素 Str 类型的 json 转换为保存 Bool 类型的单成员 char
+
+   ```c
+    int test_change_single_str_json_to_non_non_single_char_bool(char* json);
+   ```
 
 #### char 多成员字符串
 
