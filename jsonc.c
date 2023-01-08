@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-07 23:59:30
+ * @LastEditTime : 2023-01-08 12:05:04
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -981,10 +981,37 @@ static inline char* get_obj(char** src) {
     return obj;
 }
 
+static inline char* get_num(char* start_str, char** end_str) {
+    char *num, *temp, count;
+    unsigned char i;
+
+    temp = start_str;
+    count = 0;
+    while (isdigit(*temp) || is_this_char('-', *temp) || is_this_char('e', *temp) ||
+           is_this_char('E', *temp) || is_this_char('.', *temp)) {
+        temp++;
+        count++;
+    }
+
+    num = JSONCALLOC(count + 1);
+    if (!num) {
+        return NULL;
+    }
+
+    for (i = 0; i < count; i++) {
+        num[i] = (char)*start_str++;
+    }
+    if (end_str != NULL) {
+        *end_str = start_str;
+    }
+    return num;
+}
+
 static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
     struct jsonc_ele ele;
 
     // 获取元素的名称
+    skipspace(&start_str);
     ele.name = get_string(&start_str);
 
     // 获取值和类型
@@ -1008,6 +1035,7 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
             break;
         case '0' ... '9':
         case '-':  // Num
+            ele.value = get_num(start_str, &start_str);
             break;
         case 'n':  // Null
             break;
@@ -1136,10 +1164,12 @@ int jsonc_change_to_struct(char* buf, void* st, const struct type* type) {
         struct jsonc_ele ele = jsonc_get_ele(buf, &buf);
 
         // 开始尝试将 json 转换为 mult 类型成员
-        ret = jsonc_change_ele_to_mem(st, type, &ele);
-
+        jsonc_change_ele_to_mem(st, type, &ele);
         jsonc_destroy_ele(&ele);
         skipspace(&buf);
+        if (*buf == ',') {
+            buf++;
+        }
     }
     return ret;
 }
