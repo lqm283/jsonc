@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 19:11:17
+ * @LastEditTime : 2023-01-08 19:28:33
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1224,6 +1224,40 @@ static int jsonc_jsonnull_to_multstr(const struct jsonc_ele* ele) {
     return 0;
 }
 
+static int jsonc_jsonnull_to_multnum(const struct jsonc_ele* ele) {
+    int ret = 0;
+
+    switch (is_base_type(ele->mem.mem_type)) {
+        case cInt8:
+        case cUInt8:
+            *(char*)ele->mem_addr = 0;
+            break;
+        case cInt16:
+        case cUInt16:
+            *(uint16_t*)ele->mem_addr = 0;
+            break;
+        case cInt32:
+        case cUInt32:
+            *(uint32_t*)ele->mem_addr = 0;
+            break;
+        case cInt64:
+        case cUInt64:
+            *(uint64_t*)ele->mem_addr = 0;
+            break;
+        case cFloat:
+            *(float*)ele->mem_addr = 0;
+            break;
+        case cDouble:
+            *(double*)ele->mem_addr = 0;
+            break;
+        default:
+            ret = -JSON_TYPE;
+            break;
+    }
+
+    return ret;
+}
+
 int jsonc_change_str_to_base(struct jsonc_ele* ele) {
     int ret = 0;
     switch (ele->mem.struct_type) {
@@ -1282,6 +1316,7 @@ static int jsonc_change_null_to_base(const struct jsonc_ele* ele) {
             ret = jsonc_jsonnull_to_multstr(ele);
             break;
         case Num:
+            ret = jsonc_jsonnull_to_multnum(ele);
             break;
         case Bool:
             break;
