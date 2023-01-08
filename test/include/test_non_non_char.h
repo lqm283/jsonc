@@ -82,5 +82,6 @@ int test_change_equal_mult_str_json_to_non_non_mult_char_str(char* json);
 int test_change_more_mult_str_json_to_non_non_mult_char_str(char* json);
 int test_change_less_mult_str_json_to_non_non_mult_char_str(char* json);
 int test_change_diff_mult_str_json_to_non_non_mult_char_str(char* json);
+int test_change_equal_mult_num_json_to_non_non_mult_char_str(char* json);
 
 #endif
