@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-07 17:10:29
+ * @LastEditTime : 2023-01-08 21:55:06
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -256,6 +256,16 @@ static int jsonc_change_null_to_json(void* buf_start, void** buf_end) {
     return 0;
 }
 
+static int jsonc_change_char_to_json(void* buf_start, void** buf_end, const char* str) {
+    int ret = 0;
+    char* buf = buf_start;
+    *buf++ = '"';
+    *buf++ = *str;
+    *buf++ = '"';
+    *buf_end = buf;
+    return ret;
+}
+
 static int jsonc_change_string_to_json(void* buf_start, void** buf_end, const char* str) {
     int ret = 0;
     char* buf = buf_start;
@@ -366,7 +376,11 @@ static void* jsonc_change_cbase_to_json(char* buf,
     void* ret = NULL;
     switch (mem->struct_type) {
         case Str:
-            jsonc_change_string_to_json(buf, &ret, st);
+            if (mem->mem_length / mem->type_length == 1) {
+                jsonc_change_char_to_json(buf, &ret, st);
+            } else {
+                jsonc_change_string_to_json(buf, &ret, st);
+            }
             break;
         case Num:
             jsonc_change_num_to_json(buf, &ret, st, mem);
