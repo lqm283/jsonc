@@ -240,3 +240,8 @@ int test_change_single_null_json_to_non_non_single_char_bool(char* json) {
     }
     return ret;
 }
+
+// 多元素 Null 类型的 json 转换为保存 Bool 类型的单成员 char
+int test_change_mult_null_json_to_non_non_single_char_bool(char* json) {
+    return test_change_single_null_json_to_non_non_single_char_bool(json);
+}
