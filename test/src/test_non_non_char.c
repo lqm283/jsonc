@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 13:35:55
+ * @LastEditTime : 2023-01-08 18:19:28
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -93,5 +93,9 @@ int test_change_single_str_json_to_non_non_single_char_num(char* json) {
 
 // 多元素 Str 类型的 json 转换为保存 Num 类型的单成员 char
 int test_change_mult_str_json_to_non_non_single_char_num(char* json) {
+    return test_change_single_str_json_to_non_non_single_char_num(json);
+}
+
+int test_change_single_num_json_to_non_non_single_char_num(char* json) {
     return test_change_single_str_json_to_non_non_single_char_num(json);
 }

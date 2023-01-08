@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 13:33:14
+ * @LastEditTime : 2023-01-08 18:26:45
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1160,6 +1160,10 @@ static int jsonc_jsonnum_to_multstr(const struct jsonc_ele* ele) {
     return jsonc_jsonstr_to_multstr(ele);
 }
 
+static int jsonc_jsonnum_to_multnum(const struct jsonc_ele* ele) {
+    return jsonc_jsonstr_to_multnum(ele);
+}
+
 static int jsonc_jsonbool_to_multstr(const struct jsonc_ele* ele) {
     char* addr;
     if (ele->c_type == cPtrBase) {
@@ -1200,6 +1204,7 @@ static int jsonc_change_num_to_base(const struct jsonc_ele* ele) {
             ret = jsonc_jsonnum_to_multstr(ele);
             break;
         case Num:
+            ret = jsonc_jsonnum_to_multnum(ele);
             break;
         case Bool:
             break;
