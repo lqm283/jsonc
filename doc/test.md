@@ -66,6 +66,12 @@ INIT(TestNonNonSingleCharStr,
     int test_chang_single_bool_json_to_non_non_single_char_str(char* json);
    ```
 
+6. 多元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
+
+   ```c
+    int test_chang_mult_bool_json_to_non_non_single_char_str(char* json);
+   ```
+
 #### char 单成员数字
 
 ```c
