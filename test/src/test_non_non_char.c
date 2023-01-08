@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 20:49:30
+ * @LastEditTime : 2023-01-08 21:39:52
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -51,6 +51,20 @@ char* test_change_non_non_single_char_bool_to_json(char* exp, char* real) {
     struct TestNonNonSingleCharBool b;
     b.b = 1;
     ret = JsoncSerialize(real, &b, TestNonNonSingleCharBool);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
+}
+
+char* test_change_non_non_mult_char_str_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e = "{\"str1\":\"a\",\"str2\":\"b\",\"str3\":\"c\"}";
+    struct TestNonNonMultCharStr str;
+    str.str1 = 'a';
+    str.str2 = 'b';
+    str.str3 = 'c';
+    ret = JsoncSerialize(real, &str, TestNonNonMultCharStr);
     if (ret) {
         strcpy(exp, e);
     }
