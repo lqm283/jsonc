@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 12:16:20
+ * @LastEditTime : 2023-01-08 12:38:05
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -973,12 +973,36 @@ static inline char* get_obj(char** src) {
     count++;
 
     char* obj = (char*)JSONCALLOC(count + 1);
+    if (!obj) {
+        return NULL;
+    }
+
     for (int i = 0; i < count; i++) {
         skipspace(src);
         obj[i] = **src++;
     }
     obj[count] = '\0';
     return obj;
+}
+
+static char* get_bool(char* start_str, char** end_str) {
+    char* bool = JSONCALLOC(2);
+    if (!bool) {
+        return NULL;
+    }
+
+    if (*start_str == 't') {
+        bool[0] = 't';
+        start_str += 4;
+    } else {
+        bool[0] = 'f';
+        start_str += 5;
+    }
+    bool[1] = '\0';
+    if (end_str != NULL) {
+        *end_str = start_str;
+    }
+    return bool;
 }
 
 static inline char* get_num(char* start_str, char** end_str) {
@@ -1005,6 +1029,19 @@ static inline char* get_num(char* start_str, char** end_str) {
         *end_str = start_str;
     }
     return num;
+}
+
+static char* get_null(char* start_str, char** end_str) {
+    char* null = JSONCALLOC(5);
+    if (!null) {
+        return NULL;
+    }
+    for (int i = 0; i < 4; i++) {
+        null[i] = *start_str++;
+    }
+    null[4] = '\0';
+    *end_str = start_str;
+    return null;
 }
 
 static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
@@ -1034,6 +1071,7 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
         case 't':
         case 'f':  // Bool
             ele.type = Bool;
+            ele.value = get_bool(start_str, &start_str);
             break;
         case '0' ... '9':
         case '-':  // Num
@@ -1041,6 +1079,7 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
             ele.type = Num;
             break;
         case 'n':  // Null
+            ele.value = get_null(start_str, &start_str);
             ele.type = Null;
             break;
     }
@@ -1187,6 +1226,10 @@ int jsonc_change_to_struct(char* buf, void* st, const struct type* type) {
     while (*buf != '}') {
         // 获取元素
         struct jsonc_ele ele = jsonc_get_ele(buf, &buf);
+        if (!(ele.name && ele.value)) {
+            jsonc_destroy_ele(&ele);
+            return -JSON_ELE;
+        }
 
         // 开始尝试将 json 转换为 mult 类型成员
         jsonc_change_ele_to_mem(st, type, &ele);
