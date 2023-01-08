@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 12:22:01
+ * @LastEditTime : 2023-01-08 13:28:19
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -26,7 +26,7 @@ INIT(TestNonNonSingleCharStr,
      MEM(struct TestNonNonSingleCharStr, Str, char, str, NULL));
 ```
 
-##### char单成员str转换为 json
+##### char单成员 Str 转换为 json
 
 1. 单成员的 char 转换为 Str 类型的 json
 
@@ -34,45 +34,45 @@ INIT(TestNonNonSingleCharStr,
     char* test_change_non_non_single_char_str_to_json(char* exp, char* real);
    ```
 
-##### json 转换为 单成员str
+##### json 转换为 单成员 str
 
 1. 单元素 Str 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_single_str_json_to_non_non_single_char_str(char* json);
+    int test_change_single_str_json_to_non_non_single_char_str(char* json);
    ```
 
 2. 多元素 Str 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_mult_str_json_to_non_non_single_char_str(char* json);
+    int test_change_mult_str_json_to_non_non_single_char_str(char* json);
    ```
 
 3. 单元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_single_num_json_to_non_non_single_char_str(char* json);
+    int test_change_single_num_json_to_non_non_single_char_str(char* json);
    ```
 
 4. 多元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_mult_num_json_to_non_non_single_char_str(char* json);
+    int test_change_mult_num_json_to_non_non_single_char_str(char* json);
    ```
 
 5. 单元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_single_bool_json_to_non_non_single_char_str(char* json);
+    int test_change_single_bool_json_to_non_non_single_char_str(char* json);
    ```
 
 6. 多元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
 
    ```c
-    int test_chang_mult_bool_json_to_non_non_single_char_str(char* json);
+    int test_change_mult_bool_json_to_non_non_single_char_str(char* json);
    ```
 
-#### char 单成员数字
+#### char 单成员保存 num
 
 ```c
 struct TestNonNonSingleCharNum {
@@ -83,22 +83,26 @@ INIT(TestNonNonSingleCharNum,
      MEM(struct TestNonNonSingleCharNum, Num, char, num, NULL));
 ```
 
+##### char单成员 Num 转换为 json
+
 1. 单成员的 char 转换为 Num 类型的 json
 
    ```c
     char* test_change_non_non_single_char_num_to_json(char* exp, char* real);
    ```
 
-2. 单元素的 json 转换为保存 Num 类型的单成员 char
+##### json 转换为 单成员 Num
+
+1. 单元素 Str 类型的 json 转换为保存 Num 类型的单成员 char
 
    ```c
-    int test_chang_single_json_to_non_non_single_char_num(char* json);
+    int test_change_single_str_json_to_non_non_single_char_num(char* json);
    ```
 
-3. 多元素的 json 转换为保存 Num 类型的单成员 char
+2. 多元素 Str 类型的 json 转换为保存 Num 类型的单成员 char
 
    ```c
-    int test_chang_mult_json_to_non_non_single_char_num(char* json);
+    int test_change_mult_str_json_to_non_non_single_char_num(char* json);
    ```
 
 #### char 单成员布尔值

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 12:54:59
+ * @LastEditTime : 2023-01-08 13:33:14
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1123,6 +1123,39 @@ static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
     return ret;
 }
 
+static int jsonc_jsonstr_to_multnum(const struct jsonc_ele* ele) {
+    int ret = 0;
+
+    switch (is_base_type(ele->mem.mem_type)) {
+        case cInt8:
+        case cUInt8:
+            *(char*)ele->mem_addr = (char)strtoll(ele->value, NULL, 0);
+            break;
+        case cInt16:
+        case cUInt16:
+            *(short*)ele->mem_addr = (short)strtoll(ele->value, NULL, 0);
+            break;
+        case cInt32:
+        case cUInt32:
+            *(int*)ele->mem_addr = (int)strtoll(ele->value, NULL, 0);
+            break;
+        case cInt64:
+        case cUInt64:
+            *(long*)ele->mem_addr = strtoll(ele->value, NULL, 0);
+            break;
+        case cFloat:
+            *(float*)ele->mem_addr = strtof(ele->value, NULL);
+            break;
+        case cDouble:
+            *(double*)ele->mem_addr = strtod(ele->value, NULL);
+            break;
+        default:
+            break;
+    }
+
+    return ret;
+}
+
 static int jsonc_jsonnum_to_multstr(const struct jsonc_ele* ele) {
     return jsonc_jsonstr_to_multstr(ele);
 }
@@ -1150,6 +1183,7 @@ int jsonc_change_str_to_base(struct jsonc_ele* ele) {
             ret = jsonc_jsonstr_to_multstr(ele);
             break;
         case Num:
+            ret = jsonc_jsonstr_to_multnum(ele);
             break;
         case Bool:
             break;
