@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 19:35:57
+ * @LastEditTime : 2023-01-08 19:50:41
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -12,6 +12,11 @@
 #include "../include/test_non_non_char.h"
 
 #include <string.h>
+/*
+----------------------------------------------
+复合类型转换为 json
+----------------------------------------------
+*/
 
 // 单成员的 char 类型转换为 str 类型的 json
 char* test_change_non_non_single_char_str_to_json(char* exp, char* real) {
@@ -25,6 +30,38 @@ char* test_change_non_non_single_char_str_to_json(char* exp, char* real) {
     }
     return ret;
 }
+
+// 单成员的 Num 类型的 char 类型转换为 json
+char* test_change_non_non_single_char_num_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e = "{\"num\":10}";
+    struct TestNonNonSingleCharNum num;
+    num.num = 10;
+    ret = JsoncSerialize(real, &num, TestNonNonSingleCharNum);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
+}
+
+// 单成员的 Bool 类型的 char 类型转换为 json
+char* test_change_non_non_single_char_bool_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e = "{\"b\":true}";
+    struct TestNonNonSingleCharBool b;
+    b.b = 1;
+    ret = JsoncSerialize(real, &b, TestNonNonSingleCharBool);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
+}
+
+/*
+----------------------------------------------
+json 转换为复合类型
+----------------------------------------------
+*/
 
 // 单元素的 str 类型的 json 转换为单成员的 char 类型
 int test_change_single_str_json_to_non_non_single_char_str(char* json) {
@@ -82,19 +119,6 @@ int test_change_single_null_json_to_non_non_single_char_str(char* json) {
 // 多元素 Null 类型的 json 转换为保存 Str 类型的单成员 char
 int test_change_mult_null_json_to_non_non_single_char_str(char* json) {
     return test_change_single_null_json_to_non_non_single_char_str(json);
-}
-
-// 单成员的 Num 类型的 char 类型转换为 json
-char* test_change_non_non_single_char_num_to_json(char* exp, char* real) {
-    char* ret = 0;
-    char* e = "{\"num\":10}";
-    struct TestNonNonSingleCharNum num;
-    num.num = 10;
-    ret = JsoncSerialize(real, &num, TestNonNonSingleCharNum);
-    if (ret) {
-        strcpy(exp, e);
-    }
-    return ret;
 }
 
 // 单元素 Str 类型的 json 转换为保存 Num 类型的单成员 char

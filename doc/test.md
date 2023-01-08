@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 19:35:22
+ * @LastEditTime : 2023-01-08 19:48:04
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -28,11 +28,9 @@ INIT(TestNonNonSingleCharStr,
 
 ##### char单成员 Str 转换为 json
 
-1. 单成员的 char 转换为 Str 类型的 json
-
-   ```c
-    char* test_change_non_non_single_char_str_to_json(char* exp, char* real);
-   ```
+```c
+char* test_change_non_non_single_char_str_to_json(char* exp, char* real);
+```
 
 ##### json 转换为 单成员 str
 
@@ -97,11 +95,9 @@ INIT(TestNonNonSingleCharNum,
 
 ##### char单成员 Num 转换为 json
 
-1. 单成员的 char 转换为 Num 类型的 json
-
-   ```c
-    char* test_change_non_non_single_char_num_to_json(char* exp, char* real);
-   ```
+```c
+char* test_change_non_non_single_char_num_to_json(char* exp, char* real);
+```
 
 ##### json 转换为 单成员 Num
 
@@ -153,7 +149,22 @@ INIT(TestNonNonSingleCharNum,
     int test_change_mult_null_json_to_non_non_single_char_num(char* json);
    ```
 
-#### char 单成员布尔值
+#### char 单成员保存 bool
+
+```c
+struct TestNonNonSingleCharBool {
+    char b;
+};
+INIT(TestNonNonSingleCharBool,
+     struct TestNonNonSingleCharBool,
+     MEM(struct TestNonNonSingleCharBool, Bool, char, b, NULL));
+```
+
+##### char单成员 Bool 转换为 json
+
+```c
+char* test_change_non_non_single_char_bool_to_json(char* exp, char* real);
+```
 
 #### char 多成员字符串
 

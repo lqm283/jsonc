@@ -17,6 +17,7 @@
 static const struct TestChangeToJson ChangeToJson[] = {
     FUNC(test_change_non_non_single_char_str_to_json),
     FUNC(test_change_non_non_single_char_num_to_json),
+    FUNC(test_change_non_non_single_char_bool_to_json),
     {NULL}};
 
 #endif
