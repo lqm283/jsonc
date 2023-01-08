@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 20:25:11
+ * @LastEditTime : 2023-01-08 20:38:50
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1258,6 +1258,10 @@ static int jsonc_jsonbool_to_multnum(const struct jsonc_ele* ele) {
     return ret;
 }
 
+static int jsonc_jsonbool_to_multbool(const struct jsonc_ele* ele) {
+    return jsonc_jsonbool_to_multnum(ele);
+}
+
 static int jsonc_jsonnull_to_multstr(const struct jsonc_ele* ele) {
     *(char*)ele->mem_addr = 0;
     return 0;
@@ -1317,6 +1321,7 @@ static int jsonc_change_bool_to_base(const struct jsonc_ele* ele) {
             ret = jsonc_jsonbool_to_multnum(ele);
             break;
         case Bool:
+            ret = jsonc_jsonbool_to_multbool(ele);
             break;
         default:
             break;
