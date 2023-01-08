@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 18:50:52
+ * @LastEditTime : 2023-01-08 19:11:17
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -11,6 +11,7 @@
 
 #include "jsonc.h"
 
+#include <bits/stdint-uintn.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <string.h>
@@ -1180,6 +1181,44 @@ static int jsonc_jsonbool_to_multstr(const struct jsonc_ele* ele) {
     }
 }
 
+static int jsonc_jsonbool_to_multnum(const struct jsonc_ele* ele) {
+    int ret = 0;
+    char bool = 0;
+    if (strcmp(ele->value, "true")) {
+        bool = 1;
+    }
+
+    switch (is_base_type(ele->mem.mem_type)) {
+        case cInt8:
+        case cUInt8:
+            *(char*)ele->mem_addr = bool;
+            break;
+        case cInt16:
+        case cUInt16:
+            *(uint16_t*)ele->mem_addr = bool;
+            break;
+        case cInt32:
+        case cUInt32:
+            *(uint32_t*)ele->mem_addr = bool;
+            break;
+        case cInt64:
+        case cUInt64:
+            *(uint64_t*)ele->mem_addr = bool;
+            break;
+        case cFloat:
+            *(float*)ele->mem_addr = bool;
+            break;
+        case cDouble:
+            *(double*)ele->mem_addr = bool;
+            break;
+        default:
+            ret = -JSON_TYPE;
+            break;
+    }
+
+    return ret;
+}
+
 static int jsonc_jsonnull_to_multstr(const struct jsonc_ele* ele) {
     *(char*)ele->mem_addr = 0;
     return 0;
@@ -1226,6 +1265,7 @@ static int jsonc_change_bool_to_base(const struct jsonc_ele* ele) {
             ret = jsonc_jsonbool_to_multstr(ele);
             break;
         case Num:
+            ret = jsonc_jsonbool_to_multnum(ele);
             break;
         case Bool:
             break;
