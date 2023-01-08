@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 12:05:04
+ * @LastEditTime : 2023-01-08 12:16:20
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1029,15 +1029,19 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
             ele.type = Obj;
             break;
         case '[':  // Arr
+            ele.type = Arr;
             break;
         case 't':
         case 'f':  // Bool
+            ele.type = Bool;
             break;
         case '0' ... '9':
         case '-':  // Num
             ele.value = get_num(start_str, &start_str);
+            ele.type = Num;
             break;
         case 'n':  // Null
+            ele.type = Null;
             break;
     }
     if (end_str != NULL) {
@@ -1078,11 +1082,31 @@ static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
     return ret;
 }
 
-int jsonc_change_to_base_str(struct jsonc_ele* ele) {
+static int jsonc_jsonnum_to_multstr(const struct jsonc_ele* ele) {
+    return jsonc_jsonstr_to_multstr(ele);
+}
+
+int jsonc_change_str_to_base(struct jsonc_ele* ele) {
     int ret = 0;
     switch (ele->mem.struct_type) {
         case Str:
             ret = jsonc_jsonstr_to_multstr(ele);
+            break;
+        case Num:
+            break;
+        case Bool:
+            break;
+        default:
+            break;
+    }
+    return ret;
+}
+
+static int jsonc_change_num_to_base_(const struct jsonc_ele* ele) {
+    int ret = 0;
+    switch (ele->mem.struct_type) {
+        case Str:
+            ret = jsonc_jsonnum_to_multstr(ele);
             break;
         case Num:
             break;
@@ -1099,9 +1123,10 @@ int jsonc_change_to_base(struct jsonc_ele* ele) {
 
     switch (ele->type) {
         case Str:
-            ret = jsonc_change_to_base_str(ele);
+            ret = jsonc_change_str_to_base(ele);
             break;
         case Num:
+            ret = jsonc_change_num_to_base_(ele);
             break;
         case Bool:
             break;
