@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-08 23:01:24
+ * @LastEditTime : 2023-01-08 23:04:57
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -85,5 +85,6 @@ int test_change_diff_mult_str_json_to_non_non_mult_char_str(char* json);
 int test_change_equal_mult_num_json_to_non_non_mult_char_str(char* json);
 int test_change_more_mult_num_json_to_non_non_mult_char_str(char* json);
 int test_change_less_mult_num_json_to_non_non_mult_char_str(char* json);
+int test_change_diff_mult_num_json_to_non_non_mult_char_str(char* json);
 
 #endif
