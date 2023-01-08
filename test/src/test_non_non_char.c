@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-07 17:40:44
+ * @LastEditTime : 2023-01-08 13:09:35
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -34,7 +34,7 @@ int test_chang_single_str_json_to_non_non_single_char_str(char* json) {
     if (ret) {
         return ret;
     }
-    if (str.str != 's') {
+    if (str.str != 't') {
         return 1;
     }
     return ret;
@@ -57,16 +57,11 @@ int test_chang_mult_num_json_to_non_non_single_char_str(char* json) {
 
 // 单元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
 int test_chang_single_bool_json_to_non_non_single_char_str(char* json) {
-    int ret = 0;
-    struct TestNonNonSingleCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonSingleCharStr);
-    if (ret) {
-        return ret;
-    }
-    if (str.str != 't') {
-        return 1;
-    }
-    return ret;
+    return test_chang_single_str_json_to_non_non_single_char_str(json);
+}
+
+int test_chang_mult_bool_json_to_non_non_single_char_str(char* json) {
+    return test_chang_single_str_json_to_non_non_single_char_str(json);
 }
 
 // 单成员的 Num类型的 char 类型转换为 json

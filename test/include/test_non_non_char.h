@@ -38,6 +38,7 @@ int test_chang_mult_str_json_to_non_non_single_char_str(char* json);
 int test_chang_single_num_json_to_non_non_single_char_str(char* json);
 int test_chang_mult_num_json_to_non_non_single_char_str(char* json);
 int test_chang_single_bool_json_to_non_non_single_char_str(char* json);
+int test_chang_mult_bool_json_to_non_non_single_char_str(char* json);
 
 int test_chang_single_json_to_non_non_single_char_num(char* json);
 int test_chang_mult_json_to_non_non_single_char_num(char* json);
