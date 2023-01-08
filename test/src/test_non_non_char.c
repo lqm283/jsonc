@@ -356,3 +356,16 @@ int test_change_equal_mult_null_json_to_non_non_mult_char_str(char* json) {
 int test_change_more_mult_null_json_to_non_non_mult_char_str(char* json) {
     return test_change_equal_mult_null_json_to_non_non_mult_char_str(json);
 }
+
+int test_change_less_mult_null_json_to_non_non_mult_char_str(char* json) {
+    int ret = 0;
+    struct TestNonNonMultCharStr str;
+    ret = JsoncDeserialize(json, &str, TestNonNonMultCharStr);
+    if (ret) {
+        return ret;
+    }
+    if (str.str1 != '\0' || str.str2 != '\0') {
+        return 1;
+    }
+    return ret;
+}
