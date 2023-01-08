@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 12:38:05
+ * @LastEditTime : 2023-01-08 12:54:59
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -986,16 +986,18 @@ static inline char* get_obj(char** src) {
 }
 
 static char* get_bool(char* start_str, char** end_str) {
-    char* bool = JSONCALLOC(2);
+    char* bool = JSONCALLOC(6);
     if (!bool) {
         return NULL;
     }
 
     if (*start_str == 't') {
-        bool[0] = 't';
+        memcpy(bool, start_str, 4);
+        bool[4] = '\0';
         start_str += 4;
     } else {
-        bool[0] = 'f';
+        memcpy(bool, start_str, 4);
+        bool[5] = '\0';
         start_str += 5;
     }
     bool[1] = '\0';
@@ -1125,6 +1127,22 @@ static int jsonc_jsonnum_to_multstr(const struct jsonc_ele* ele) {
     return jsonc_jsonstr_to_multstr(ele);
 }
 
+static int jsonc_jsonbool_to_multstr(const struct jsonc_ele* ele) {
+    char* addr;
+    if (ele->c_type == cPtrBase) {
+        addr = strcpy(ele->mem_addr, ele->value);
+    } else {
+        unsigned long capacity = ele->mem.mem_length / ele->mem.type_length;
+        addr = memcpy(ele->mem_addr, ele->value, capacity);
+    }
+
+    if (!addr) {
+        return -JSON_CPY;
+    } else {
+        return 0;
+    }
+}
+
 int jsonc_change_str_to_base(struct jsonc_ele* ele) {
     int ret = 0;
     switch (ele->mem.struct_type) {
@@ -1141,11 +1159,27 @@ int jsonc_change_str_to_base(struct jsonc_ele* ele) {
     return ret;
 }
 
-static int jsonc_change_num_to_base_(const struct jsonc_ele* ele) {
+static int jsonc_change_num_to_base(const struct jsonc_ele* ele) {
     int ret = 0;
     switch (ele->mem.struct_type) {
         case Str:
             ret = jsonc_jsonnum_to_multstr(ele);
+            break;
+        case Num:
+            break;
+        case Bool:
+            break;
+        default:
+            break;
+    }
+    return ret;
+}
+
+static int jsonc_change_bool_to_base(const struct jsonc_ele* ele) {
+    int ret = 0;
+    switch (ele->mem.struct_type) {
+        case Str:
+            ret = jsonc_jsonbool_to_multstr(ele);
             break;
         case Num:
             break;
@@ -1165,9 +1199,10 @@ int jsonc_change_to_base(struct jsonc_ele* ele) {
             ret = jsonc_change_str_to_base(ele);
             break;
         case Num:
-            ret = jsonc_change_num_to_base_(ele);
+            ret = jsonc_change_num_to_base(ele);
             break;
         case Bool:
+            ret = jsonc_change_bool_to_base(ele);
             break;
         case Null:
             break;
