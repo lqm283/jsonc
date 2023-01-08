@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 22:50:50
+ * @LastEditTime : 2023-01-08 22:58:30
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -299,5 +299,9 @@ int test_change_diff_mult_str_json_to_non_non_mult_char_str(char* json) {
 }
 
 int test_change_equal_mult_num_json_to_non_non_mult_char_str(char* json) {
+    return test_change_equal_mult_str_json_to_non_non_mult_char_str(json);
+}
+
+int test_change_more_mult_num_json_to_non_non_mult_char_str(char* json) {
     return test_change_equal_mult_str_json_to_non_non_mult_char_str(json);
 }
