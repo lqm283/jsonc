@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 19:58:10
+ * @LastEditTime : 2023-01-08 20:14:50
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -188,6 +188,7 @@ int test_change_mult_null_json_to_non_non_single_char_num(char* json) {
     return test_change_single_null_json_to_non_non_single_char_num(json);
 }
 
+// 单元素 Str 类型的 json 转换为保存 Bool 类型的单成员 char
 int test_change_single_str_json_to_non_non_single_char_bool(char* json) {
     int ret = 0;
     struct TestNonNonSingleCharBool b;
@@ -199,4 +200,9 @@ int test_change_single_str_json_to_non_non_single_char_bool(char* json) {
         return -1;
     }
     return ret;
+}
+
+// 多元素 Str 类型的 json 转换为保存 Bool 类型的单成员 char
+int test_change_mult_str_json_to_non_non_single_char_bool(char* json) {
+    return test_change_single_str_json_to_non_non_single_char_bool(json);
 }
