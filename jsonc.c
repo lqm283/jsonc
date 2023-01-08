@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 18:26:45
+ * @LastEditTime : 2023-01-08 18:50:52
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1180,6 +1180,11 @@ static int jsonc_jsonbool_to_multstr(const struct jsonc_ele* ele) {
     }
 }
 
+static int jsonc_jsonnull_to_multstr(const struct jsonc_ele* ele) {
+    *(char*)ele->mem_addr = 0;
+    return 0;
+}
+
 int jsonc_change_str_to_base(struct jsonc_ele* ele) {
     int ret = 0;
     switch (ele->mem.struct_type) {
@@ -1230,6 +1235,22 @@ static int jsonc_change_bool_to_base(const struct jsonc_ele* ele) {
     return ret;
 }
 
+static int jsonc_change_null_to_base(const struct jsonc_ele* ele) {
+    int ret = 0;
+    switch (ele->mem.struct_type) {
+        case Str:
+            ret = jsonc_jsonnull_to_multstr(ele);
+            break;
+        case Num:
+            break;
+        case Bool:
+            break;
+        default:
+            break;
+    }
+    return ret;
+}
+
 int jsonc_change_to_base(struct jsonc_ele* ele) {
     int ret = 0;
 
@@ -1244,6 +1265,7 @@ int jsonc_change_to_base(struct jsonc_ele* ele) {
             ret = jsonc_change_bool_to_base(ele);
             break;
         case Null:
+            ret = jsonc_change_null_to_base(ele);
             break;
         default:
             ret = -JSON_TYPE;
