@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 20:43:26
+ * @LastEditTime : 2023-01-08 20:46:56
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -204,29 +204,35 @@ char* test_change_non_non_single_char_bool_to_json(char* exp, char* real);
     int test_change_mult_bool_json_to_non_non_single_char_bool(char* json);
    ```
 
+7. 单元素 Null 类型的 json 转换为保存 Bool 类型的单成员 char
+
+   ```c
+    int test_change_single_null_json_to_non_non_single_char_bool(char* json);
+   ```
+
 #### char 多成员字符串
 
 #### char 多成员数字
 
 #### char 多成员布尔值
 
-### unsigned char 类型
+### uint8_t 类型
 
-#### unsigned char 单成员字符串
+#### uint8_t 单成员字符串
 
-#### unsigned char 单成员数字
+#### uint8_t 单成员数字
 
-#### unsigned char 单成员布尔值
+#### uint8_t 单成员布尔值
 
-#### unsigned char 单成员空值
+#### uint8_t 单成员空值
 
-#### unsigned char 多成员字符串
+#### uint8_t 多成员字符串
 
-#### unsigned char 多成员数字
+#### uint8_t 多成员数字
 
-#### unsigned char 多成员布尔值
+#### uint8_t 多成员布尔值
 
-#### unsigned char 多成员空值
+#### uint8_t 多成员空值
 
 ## 基本数组类型
 
