@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 13:28:19
+ * @LastEditTime : 2023-01-08 13:46:27
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -105,17 +105,19 @@ INIT(TestNonNonSingleCharNum,
     int test_change_mult_str_json_to_non_non_single_char_num(char* json);
    ```
 
-#### char 单成员布尔值
+3. 单元素 Num 类型的 json 转换为保存 Num 类型的单成员 char
 
-#### char 单成员空值
+   ```c
+    int test_change_single_num_json_to_non_non_single_char_num(char* json);
+   ```
+
+#### char 单成员布尔值
 
 #### char 多成员字符串
 
 #### char 多成员数字
 
 #### char 多成员布尔值
-
-#### char 多成员空值
 
 ### unsigned char 类型
 
