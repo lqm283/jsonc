@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 19:28:33
+ * @LastEditTime : 2023-01-08 20:11:42
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1157,6 +1157,59 @@ static int jsonc_jsonstr_to_multnum(const struct jsonc_ele* ele) {
     return ret;
 }
 
+static inline int jsonc_assign_to_num(const struct jsonc_ele* ele, uint64_t num) {
+    int ret = 0;
+
+    switch (is_base_type(ele->mem.mem_type)) {
+        case cInt8:
+        case cUInt8:
+            *(char*)ele->mem_addr = num;
+            break;
+        case cInt16:
+        case cUInt16:
+            *(uint16_t*)ele->mem_addr = num;
+            break;
+        case cInt32:
+        case cUInt32:
+            *(uint32_t*)ele->mem_addr = num;
+            break;
+        case cInt64:
+        case cUInt64:
+            *(uint64_t*)ele->mem_addr = num;
+            break;
+        case cFloat:
+            *(float*)ele->mem_addr = num;
+            break;
+        case cDouble:
+            *(double*)ele->mem_addr = num;
+            break;
+        default:
+            ret = -JSON_TYPE;
+            break;
+    }
+
+    return ret;
+}
+
+static int jsonc_jsonstr_to_multbool(const struct jsonc_ele* ele) {
+    int ret = 0;
+    char bool = False;
+
+    if (*ele->value == '0' && strtod(ele->value, NULL) == 0) {
+        bool = False;
+    } else {
+        if (strcmp(ele->value, BOOL[False]) == 0) {
+            bool = False;
+        } else {
+            bool = True;
+        }
+    }
+
+    ret = jsonc_assign_to_num(ele, bool);
+
+    return ret;
+}
+
 static int jsonc_jsonnum_to_multstr(const struct jsonc_ele* ele) {
     return jsonc_jsonstr_to_multstr(ele);
 }
@@ -1183,38 +1236,12 @@ static int jsonc_jsonbool_to_multstr(const struct jsonc_ele* ele) {
 
 static int jsonc_jsonbool_to_multnum(const struct jsonc_ele* ele) {
     int ret = 0;
-    char bool = 0;
-    if (strcmp(ele->value, "true")) {
-        bool = 1;
+    char bool = False;
+    if (strcmp(ele->value, BOOL[True])) {
+        bool = True;
     }
 
-    switch (is_base_type(ele->mem.mem_type)) {
-        case cInt8:
-        case cUInt8:
-            *(char*)ele->mem_addr = bool;
-            break;
-        case cInt16:
-        case cUInt16:
-            *(uint16_t*)ele->mem_addr = bool;
-            break;
-        case cInt32:
-        case cUInt32:
-            *(uint32_t*)ele->mem_addr = bool;
-            break;
-        case cInt64:
-        case cUInt64:
-            *(uint64_t*)ele->mem_addr = bool;
-            break;
-        case cFloat:
-            *(float*)ele->mem_addr = bool;
-            break;
-        case cDouble:
-            *(double*)ele->mem_addr = bool;
-            break;
-        default:
-            ret = -JSON_TYPE;
-            break;
-    }
+    ret = jsonc_assign_to_num(ele, bool);
 
     return ret;
 }
@@ -1227,33 +1254,7 @@ static int jsonc_jsonnull_to_multstr(const struct jsonc_ele* ele) {
 static int jsonc_jsonnull_to_multnum(const struct jsonc_ele* ele) {
     int ret = 0;
 
-    switch (is_base_type(ele->mem.mem_type)) {
-        case cInt8:
-        case cUInt8:
-            *(char*)ele->mem_addr = 0;
-            break;
-        case cInt16:
-        case cUInt16:
-            *(uint16_t*)ele->mem_addr = 0;
-            break;
-        case cInt32:
-        case cUInt32:
-            *(uint32_t*)ele->mem_addr = 0;
-            break;
-        case cInt64:
-        case cUInt64:
-            *(uint64_t*)ele->mem_addr = 0;
-            break;
-        case cFloat:
-            *(float*)ele->mem_addr = 0;
-            break;
-        case cDouble:
-            *(double*)ele->mem_addr = 0;
-            break;
-        default:
-            ret = -JSON_TYPE;
-            break;
-    }
+    ret = jsonc_assign_to_num(ele, 0);
 
     return ret;
 }
@@ -1268,6 +1269,7 @@ int jsonc_change_str_to_base(struct jsonc_ele* ele) {
             ret = jsonc_jsonstr_to_multnum(ele);
             break;
         case Bool:
+            ret = jsonc_jsonstr_to_multbool(ele);
             break;
         default:
             break;
