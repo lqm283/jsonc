@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-08 20:30:29
+ * @LastEditTime : 2023-01-08 20:35:27
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -190,6 +190,12 @@ char* test_change_non_non_single_char_bool_to_json(char* exp, char* real);
 
    ```c
     int test_change_mult_num_json_to_non_non_single_char_bool(char* json);
+   ```
+
+5. 单元素 Bool 类型的 json 转换为保存 Bool 类型的单成员 char
+
+   ```c
+    int test_change_single_bool_json_to_non_non_single_char_bool(char* json);
    ```
 
 #### char 多成员字符串
