@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 21:39:52
+ * @LastEditTime : 2023-01-08 22:33:17
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -258,4 +258,17 @@ int test_change_single_null_json_to_non_non_single_char_bool(char* json) {
 // 多元素 Null 类型的 json 转换为保存 Bool 类型的单成员 char
 int test_change_mult_null_json_to_non_non_single_char_bool(char* json) {
     return test_change_single_null_json_to_non_non_single_char_bool(json);
+}
+
+int test_change_equal_mult_str_json_to_non_non_mult_char_str(char* json) {
+    int ret = 0;
+    struct TestNonNonMultCharStr str;
+    ret = JsoncDeserialize(json, &str, TestNonNonMultCharStr);
+    if (ret) {
+        return ret;
+    }
+    if (str.str1 != 't' || str.str2 != 'f' || str.str3 != 't') {
+        return 1;
+    }
+    return ret;
 }
