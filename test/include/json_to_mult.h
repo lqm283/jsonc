@@ -23,7 +23,7 @@ static const struct TestChangeToMult ChangeToMult[] = {
     FUNC(test_change_single_bool_json_to_non_non_single_char_str),
     FUNC(test_change_mult_bool_json_to_non_non_single_char_str),
     FUNC(test_change_single_str_json_to_non_non_single_char_num),
-    // FUNC(test_change_mult_str_json_to_non_non_single_char_num),
+    FUNC(test_change_mult_str_json_to_non_non_single_char_num),
     {NULL, NULL}};
 
 #endif
