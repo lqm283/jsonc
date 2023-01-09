@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-09 11:22:12
+ * @LastEditTime : 2023-01-09 13:01:06
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -486,21 +486,100 @@ char* test_change_non_non_mult_char_bool_to_json(char* exp, char* real);
 ##### json 转换为 char 多成员 Bool
 
 1. 完全匹配的多元素 Str 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_equal_mult_str_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 2. 元素多于成员的多元素 Str 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_more_mult_str_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 3. 元素少于成员的多元素 Str 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_less_mult_str_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 4. 不完全匹配的多元素 Str 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_diff_mult_str_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 5. 完全匹配的多元素 Num 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_equal_mult_num_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 6. 元素多于成员的多元素 Num 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_more_mult_num_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 7. 元素少于成员的多元素 Num 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_less_mult_num_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 8. 不完全匹配的多元素 Num 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_diff_mult_num_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 9. 完全匹配的多元素 Bool 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_equal_mult_bool_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 10. 元素多于成员的多元素 Bool 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_more_mult_bool_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 11. 元素少于成员的多元素 Bool 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_less_mult_bool_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 12. 不完全匹配的多元素 Bool 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_diff_mult_bool_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 13. 完全匹配的多元素 Null 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_equal_mult_null_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 14. 元素多于成员的多元素 Null 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_more_mult_null_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 15. 元素少于成员的多元素 Null 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_less_mult_null_json_to_non_non_mult_char_bool(char* json);
+    ```
+
 16. 不完全匹配的多元素 Null 类型的 json 转换为保存 Bool 类型的多成员 char
+
+    ```c
+    int test_change_diff_mult_null_json_to_non_non_mult_char_bool(char* json);
+    ```
 
 ### uint8 类型
 

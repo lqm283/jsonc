@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 21:55:06
+ * @LastEditTime : 2023-01-09 13:05:33
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -577,6 +577,14 @@ static inline void skipspace(char** s) {
     }
 }
 
+static inline int skipescape(char** s) {
+    if (**s == '\\') {
+        (*s) += 2;
+        return 1;
+    }
+    return 0;
+}
+
 static int jsonc_check_number(char* start_num, char** end_num) {
     int sign, decimal, index;
     sign = 0;
@@ -1025,10 +1033,12 @@ static int jsonc_destroy(jsonc_obj* tree) {
 }
 
 static inline char* get_double_quotes(char* src) {
-    while (*src++ != 0) {
+    while (*src != 0) {
+        skipescape(&src);
         if (*src == '"') {
             return src;
         }
+        src++;
     }
     return NULL;
 }
@@ -1040,7 +1050,8 @@ static char* get_string(char** src) {
     }
     from = (*src)++;
     to = get_double_quotes(*src);
-    string = (char*)JSONCALLOC(to - from);
+    int size = to - from;
+    string = (char*)JSONCALLOC(size);
     if (string != NULL) {
         temp = string;
     } else {
@@ -1050,6 +1061,7 @@ static char* get_string(char** src) {
         *temp++ = **src;
     }
     (*src)++;
+    string[size - 1] = '\0';
     return string;
 }
 
@@ -1537,7 +1549,9 @@ static int jsonc_jsonstr_to_multbool(const struct jsonc_ele* ele) {
     int ret = 0;
     char bool;
 
-    if (*ele->value.Str == '0' && strtod(ele->value.Str, NULL) == 0) {
+    if (*ele->value.Str == '\0') {
+        bool = False;
+    } else if (*ele->value.Str == '0' && strtod(ele->value.Str, NULL) == 0) {
         bool = False;
     } else {
         if (strcmp(ele->value.Str, BOOL[False]) == 0) {
