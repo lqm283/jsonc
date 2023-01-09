@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-09 13:05:33
+ * @LastEditTime : 2023-01-09 15:19:34
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -376,11 +376,16 @@ static void* jsonc_change_cbase_to_json(char* buf,
     void* ret = NULL;
     switch (mem->struct_type) {
         case Str:
-            if (mem->mem_length / mem->type_length == 1) {
-                jsonc_change_char_to_json(buf, &ret, st);
-            } else {
+            if (jsonc_get_ctype(mem) == cPtrBase) {
                 jsonc_change_string_to_json(buf, &ret, st);
+            } else {
+                if (mem->mem_length / mem->type_length == 1) {
+                    jsonc_change_char_to_json(buf, &ret, st);
+                } else {
+                    jsonc_change_string_to_json(buf, &ret, st);
+                }
             }
+
             break;
         case Num:
             jsonc_change_num_to_json(buf, &ret, st, mem);

@@ -1,15 +1,15 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 12:41:02
+ * @LastEditTime : 2023-01-09 13:51:08
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/src/test_non_non_char.c
+ * @FilePath     : /jsonc/test/src/char/test_non_non_char.c
  */
 
-#include "../include/test_non_non_char.h"
+#include "../../include/char/test_non_non_char.h"
 
 #include <stdint.h>
 #include <string.h>
