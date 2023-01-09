@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-09 22:58:12
+ * @LastEditTime : 2023-01-09 23:03:34
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -85,10 +85,15 @@ char* test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
 // char 指针数组类型多成员 Num 转换为 json
 char* test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e =
-        "{\"num1\":[-128,-1,0,1,127],\"num2\":[-128,-1,0,1,127],\"num3\":[-128,-1,0,1,"
-        "127],\"num4\":[-128,-1,0,1,127],\"num5\":[-128,-1,0,1,127]}";
-    struct TestPtrArrMultCharNum num;
+    char* e = "{\"num1\":[1,2],\"num2\":[3,4],\"num3\":[5,6]}";
+    char num1 = 1;
+    char num2 = 2;
+    char num3 = 3;
+    char num4 = 4;
+    char num5 = 5;
+    char num6 = 6;
+
+    struct TestPtrArrMultCharNum num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultCharNum);
     if (ret) {
         strcpy(exp, e);
