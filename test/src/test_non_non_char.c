@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 10:55:08
+ * @LastEditTime : 2023-01-09 10:59:07
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -486,4 +486,9 @@ int test_change_less_mult_bool_json_to_non_non_mult_char_num(char* json) {
         return 1;
     }
     return ret;
+}
+
+// 不完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_diff_mult_bool_json_to_non_non_mult_char_num(char* json) {
+    return test_change_less_mult_bool_json_to_non_non_mult_char_num(json);
 }
