@@ -1,23 +1,14 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:46:39
- * @LastEditTime : 2023-01-09 14:32:25
+ * @LastEditTime : 2023-01-09 16:20:40
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
  * @FilePath     : /jsonc/test/include/char/test_ptr_non_char.h
  */
-/*
- * @Author       : lqm283
- * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-09 11:38:41
- * @LastEditors  : lqm283
- * --------------------------------------------------------------------------------<
- * @Description  : 测试常规的非数组非指针 char 类型
- * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/include/test_ptr_non_char.h
- */
+
 #ifndef __TEST_PTR_NON_CHAR_H_
 #define __TEST_PTR_NON_CHAR_H_
 

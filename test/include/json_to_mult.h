@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:58:17
- * @LastEditTime : 2023-01-09 15:22:40
+ * @LastEditTime : 2023-01-09 16:52:40
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,6 +16,7 @@
 
 static const struct TestChangeToMult *ChangeToMult[] = {NonNonCharChangeToMult,
                                                         PtrNonCharChangeToMult,
+                                                        NonArrCharChangeToMult,
                                                         NULL};
 
 #endif
