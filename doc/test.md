@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-09 10:58:15
+ * @LastEditTime : 2023-01-09 11:01:49
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -435,9 +435,28 @@ char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
     ```
 
 13. 完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+
+    ```c
+    int test_change_equal_mult_null_json_to_non_non_mult_char_num(char* json);
+    ```
+
 14. 元素多于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+
+    ```c
+    int test_change_more_mult_null_json_to_non_non_mult_char_num(char* json);
+    ```
+
 15. 元素少于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+
+    ```c
+    int test_change_less_mult_null_json_to_non_non_mult_char_num(char* json);
+    ```
+
 16. 不完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+
+    ```c
+    int test_change_diff_mult_null_json_to_non_non_mult_char_num(char* json);
+    ```
 
 #### char 多成员保存 Bool
 

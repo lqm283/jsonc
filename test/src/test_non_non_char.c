@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 10:59:07
+ * @LastEditTime : 2023-01-09 11:14:15
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -491,4 +491,43 @@ int test_change_less_mult_bool_json_to_non_non_mult_char_num(char* json) {
 // 不完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_diff_mult_bool_json_to_non_non_mult_char_num(char* json) {
     return test_change_less_mult_bool_json_to_non_non_mult_char_num(json);
+}
+
+// 完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_equal_mult_null_json_to_non_non_mult_char_num(char* json) {
+    int ret = 0;
+    struct TestNonNonMultCharNum num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    if (ret) {
+        return ret;
+    }
+    if (num.num1 != 0 || num.num2 != 0 || num.num3 != 0 || num.num4 != 0 ||
+        num.num5 != 0) {
+        return 1;
+    }
+    return ret;
+}
+
+// 元素多于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_more_mult_null_json_to_non_non_mult_char_num(char* json) {
+    return test_change_equal_mult_null_json_to_non_non_mult_char_num(json);
+}
+
+// 元素少于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_less_mult_null_json_to_non_non_mult_char_num(char* json) {
+    int ret = 0;
+    struct TestNonNonMultCharNum num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    if (ret) {
+        return ret;
+    }
+    if (num.num1 != 0 || num.num3 != 0 || num.num5 != 0) {
+        return 1;
+    }
+    return ret;
+}
+
+// 不完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_diff_mult_null_json_to_non_non_mult_char_num(char* json) {
+    return test_change_less_mult_null_json_to_non_non_mult_char_num(json);
 }
