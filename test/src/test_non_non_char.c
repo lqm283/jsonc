@@ -439,10 +439,17 @@ int test_change_equal_mult_num_json_to_non_non_mult_char_num(char* json) {
     return test_change_equal_mult_str_json_to_non_non_mult_char_num(json);
 }
 
+// 元素多于成员的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_more_mult_num_json_to_non_non_mult_char_num(char* json) {
     return test_change_equal_mult_str_json_to_non_non_mult_char_num(json);
 }
 
+// 元素少于成员的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_num_json_to_non_non_mult_char_num(char* json) {
+    return test_change_less_mult_str_json_to_non_non_mult_char_num(json);
+}
+
+// 不完全匹配的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_diff_mult_num_json_to_non_non_mult_char_num(char* json) {
     return test_change_less_mult_str_json_to_non_non_mult_char_num(json);
 }
