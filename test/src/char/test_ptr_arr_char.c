@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-09 23:03:34
+ * @LastEditTime : 2023-01-09 23:05:17
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -104,11 +104,16 @@ char* test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
 // char 指针数组类型多成员 Bool 转换为 json
 char* test_change_ptr_arr_mult_char_bool_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e =
-        "{\"bool1\":[true,true,false,true,true],\"bool2\":[true,true,false,true,true],"
-        "\"bool3\":[true,true,false,true,true],\"bool4\":[true,true,false,true,true],"
-        "\"bool5\":[true,true,false,true,true]}";
-    struct TestPtrArrMultCharBool bool;
+    char* e = "{\"bool1\":[false,true],\"bool2\":[true,false],\"bool3\":[false,true]}";
+    char bool1 = 0;
+    char bool2 = 1;
+    char bool3 = 1;
+    char bool4 = 0;
+    char bool5 = 0;
+    char bool6 = 1;
+    struct TestPtrArrMultCharBool bool = {{&bool1, &bool2},
+                                          {&bool3, &bool4},
+                                          {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultCharBool);
     if (ret) {
         strcpy(exp, e);

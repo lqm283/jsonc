@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:53:50
- * @LastEditTime : 2023-01-09 23:00:12
+ * @LastEditTime : 2023-01-09 23:05:45
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -51,7 +51,7 @@ static const struct TestChangeToJson PtrArrCharChangeToJson[] = {
     FUNC(test_change_ptr_arr_single_char_bool_to_json),
     FUNC(test_change_ptr_arr_mult_char_str_to_json),
     FUNC(test_change_ptr_arr_mult_char_num_to_json),
-    // FUNC(test_change_ptr_arr_mult_char_bool_to_json),
+    FUNC(test_change_ptr_arr_mult_char_bool_to_json),
     {NULL, NULL}};
 
 #endif
