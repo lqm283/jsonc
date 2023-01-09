@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-06 14:33:32
+ * @LastEditTime : 2023-01-08 23:51:05
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -46,12 +46,30 @@ int test_change_mult_to_json() {
 
 int test_change_json_to_mult() {
     int ret = 0;
+    char dir[128];
     char path[4096];
     char json[81920];
+    int count = 0;
+    char* p = NULL;
+    char* d = dir;
     for (const struct TestChangeToMult* Change = ChangeToMult;
          *Change->test_change_to_mult != NULL;
          Change++) {
-        sprintf(path, "json/%s.json", Change->name);
+        for (int i = strlen(Change->name) - 1; i >= 0; i--) {
+            if (Change->name[i] == '_') {
+                count++;
+                if (count == 2) {
+                    p = (char*)&Change->name[i + 1];
+                    break;
+                }
+            }
+        }
+
+        while (*p != '_' && *p != '\0') {
+            *d++ = *p++;
+        }
+
+        sprintf(path, "json/%s/%s.json", dir, Change->name);
 
         FILE* file = fopen(path, "r");
         if (!file) {

@@ -337,7 +337,28 @@ char* test_change_non_non_mult_char_str_to_json(char* exp, char* real);
 
 #### char 多成员保存 Num
 
+```c
+struct TestNonNonMultCharNum {
+    char num1;
+    char num2;
+    char num3;
+    char num4;
+    char num5;
+};
+INIT(TestNonNonMultCharNum,
+     struct TestNonNonMultCharNum,
+     MEM(struct TestNonNonMultCharNum, Num, char, num1, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num2, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num3, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num4, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num5, NULL));
+```
+
 ##### char 多成员 Num 转换为 json
+
+```c
+char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
+```
 
 ##### json 转换为 char 多成员 Num
 
