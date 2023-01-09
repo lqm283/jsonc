@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 09:21:41
+ * @LastEditTime : 2023-01-09 09:25:24
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -412,4 +412,17 @@ int test_change_equal_mult_str_json_to_non_non_mult_char_num(char* json) {
 
 int test_change_more_mult_str_json_to_non_non_mult_char_num(char* json) {
     return test_change_equal_mult_str_json_to_non_non_mult_char_num(json);
+}
+
+int test_change_less_mult_str_json_to_non_non_mult_char_num(char* json) {
+    int ret = 0;
+    struct TestNonNonMultCharNum num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    if (ret) {
+        return ret;
+    }
+    if (num.num2 != -1 || num.num4 != 1) {
+        return 1;
+    }
+    return ret;
 }
