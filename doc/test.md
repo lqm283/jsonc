@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-09 11:01:49
+ * @LastEditTime : 2023-01-09 11:22:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -460,7 +460,28 @@ char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
 
 #### char 多成员保存 Bool
 
+```c
+struct TestNonNonMultCharBool {
+    char bool1;
+    char bool2;
+    char bool3;
+    char bool4;
+    char bool5;
+};
+INIT(TestNonNonMultCharBool,
+     struct TestNonNonMultCharBool,
+     MEM(struct TestNonNonMultCharBool, Bool, char, bool1, NULL),
+     MEM(struct TestNonNonMultCharBool, Bool, char, bool2, NULL),
+     MEM(struct TestNonNonMultCharBool, Bool, char, bool3, NULL),
+     MEM(struct TestNonNonMultCharBool, Bool, char, bool4, NULL),
+     MEM(struct TestNonNonMultCharBool, Bool, char, bool5, NULL));
+```
+
 ##### char 多成员 Bool 转换为 json
+
+```c
+char* test_change_non_non_mult_char_bool_to_json(char* exp, char* real);
+```
 
 ##### json 转换为 char 多成员 Bool
 

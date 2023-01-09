@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 11:14:15
+ * @LastEditTime : 2023-01-09 11:23:29
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -84,6 +84,24 @@ char* test_change_non_non_mult_char_num_to_json(char* exp, char* real) {
     num.num4 = 1;
     num.num5 = 127;
     ret = JsoncSerialize(real, &num, TestNonNonMultCharNum);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
+}
+
+// char 多成员 Bool 转换为 json
+char* test_change_non_non_mult_char_bool_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e =
+        "{\"bool1\":true,\"bool2\":true,\"bool3\":false,\"bool4\":true,\"bool5\":true}";
+    struct TestNonNonMultCharBool bool;
+    bool.bool1 = -128;
+    bool.bool2 = -1;
+    bool.bool3 = 0;
+    bool.bool4 = 1;
+    bool.bool5 = 127;
+    ret = JsoncSerialize(real, &bool, TestNonNonMultCharBool);
     if (ret) {
         strcpy(exp, e);
     }
