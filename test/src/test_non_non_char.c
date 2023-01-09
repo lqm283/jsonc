@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 08:59:22
+ * @LastEditTime : 2023-01-09 09:10:55
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -11,6 +11,7 @@
 
 #include "../include/test_non_non_char.h"
 
+#include <stdint.h>
 #include <string.h>
 /*
 ----------------------------------------------
@@ -57,6 +58,7 @@ char* test_change_non_non_single_char_bool_to_json(char* exp, char* real) {
     return ret;
 }
 
+// char 多成员 Str 转换为 json
 char* test_change_non_non_mult_char_str_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"str1\":\"a\",\"str2\":\"b\",\"str3\":\"c\"}";
@@ -71,6 +73,7 @@ char* test_change_non_non_mult_char_str_to_json(char* exp, char* real) {
     return ret;
 }
 
+// char 多成员 Num 转换为 json
 char* test_change_non_non_mult_char_num_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"num1\":-128,\"num2\":-1,\"num3\":0,\"num4\":1,\"num5\":127}";
@@ -390,4 +393,19 @@ int test_change_less_mult_null_json_to_non_non_mult_char_str(char* json) {
 // 不完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_diff_mult_null_json_to_non_non_mult_char_str(char* json) {
     return test_change_less_mult_null_json_to_non_non_mult_char_str(json);
+}
+
+// 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+int test_change_equal_mult_str_json_to_non_non_mult_char_num(char* json) {
+    int ret = 0;
+    struct TestNonNonMultCharNum num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    if (ret) {
+        return ret;
+    }
+    if (num.num1 != -128 || num.num2 != -1 || num.num3 != 0 || num.num4 != 1 ||
+        num.num5 != 127) {
+        return 1;
+    }
+    return ret;
 }

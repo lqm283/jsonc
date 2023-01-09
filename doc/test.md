@@ -363,6 +363,11 @@ char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
 ##### json 转换为 char 多成员 Num
 
 1. 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+
+    ```c
+    int test_change_equal_mult_str_json_to_non_non_mult_char_num(char* json);
+   ```
+
 2. 元素多于成员的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
 3. 元素少于成员的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
 4. 不完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
