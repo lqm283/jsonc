@@ -46,11 +46,27 @@ INIT(TestNonNonMultCharStr,
      MEM(struct TestNonNonMultCharStr, Str, char, str2, NULL),
      MEM(struct TestNonNonMultCharStr, Str, char, str3, NULL));
 
+struct TestNonNonMultCharNum {
+    char num1;
+    char num2;
+    char num3;
+    char num4;
+    char num5;
+};
+INIT(TestNonNonMultCharNum,
+     struct TestNonNonMultCharNum,
+     MEM(struct TestNonNonMultCharNum, Num, char, num1, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num2, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num3, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num4, NULL),
+     MEM(struct TestNonNonMultCharNum, Num, char, num5, NULL));
+
 // mult to json
 char* test_change_non_non_single_char_str_to_json(char* exp, char* real);
 char* test_change_non_non_single_char_num_to_json(char* exp, char* real);
 char* test_change_non_non_single_char_bool_to_json(char* exp, char* real);
 char* test_change_non_non_mult_char_str_to_json(char* exp, char* real);
+char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_non_single_char_str(char* json);

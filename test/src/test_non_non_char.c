@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-08 23:36:01
+ * @LastEditTime : 2023-01-09 08:59:22
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -65,6 +65,22 @@ char* test_change_non_non_mult_char_str_to_json(char* exp, char* real) {
     str.str2 = 'b';
     str.str3 = 'c';
     ret = JsoncSerialize(real, &str, TestNonNonMultCharStr);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
+}
+
+char* test_change_non_non_mult_char_num_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e = "{\"num1\":-128,\"num2\":-1,\"num3\":0,\"num4\":1,\"num5\":127}";
+    struct TestNonNonMultCharNum num;
+    num.num1 = -128;
+    num.num2 = -1;
+    num.num3 = 0;
+    num.num4 = 1;
+    num.num5 = 127;
+    ret = JsoncSerialize(real, &num, TestNonNonMultCharNum);
     if (ret) {
         strcpy(exp, e);
     }
