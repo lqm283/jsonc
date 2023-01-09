@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-09 12:53:44
+ * @LastEditTime : 2023-01-09 16:00:26
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -370,10 +370,14 @@ static void* jsonc_change_cbase_to_json(char* buf,
     void* ret = NULL;
     switch (mem->struct_type) {
         case Str:
-            if (mem->mem_length / mem->type_length == 1) {
-                jsonc_change_char_to_json(buf, &ret, st);
-            } else {
+            if (jsonc_get_ctype(mem) == cPtrBase) {
                 jsonc_change_string_to_json(buf, &ret, st);
+            } else {
+                if (mem->mem_length / mem->type_length == 1) {
+                    jsonc_change_char_to_json(buf, &ret, st);
+                } else {
+                    jsonc_change_string_to_json(buf, &ret, st);
+                }
             }
             break;
         case Num:
@@ -1014,7 +1018,7 @@ static char* get_bool(char* start_str, char** end_str) {
         bool[4] = '\0';
         start_str += 4;
     } else {
-        memcpy(bool, start_str, 4);
+        memcpy(bool, start_str, 5);
         bool[5] = '\0';
         start_str += 5;
     }
@@ -1409,7 +1413,6 @@ static int jsonc_change_ele_to_mem(void* st,
 
     if (ele->c_type & cPtrBase && !(ele->c_type & cBaseArr)) {
         ele->mem_addr = (void*)(*(long*)ele->mem_addr);
-        printf("ele->mem_addr = 0x%lx\n", (long)ele->mem_addr);
     }
 
     if (ele->type == Obj && ele->c_type & cStruct) {

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-09 14:19:35
+ * @LastEditTime : 2023-01-09 15:23:05
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -14,6 +14,8 @@
 #include "../include/obj.h"
 #include "char/test_char_mult_to_json.h"
 
-const struct TestChangeToJson *ChangeToJson[] = {NonNonCharChangeToJson, NULL};
+static const struct TestChangeToJson *ChangeToJson[] = {NonNonCharChangeToJson,
+                                                        PtrNonCharChangeToJson,
+                                                        NULL};
 
 #endif

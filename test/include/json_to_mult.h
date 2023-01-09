@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:58:17
- * @LastEditTime : 2023-01-09 14:19:25
+ * @LastEditTime : 2023-01-09 15:22:40
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -14,6 +14,8 @@
 
 #include "char/test_char_json_to_mult.h"
 
-const struct TestChangeToMult *ChangeToMult[] = {NonNonCharChangeToMult, NULL};
+static const struct TestChangeToMult *ChangeToMult[] = {NonNonCharChangeToMult,
+                                                        PtrNonCharChangeToMult,
+                                                        NULL};
 
 #endif

@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:46:39
- * @LastEditTime : 2023-01-09 13:48:51
+ * @LastEditTime : 2023-01-09 14:32:25
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/include/test_ptr_non_char.h
+ * @FilePath     : /jsonc/test/include/char/test_ptr_non_char.h
  */
 /*
  * @Author       : lqm283
@@ -24,67 +24,67 @@
 #include "../../../jsonc.h"
 
 // char 单成员字符串
-struct TestNonNonSingleCharStr {
-    char str;
+struct TestPtrNonSingleCharStr {
+    char* str;
 };
-INIT(TestNonNonSingleCharStr,
-     struct TestNonNonSingleCharStr,
-     MEM(struct TestNonNonSingleCharStr, Str, char, str, NULL));
+INIT(TestPtrNonSingleCharStr,
+     struct TestPtrNonSingleCharStr,
+     MEM(struct TestPtrNonSingleCharStr, Str, char*, str, NULL));
 
-struct TestNonNonSingleCharNum {
-    char num;
+struct TestPtrNonSingleCharNum {
+    char *num;
 };
-INIT(TestNonNonSingleCharNum,
-     struct TestNonNonSingleCharNum,
-     MEM(struct TestNonNonSingleCharNum, Num, char, num, NULL));
+INIT(TestPtrNonSingleCharNum,
+     struct TestPtrNonSingleCharNum,
+     MEM(struct TestPtrNonSingleCharNum, Num, char*, num, NULL));
 
-struct TestNonNonSingleCharBool {
-    char b;
+struct TestPtrNonSingleCharBool {
+    char *b;
 };
-INIT(TestNonNonSingleCharBool,
-     struct TestNonNonSingleCharBool,
-     MEM(struct TestNonNonSingleCharBool, Bool, char, b, NULL));
+INIT(TestPtrNonSingleCharBool,
+     struct TestPtrNonSingleCharBool,
+     MEM(struct TestPtrNonSingleCharBool, Bool, char*, b, NULL));
 
-struct TestNonNonMultCharStr {
-    char str1;
-    char str2;
-    char str3;
+struct TestPtrNonMultCharStr {
+    char *str1;
+    char *str2;
+    char *str3;
 };
-INIT(TestNonNonMultCharStr,
-     struct TestNonNonMultCharStr,
-     MEM(struct TestNonNonMultCharStr, Str, char, str1, NULL),
-     MEM(struct TestNonNonMultCharStr, Str, char, str2, NULL),
-     MEM(struct TestNonNonMultCharStr, Str, char, str3, NULL));
+INIT(TestPtrNonMultCharStr,
+     struct TestPtrNonMultCharStr,
+     MEM(struct TestPtrNonMultCharStr, Str, char*, str1, NULL),
+     MEM(struct TestPtrNonMultCharStr, Str, char*, str2, NULL),
+     MEM(struct TestPtrNonMultCharStr, Str, char*, str3, NULL));
 
-struct TestNonNonMultCharNum {
-    char num1;
-    char num2;
-    char num3;
-    char num4;
-    char num5;
+struct TestPtrNonMultCharNum {
+    char *num1;
+    char *num2;
+    char *num3;
+    char *num4;
+    char *num5;
 };
-INIT(TestNonNonMultCharNum,
-     struct TestNonNonMultCharNum,
-     MEM(struct TestNonNonMultCharNum, Num, char, num1, NULL),
-     MEM(struct TestNonNonMultCharNum, Num, char, num2, NULL),
-     MEM(struct TestNonNonMultCharNum, Num, char, num3, NULL),
-     MEM(struct TestNonNonMultCharNum, Num, char, num4, NULL),
-     MEM(struct TestNonNonMultCharNum, Num, char, num5, NULL));
+INIT(TestPtrNonMultCharNum,
+     struct TestPtrNonMultCharNum,
+     MEM(struct TestPtrNonMultCharNum, Num, char*, num1, NULL),
+     MEM(struct TestPtrNonMultCharNum, Num, char*, num2, NULL),
+     MEM(struct TestPtrNonMultCharNum, Num, char*, num3, NULL),
+     MEM(struct TestPtrNonMultCharNum, Num, char*, num4, NULL),
+     MEM(struct TestPtrNonMultCharNum, Num, char*, num5, NULL));
 
-struct TestNonNonMultCharBool {
-    char bool1;
-    char bool2;
-    char bool3;
-    char bool4;
-    char bool5;
+struct TestPtrNonMultCharBool {
+    char *bool1;
+    char *bool2;
+    char *bool3;
+    char *bool4;
+    char *bool5;
 };
-INIT(TestNonNonMultCharBool,
-     struct TestNonNonMultCharBool,
-     MEM(struct TestNonNonMultCharBool, Bool, char, bool1, NULL),
-     MEM(struct TestNonNonMultCharBool, Bool, char, bool2, NULL),
-     MEM(struct TestNonNonMultCharBool, Bool, char, bool3, NULL),
-     MEM(struct TestNonNonMultCharBool, Bool, char, bool4, NULL),
-     MEM(struct TestNonNonMultCharBool, Bool, char, bool5, NULL));
+INIT(TestPtrNonMultCharBool,
+     struct TestPtrNonMultCharBool,
+     MEM(struct TestPtrNonMultCharBool, Bool, char*, bool1, NULL),
+     MEM(struct TestPtrNonMultCharBool, Bool, char*, bool2, NULL),
+     MEM(struct TestPtrNonMultCharBool, Bool, char*, bool3, NULL),
+     MEM(struct TestPtrNonMultCharBool, Bool, char*, bool4, NULL),
+     MEM(struct TestPtrNonMultCharBool, Bool, char*, bool5, NULL));
 
 // mult to json
 char* test_change_ptr_non_single_char_str_to_json(char* exp, char* real);

@@ -14,6 +14,7 @@
 
 #include "../../include/obj.h"
 #include "test_non_non_char.h"
+#include "test_ptr_non_char.h"
 
 static const struct TestChangeToJson NonNonCharChangeToJson[] = {
     FUNC(test_change_non_non_single_char_str_to_json),
@@ -22,6 +23,15 @@ static const struct TestChangeToJson NonNonCharChangeToJson[] = {
     FUNC(test_change_non_non_mult_char_str_to_json),
     FUNC(test_change_non_non_mult_char_num_to_json),
     FUNC(test_change_non_non_mult_char_bool_to_json),
+    {NULL, NULL}};
+
+static const struct TestChangeToJson PtrNonCharChangeToJson[] = {
+    FUNC(test_change_ptr_non_single_char_str_to_json),
+    FUNC(test_change_ptr_non_single_char_num_to_json),
+    FUNC(test_change_ptr_non_single_char_bool_to_json),
+    FUNC(test_change_ptr_non_mult_char_str_to_json),
+    FUNC(test_change_ptr_non_mult_char_num_to_json),
+    FUNC(test_change_ptr_non_mult_char_bool_to_json),
     {NULL, NULL}};
 
 #endif
