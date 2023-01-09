@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-08 21:54:47
+ * @LastEditTime : 2023-01-09 10:49:07
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1015,7 +1015,6 @@ static char* get_bool(char* start_str, char** end_str) {
         bool[5] = '\0';
         start_str += 5;
     }
-    bool[1] = '\0';
     if (end_str != NULL) {
         *end_str = start_str;
     }
@@ -1263,7 +1262,7 @@ static int jsonc_jsonbool_to_multstr(const struct jsonc_ele* ele) {
 static int jsonc_jsonbool_to_multnum(const struct jsonc_ele* ele) {
     int ret = 0;
     char bool = False;
-    if (strcmp(ele->value, BOOL[True])) {
+    if (!strcmp(ele->value, BOOL[True])) {
         bool = True;
     }
 
