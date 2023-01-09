@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-09 22:53:44
+ * @LastEditTime : 2023-01-09 22:58:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -69,8 +69,12 @@ char* test_change_ptr_arr_single_char_bool_to_json(char* exp, char* real) {
 // char 指针数组类型多成员 Str 转换为 json
 char* test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e = "{\"str1\":\"I am str1\",\"str2\":\"I am str2\",\"str3\":\"c\"}";
-    struct TestPtrArrMultCharStr str;
+    char* e =
+        "{\"str1\":[\"str1_0\",\"str1_1\"],\"str2\":[\"str2_0\",\"str2_1\"],\"str3\":["
+        "\"str3_0\",\"str3_1\"]}";
+    struct TestPtrArrMultCharStr str = {{"str1_0", "str1_1"},
+                                        {"str2_0", "str2_1"},
+                                        {"str3_0", "str3_1"}};
     ret = JsoncSerialize(real, &str, TestPtrArrMultCharStr);
     if (ret) {
         strcpy(exp, e);
