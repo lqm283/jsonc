@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-09 21:29:12
+ * @LastEditTime : 2023-01-09 22:27:58
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1060,7 +1060,6 @@ static inline char* get_arr(char** src) {
     memcpy(arr, *src, count);
 
     arr[count] = '\0';
-    printf("%s\n", arr);
 
     *src = str;
 

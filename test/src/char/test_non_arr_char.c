@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 16:19:33
- * @LastEditTime : 2023-01-09 21:31:54
+ * @LastEditTime : 2023-01-09 22:28:50
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -141,7 +141,7 @@ int test_change_single_num_json_to_non_arr_single_char_str(char* json) {
         return ret;
     }
 
-    if (strcmp(str.str, "116")) {
+    if (strcmp(str.str, "t")) {
         return 1;
     }
     return ret;
