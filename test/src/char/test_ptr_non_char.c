@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:46:01
- * @LastEditTime : 2023-01-09 15:15:05
+ * @LastEditTime : 2023-01-09 16:05:25
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -33,17 +33,10 @@
 // 单成员的 char 类型转换为 str 类型的 json
 char* test_change_ptr_non_single_char_str_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e =
-        "{\"str\":\"test change char * str to json\"},{\"str\":\"test change char * str "
-        "to json\"}";
+    char* e = "{\"str\":\"test change char * str to json\"}";
     char* s = "test change char * str to json";
     struct TestPtrNonSingleCharStr str;
     str.str = s;
-    ret = JsoncSerialize(real, &str, TestPtrNonSingleCharStr);
-    real += strlen(real);
-    *real++ = ',';
-    str.str = malloc(100);
-    strcpy(str.str, s);
     ret = JsoncSerialize(real, &str, TestPtrNonSingleCharStr);
     if (ret) {
         strcpy(exp, e);
@@ -82,13 +75,11 @@ char* test_change_ptr_non_single_char_bool_to_json(char* exp, char* real) {
 // char 多成员 Str 转换为 json
 char* test_change_ptr_non_mult_char_str_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e = "{\"str1\":\"a\",\"str2\":\"b\",\"str3\":\"c\"}";
+    char* e = "{\"str1\":\"I am str1\",\"str2\":\"I am str2\",\"str3\":\"c\"}";
     struct TestPtrNonMultCharStr str;
-    str.str1 = malloc(sizeof(str.str1));
-    str.str2 = malloc(sizeof(str.str2));
     str.str3 = malloc(sizeof(str.str3));
-    *str.str1 = 'a';
-    *str.str2 = 'b';
+    str.str1 = "I am str1";
+    str.str2 = "I am str2";
     *str.str3 = 'c';
     ret = JsoncSerialize(real, &str, TestPtrNonMultCharStr);
     if (ret) {
@@ -152,12 +143,13 @@ json 转换为复合类型
 int test_change_single_str_json_to_ptr_non_single_char_str(char* json) {
     int ret = 0;
     struct TestPtrNonSingleCharStr str;
-    str.str = malloc(sizeof(str.str));
+    str.str = malloc(100);
     ret = JsoncDeserialize(json, &str, TestPtrNonSingleCharStr);
     if (ret) {
         return ret;
     }
-    if (*str.str != 't') {
+
+    if (strcmp(str.str, "single str json change to ptr non single char str")) {
         return 1;
     }
     return ret;
@@ -170,22 +162,44 @@ int test_change_mult_str_json_to_ptr_non_single_char_str(char* json) {
 
 // 单元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
 int test_change_single_num_json_to_ptr_non_single_char_str(char* json) {
-    return test_change_single_str_json_to_ptr_non_single_char_str(json);
+    int ret = 0;
+    struct TestPtrNonSingleCharStr str;
+    str.str = malloc(100);
+    ret = JsoncDeserialize(json, &str, TestPtrNonSingleCharStr);
+    if (ret) {
+        return ret;
+    }
+
+    if (strcmp(str.str, "116")) {
+        return 1;
+    }
+    return ret;
 }
 
 // 多元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
 int test_change_mult_num_json_to_ptr_non_single_char_str(char* json) {
-    return test_change_single_str_json_to_ptr_non_single_char_str(json);
+    return test_change_single_num_json_to_ptr_non_single_char_str(json);
 }
 
 // 单元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
 int test_change_single_bool_json_to_ptr_non_single_char_str(char* json) {
-    return test_change_single_str_json_to_ptr_non_single_char_str(json);
+    int ret = 0;
+    struct TestPtrNonSingleCharStr str;
+    str.str = malloc(100);
+    ret = JsoncDeserialize(json, &str, TestPtrNonSingleCharStr);
+    if (ret) {
+        return ret;
+    }
+
+    if (strcmp(str.str, "true")) {
+        return 1;
+    }
+    return ret;
 }
 
 // 多元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
 int test_change_mult_bool_json_to_ptr_non_single_char_str(char* json) {
-    return test_change_single_str_json_to_ptr_non_single_char_str(json);
+    return test_change_single_bool_json_to_ptr_non_single_char_str(json);
 }
 
 // 单元素 Null 类型的 json 转换为保存 Str 类型的单成员 char
@@ -322,11 +336,12 @@ int test_change_mult_bool_json_to_ptr_non_single_char_bool(char* json) {
 int test_change_single_null_json_to_ptr_non_single_char_bool(char* json) {
     int ret = 0;
     struct TestPtrNonSingleCharBool b;
+    b.b = malloc(sizeof(b.b));
     ret = JsoncDeserialize(json, &b, TestPtrNonSingleCharBool);
     if (ret) {
         return ret;
     }
-    if (b.b != 0) {
+    if (*b.b != 0) {
         return -1;
     }
     return ret;
@@ -341,14 +356,15 @@ int test_change_mult_null_json_to_ptr_non_single_char_bool(char* json) {
 int test_change_equal_mult_str_json_to_ptr_non_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrNonMultCharStr str;
-    str.str1 = malloc(sizeof(str.str1));
-    str.str2 = malloc(sizeof(str.str2));
-    str.str3 = malloc(sizeof(str.str3));
+    str.str1 = malloc(100);
+    str.str2 = malloc(100);
+    str.str3 = malloc(100);
     ret = JsoncDeserialize(json, &str, TestPtrNonMultCharStr);
     if (ret) {
         return ret;
     }
-    if (*str.str1 != 't' || *str.str2 != 'f' || *str.str3 != 't') {
+    if (strcmp(str.str1, "true") || strcmp(str.str2, "false") ||
+        strcmp(str.str3, "true")) {
         return 1;
     }
     return ret;
@@ -363,14 +379,14 @@ int test_change_more_mult_str_json_to_ptr_non_mult_char_str(char* json) {
 int test_change_less_mult_str_json_to_ptr_non_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrNonMultCharStr str;
-    str.str1 = malloc(sizeof(str.str1));
-    str.str2 = malloc(sizeof(str.str2));
-    str.str3 = malloc(sizeof(str.str3));
+    str.str1 = malloc(100);
+    str.str2 = malloc(100);
+    str.str3 = malloc(100);
     ret = JsoncDeserialize(json, &str, TestPtrNonMultCharStr);
     if (ret) {
         return ret;
     }
-    if (*str.str1 != 't' || *str.str2 != 'f') {
+    if (strcmp(str.str1, "true") || strcmp(str.str2, "false")) {
         return 1;
     }
     return ret;
@@ -383,42 +399,92 @@ int test_change_diff_mult_str_json_to_ptr_non_mult_char_str(char* json) {
 
 // 完全匹配的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_equal_mult_num_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_equal_mult_str_json_to_ptr_non_mult_char_str(json);
+    int ret = 0;
+    struct TestPtrNonMultCharStr str;
+    str.str1 = malloc(100);
+    str.str2 = malloc(100);
+    str.str3 = malloc(100);
+    ret = JsoncDeserialize(json, &str, TestPtrNonMultCharStr);
+    if (ret) {
+        return ret;
+    }
+    if (strcmp(str.str1, "0") || strcmp(str.str2, "1234567") ||
+        strcmp(str.str3, "147258369")) {
+        return 1;
+    }
+    return ret;
 }
 
 // 元素多于成员的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_more_mult_num_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_equal_mult_str_json_to_ptr_non_mult_char_str(json);
+    return test_change_equal_mult_num_json_to_ptr_non_mult_char_str(json);
 }
 
 // 元素少于成员的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_less_mult_num_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_less_mult_str_json_to_ptr_non_mult_char_str(json);
+    int ret = 0;
+    struct TestPtrNonMultCharStr str;
+    str.str1 = malloc(100);
+    str.str2 = malloc(100);
+    str.str3 = malloc(100);
+    ret = JsoncDeserialize(json, &str, TestPtrNonMultCharStr);
+    if (ret) {
+        return ret;
+    }
+    if (strcmp(str.str1, "0") || strcmp(str.str2, "1234567")) {
+        return 1;
+    }
+    return ret;
 }
 
 // 不完全匹配的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_diff_mult_num_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_less_mult_str_json_to_ptr_non_mult_char_str(json);
+    return test_change_less_mult_num_json_to_ptr_non_mult_char_str(json);
 }
 
 // 完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_equal_mult_bool_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_equal_mult_str_json_to_ptr_non_mult_char_str(json);
+    int ret = 0;
+    struct TestPtrNonMultCharStr str;
+    str.str1 = malloc(100);
+    str.str2 = malloc(100);
+    str.str3 = malloc(100);
+    ret = JsoncDeserialize(json, &str, TestPtrNonMultCharStr);
+    if (ret) {
+        return ret;
+    }
+    if (strcmp(str.str1, "true") || strcmp(str.str2, "false") ||
+        strcmp(str.str3, "true")) {
+        return 1;
+    }
+    return ret;
 }
 
 //  元素多于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_more_mult_bool_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_equal_mult_str_json_to_ptr_non_mult_char_str(json);
+    return test_change_equal_mult_bool_json_to_ptr_non_mult_char_str(json);
 }
 
 // 元素少于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_less_mult_bool_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_less_mult_str_json_to_ptr_non_mult_char_str(json);
+    int ret = 0;
+    struct TestPtrNonMultCharStr str;
+    str.str1 = malloc(sizeof(str.str1));
+    str.str2 = malloc(sizeof(str.str2));
+    str.str3 = malloc(sizeof(str.str3));
+    ret = JsoncDeserialize(json, &str, TestPtrNonMultCharStr);
+    if (ret) {
+        return ret;
+    }
+    if (strcmp(str.str1, "true") || strcmp(str.str2, "false")) {
+        return 1;
+    }
+    return ret;
 }
 
 // 不完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_diff_mult_bool_json_to_ptr_non_mult_char_str(char* json) {
-    return test_change_less_mult_str_json_to_ptr_non_mult_char_str(json);
+    return test_change_less_mult_bool_json_to_ptr_non_mult_char_str(json);
 }
 
 // 完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
@@ -646,7 +712,7 @@ int test_change_equal_mult_str_json_to_ptr_non_mult_char_bool(char* json) {
         return ret;
     }
     if (*bool.bool1 != 0 || *bool.bool2 != 1 || *bool.bool3 != 0 || *bool.bool4 != 1 ||
-        bool.bool5 != 0) {
+        *bool.bool5 != 0) {
         return 1;
     }
     return ret;

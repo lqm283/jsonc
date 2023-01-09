@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-09 15:19:34
+ * @LastEditTime : 2023-01-09 16:08:26
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1372,7 +1372,6 @@ static int jsonc_match_ele_and_mem(void* st,
 
     if (ele->c_type & cPtrBase && !(ele->c_type & cBaseArr)) {
         ele->mem_addr = (void*)(*(long*)ele->mem_addr);
-        printf("ele->mem_addr = 0x%lx\n", (long)ele->mem_addr);
     }
 
     if (ele->type == Obj && ele->c_type & cStruct) {
