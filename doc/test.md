@@ -1,7 +1,7 @@
 <!--
  * @Author       : lqm283
  * @Date         : 2023-01-06 08:56:26
- * @LastEditTime : 2023-01-09 09:34:12
+ * @LastEditTime : 2023-01-09 09:42:15
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -399,6 +399,11 @@ char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
    ```
 
 7. 元素少于成员的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
+
+    ```c
+    int test_change_less_mult_num_json_to_non_non_mult_char_num(char* json);
+   ```
+
 8. 不完全匹配的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
 9. 完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 10. 元素多于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
@@ -1476,6 +1481,8 @@ char* test_change_non_non_mult_char_num_to_json(char* exp, char* real);
 15. 元素少于成员的多元素 Null 类型的 json 转换为保存 Bool 类型的多成员 double
 16. 不完全匹配的多元素 Null 类型的 json 转换为保存 Bool 类型的多成员 double
 
+## 基本指针类型
+
 ## 基本数组类型
 
-## 基本指针类型
+## 基本指针数组类型
