@@ -11,7 +11,7 @@
 #ifndef __TEST_NON_NON_CHAR_H_
 #define __TEST_NON_NON_CHAR_H_
 
-#include "../../jsonc.h"
+#include "../../../jsonc.h"
 
 // char 单成员字符串
 struct TestNonNonSingleCharStr {
