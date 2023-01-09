@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-09 16:00:26
+ * @LastEditTime : 2023-01-09 17:37:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -583,6 +583,18 @@ static inline int skipescape(char** s) {
     return 0;
 }
 
+static inline void skipstr(char** s) {
+    if (**s != '"') {
+        return;
+    }
+    (*s)++;
+    while (**s != '"') {
+        skipescape(s);
+        s++;
+    }
+    s++;
+}
+
 static int jsonc_check_number(char* start_num, char** end_num) {
     int sign, decimal, index;
     sign = 0;
@@ -1007,6 +1019,42 @@ static inline char* get_obj(char** src) {
     return obj;
 }
 
+static inline char* get_arr(char** src) {
+    int count = 0;
+    char* str = *src;
+
+    if (**src != '[') {
+        return NULL;
+    }
+
+    // 获取数组的结尾
+    count++;
+    while (count != 0 && *str++ != '\0') {
+        if (*str == '[') {
+            count++;
+        } else if (*str == ']') {
+            count--;
+        } else if (*str == '"') {
+            skipstr(&str);
+        }
+    }
+    str++;
+    if (count != 0) {
+        return NULL;
+    }
+    count = (long)str - (long)*src;
+    char* arr = JSONCALLOC(count + 1);
+
+    memcpy(arr, *src, count);
+
+    arr[count] = '\0';
+    printf("%s\n", arr);
+
+    *src = str;
+
+    return NULL;
+}
+
 static char* get_bool(char* start_str, char** end_str) {
     char* bool = JSONCALLOC(6);
     if (!bool) {
@@ -1089,6 +1137,7 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
             ele.type = Obj;
             break;
         case '[':  // Arr
+            ele.value = get_arr(&start_str);
             ele.type = Arr;
             break;
         case 't':
@@ -1132,13 +1181,14 @@ static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
         if (length > capacity) {
             length = capacity;
         }
-
+        memcpy(ele->mem_addr, ele->value, length);
         if (length > 1) {
-            memcpy(ele->mem_addr, ele->value, length - 1);
             char* end = (char*)ele->mem_addr;
-            end[length - 1] = '\0';
-        } else {
-            memcpy(ele->mem_addr, ele->value, length);
+            if (length == capacity) {
+                end[length - 1] = '\0';
+            } else {
+                end[length] = '\0';
+            }
         }
     }
     return ret;

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-09 15:23:05
+ * @LastEditTime : 2023-01-09 16:29:27
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,6 +16,7 @@
 
 static const struct TestChangeToJson *ChangeToJson[] = {NonNonCharChangeToJson,
                                                         PtrNonCharChangeToJson,
+                                                        NonArrCharChangeToJson,
                                                         NULL};
 
 #endif

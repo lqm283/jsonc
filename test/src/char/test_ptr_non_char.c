@@ -8,16 +8,6 @@
  * --------------------------------------------------------------------------------<
  * @FilePath     : /jsonc/test/src/char/test_ptr_non_char.c
  */
-/*
- * @Author       : lqm283
- * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 12:41:02
- * @LastEditors  : lqm283
- * --------------------------------------------------------------------------------<
- * @Description  : Please edit a descrition about this file at here.
- * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/src/test_ptr_non_char.c
- */
 
 #include "../../include/char/test_ptr_non_char.h"
 
