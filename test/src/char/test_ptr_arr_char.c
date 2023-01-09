@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-09 22:37:19
+ * @LastEditTime : 2023-01-09 22:51:23
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -36,12 +36,15 @@ char* test_change_ptr_arr_single_char_str_to_json(char* exp, char* real) {
     return ret;
 }
 
-// 单成员的 Num 类型的 char 类型转换为 json
+// 单成员的 Num 指针数组类型的 char 类型转换为 json
 char* test_change_ptr_arr_single_char_num_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e = "{\"num\":[1,2,3,4,5]}";
+    char* e = "{\"num\":[10,20]}";
     struct TestPtrArrSingleCharNum num;
-    num.num[0] = malloc(100);
+    char num1 = 10;
+    num.num[0] = &num1;
+    num.num[1] = malloc(1);
+    *num.num[1] = 20;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleCharNum);
     if (ret) {
         strcpy(exp, e);
@@ -49,7 +52,7 @@ char* test_change_ptr_arr_single_char_num_to_json(char* exp, char* real) {
     return ret;
 }
 
-// 单成员的 Bool 类型的 char 类型转换为 json
+// 单成员的 Bool 指针数组类型的 char 类型转换为 json
 char* test_change_ptr_arr_single_char_bool_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"b\":[true,false,true,true,false]}";
@@ -61,7 +64,7 @@ char* test_change_ptr_arr_single_char_bool_to_json(char* exp, char* real) {
     return ret;
 }
 
-// char 多成员 Str 转换为 json
+// char 指针数组类型多成员 Str 转换为 json
 char* test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"str1\":\"I am str1\",\"str2\":\"I am str2\",\"str3\":\"c\"}";
@@ -73,7 +76,7 @@ char* test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
     return ret;
 }
 
-// char 多成员 Num 转换为 json
+// char 指针数组类型多成员 Num 转换为 json
 char* test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e =
@@ -87,7 +90,7 @@ char* test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
     return ret;
 }
 
-// char 多成员 Bool 转换为 json
+// char 指针数组类型多成员 Bool 转换为 json
 char* test_change_ptr_arr_mult_char_bool_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e =
