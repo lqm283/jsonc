@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-09 22:51:23
+ * @LastEditTime : 2023-01-09 22:53:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -55,8 +55,10 @@ char* test_change_ptr_arr_single_char_num_to_json(char* exp, char* real) {
 // 单成员的 Bool 指针数组类型的 char 类型转换为 json
 char* test_change_ptr_arr_single_char_bool_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e = "{\"b\":[true,false,true,true,false]}";
-    struct TestPtrArrSingleCharBool b;
+    char* e = "{\"b\":[true,false]}";
+    char bool1 = 1;
+    char bool2 = 0;
+    struct TestPtrArrSingleCharBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleCharBool);
     if (ret) {
         strcpy(exp, e);
