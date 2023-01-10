@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 08:49:19
+ * @LastEditTime : 2023-01-10 09:54:23
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -131,8 +131,8 @@ json 转换为复合类型
 int test_change_single_str_json_to_ptr_arr_single_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharStr str;
-    str.str[0] = malloc(100);
-    str.str[1] = malloc(100);
+    str.str[0] = malloc(100 * sizeof(char));
+    str.str[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrSingleCharStr);
     if (ret) {
         return ret;
@@ -152,6 +152,14 @@ int test_change_mult_str_json_to_ptr_arr_single_char_str(char* json) {
 int test_change_single_num_json_to_ptr_arr_single_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharStr str;
+    str.str[0] = malloc(sizeof(char) * 20);
+    str.str[1] = malloc(sizeof(char) * 20);
+
+    printf("addr str.str[0] = 0x%lx \n", (long)&str.str[0]);
+    printf("addr str.str[1] = 0x%lx \n", (long)&str.str[1]);
+    printf("str.str[0] = 0x%lx \n", (long)str.str[0]);
+    printf("str.str[1] = 0x%lx \n", (long)str.str[1]);
+
     ret = JsoncDeserialize(json, &str, TestPtrArrSingleCharStr);
     if (ret) {
         return ret;

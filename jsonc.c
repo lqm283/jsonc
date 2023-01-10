@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-10 08:46:47
+ * @LastEditTime : 2023-01-10 11:47:06
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -769,6 +769,8 @@ static int jsonc_check_array(char* start_array, char** end_array) {
             case 'n':
                 ret = jsonc_check_null(start_array, &start_array);
                 break;
+            case ']':
+                break;
             default:
                 ret = -JSON_ARRAY;
                 goto array_end;
@@ -1031,36 +1033,43 @@ static inline char* get_obj(char** src) {
     return obj;
 }
 
-static inline char* get_arr(char** src) {
+static inline char* get_arr(int* num, char** src) {
     int count = 0;
     char* str = *src;
-
     if (**src != '[') {
         return NULL;
     }
-
+    *num = 0;
     // 获取数组的结尾
     count++;
     while (count != 0 && *str++ != '\0') {
+        if (*str != ']' && !isspace(*str) && *num == 0) {
+            *num = 1;
+        }
         if (*str == '[') {
             count++;
         } else if (*str == ']') {
             count--;
         } else if (*str == '"') {
             skipstr(&str);
+        } else if (*str == ',') {
+            (*num)++;
         }
     }
     str++;
     if (count != 0) {
         return NULL;
     }
-    count = (long)str - (long)*src;
-    char* arr = JSONCALLOC(count + 1);
-
-    memcpy(arr, *src, count);
-
-    arr[count] = '\0';
-
+    char* arr;
+    if (!(*num)) {
+        arr = JSONCALLOC(3);
+        strcpy(arr, "[]");
+    } else {
+        count = (long)str - (long)*src;
+        arr = JSONCALLOC(count + 1);
+        memcpy(arr, *src, count);
+        arr[count] = '\0';
+    }
     *src = str;
 
     return arr;
@@ -1143,7 +1152,7 @@ static int jsonc_get_vaue_and_type(struct jsonc_ele* ele,
             ele->type = Obj;
             break;
         case '[':  // Arr
-            ele->value = get_arr(&start_str);
+            ele->value = get_arr(&ele->num, &start_str);
             ele->type = Arr;
             break;
         case 't':
@@ -1460,58 +1469,149 @@ static int jsonc_change_null_to_base(const struct jsonc_ele* ele) {
     return ret;
 }
 
-int jsonc_change_to_arr(struct jsonc_ele* ele) {
+static int jsonc_get_arr_type(jsonc_arr_mem* arr) {
+    int ret = 0;
+    char* str = arr->value;
+    str++;
+    skipspace(&str);
+    int type = -1;
+    jsonc_arr_mem mem;
+    mem.name = NULL;
+    mem.mem_addr = NULL;
+    mem.type = type;
+    arr->num = 0;
+
+    while (*str != ']') {
+        ret = jsonc_get_arr_ele(&mem, str, &str);
+        jsonc_destroy_ele(&mem);
+        if (ret) {
+            return ret;
+        }
+
+        if (type != -1 && type != (int)mem.type) {
+            type = MultArr;
+        } else {
+            type = mem.type;
+        }
+        skipspace(&str);
+        if (*str == ',') {
+            str++;
+        }
+        skipspace(&str);
+        if (ret != 0) {
+            return ret;
+        }
+        arr->num++;
+    }
+    arr->type = type;
+
+    return ret;
+}
+
+static int jsonc_change_str_arr(struct jsonc_ele* ele) {
     int ret = 0;
     char* value = ele->value;
-    jsonc_arr_mem mem;
+    jsonc_arr_mem mem = *ele;
+    mem.name = NULL;
+    mem.value = NULL;
+    int mem_num = mem.mem.mem_length / mem.mem.type_length;
 
-    int mem_num = ele->mem.mem_length / ele->mem.type_length;
     if (*value != '[') {
         ret = -JSON_ARRAY;
     }
     skipspace(&value);
     value++;
     while (*value != ']' && mem_num--) {
-        mem = *ele;
-        mem.name = NULL;
-        mem.value = NULL;
         ret = jsonc_get_arr_ele(&mem, value, &value);  // 获取一个数组元素
         if (ret) {
-            jsonc_destroy_ele(&mem);
             return ret;
         }
-
-        if (mem.c_type & cPtrBase) {
-            mem.mem_addr = (void*)(*(long*)mem.mem_addr);
-        }
-
-        switch (mem.type) {
-            case Arr:
-                ret = jsonc_change_to_arr(&mem);
-                break;
-            case Obj:
-                ret = jsonc_change_to_obj(mem.value, mem.mem_addr, mem.mem.type_info);
-                break;
-            default:
-                ret = jsonc_change_to_base(&mem);
-                break;
-        }
-        jsonc_destroy_ele(&mem);
-        ele->mem_addr += mem.mem.type_length;
-        skipspace(&value);
-        if (*value == ',') {
-            value++;
-        }
-        if (ret != 0) {
+        ret = jsonc_change_to_base(&mem);
+        if (ret) {
             return ret;
         }
     }
+    return ret;
+}
 
+static int jsonc_change_num_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+
+    return ret;
+}
+
+static int jsonc_change_bool_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+
+    return ret;
+}
+
+static int jsonc_change_obj_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+
+    return ret;
+}
+
+static int jsonc_change_arr_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+
+    return ret;
+}
+
+static int jsonc_change_multarr_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+
+    return ret;
+}
+
+static int jsonc_change_null_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+
+    return ret;
+}
+
+int jsonc_change_to_arr(struct jsonc_ele* ele) {
+    int ret = 0;
+    jsonc_arr_mem arr = *ele;
+    // 判断数组中的数据类型
+    ret = jsonc_get_arr_type(&arr);
+    if (ret) {
+        return ret;
+    }
+
+    // 根据不同的数据类型执行不同的操作处理
+    switch (arr.type) {
+        case Str:
+            ret = jsonc_change_str_arr(ele);
+            break;
+        case Num:
+            ret = jsonc_change_num_arr(ele);
+            break;
+        case Bool:
+            ret = jsonc_change_bool_arr(ele);
+            break;
+        case Obj:
+            ret = jsonc_change_obj_arr(ele);
+            break;
+        case Arr:
+            ret = jsonc_change_arr_arr(ele);
+            break;
+        case MultArr:
+            ret = jsonc_change_multarr_arr(ele);
+            break;
+        case Null:
+            ret = jsonc_change_null_arr(ele);
+            break;
+    }
     return ret;
 }
 
 int jsonc_change_to_base(struct jsonc_ele* ele) {
     int ret = 0;
+
+    if (ele->c_type & cPtrBase) {
+        ele->mem_addr = (void*)(*(long*)ele->mem_addr);
+    }
 
     switch (ele->type) {
         case Str:
@@ -1547,10 +1647,6 @@ static int jsonc_change_ele_to_mem(void* st,
     ele->mem = *mem;
     ele->mem_addr = st + mem->mem_offset;
     ele->c_type = jsonc_get_ctype(mem);
-
-    if (ele->c_type & cPtrBase && !(ele->c_type & cBaseArr)) {
-        ele->mem_addr = (void*)(*(long*)ele->mem_addr);
-    }
 
     if (ele->type == Obj && ele->c_type & cStruct) {
         ret = jsonc_change_to_struct(ele->value, ele->mem_addr, ele->mem.type_info);

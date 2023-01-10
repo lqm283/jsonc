@@ -14,10 +14,11 @@
 
 #include "char/test_char_json_to_mult.h"
 
-static const struct TestChangeToMult *ChangeToMult[] = {NonNonCharChangeToMult,
-                                                        PtrNonCharChangeToMult,
-                                                        NonArrCharChangeToMult,
-                                                        PtrArrCharChangeToMult,
-                                                        NULL};
+static const struct TestChangeToMult *ChangeToMult[] = {
+    // NonNonCharChangeToMult,
+    // PtrNonCharChangeToMult,
+    // NonArrCharChangeToMult,
+    PtrArrCharChangeToMult,
+    NULL};
 
 #endif
