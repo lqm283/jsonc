@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 15:30:23
+ * @LastEditTime : 2023-01-10 15:31:06
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -219,21 +219,23 @@ int test_change_mult_null_json_to_ptr_arr_single_char_str(char* json) {
     return test_change_single_null_json_to_ptr_arr_single_char_str(json);
 }
 
-// 单元素 Str 类型的 json 转换为保存 Num 类型的单成员 char
+// 单元素 Str 类型的 json 转换为保存 Num 类型的指针数组单成员 char
 int test_change_single_str_json_to_ptr_arr_single_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharNum num;
+    num.num[0] = malloc(sizeof(char));
+    num.num[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrSingleCharNum);
     if (ret) {
         return ret;
     }
-    if (*num.num[0] != 10) {
+    if (*num.num[0] != 10 || *num.num[1] != 127) {
         return -1;
     }
     return ret;
 }
 
-// 多元素 Str 类型的 json 转换为保存 Num 类型的单成员 char
+// 多元素 Str 类型的 json 转换为保存 Num 类型的指针数组单成员 char
 int test_change_mult_str_json_to_ptr_arr_single_char_num(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_num(json);
 }
