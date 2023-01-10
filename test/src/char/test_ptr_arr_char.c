@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 15:53:42
+ * @LastEditTime : 2023-01-10 16:37:24
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -286,7 +286,7 @@ int test_change_mult_null_json_to_ptr_arr_single_char_num(char* json) {
     return test_change_single_null_json_to_ptr_arr_single_char_num(json);
 }
 
-// 单元素 Str 类型的 json 转换为保存 Bool 类型的单成员 char
+// 单元素 Str 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_single_str_json_to_ptr_arr_single_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharBool b;
@@ -302,32 +302,32 @@ int test_change_single_str_json_to_ptr_arr_single_char_bool(char* json) {
     return ret;
 }
 
-// 多元素 Str 类型的 json 转换为保存 Bool 类型的单成员 char
+// 多元素 Str 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_mult_str_json_to_ptr_arr_single_char_bool(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_bool(json);
 }
 
-// 单元素 Num 类型的 json 转换为保存 Bool 类型的单成员 char
+// 单元素 Num 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_single_num_json_to_ptr_arr_single_char_bool(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_bool(json);
 }
 
-// 多元素 Num 类型的 json 转换为保存 Bool 类型的单成员 char
+// 多元素 Num 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_mult_num_json_to_ptr_arr_single_char_bool(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_bool(json);
 }
 
-// 单元素 Bool 类型的 json 转换为保存 Bool 类型的单成员 char
+// 单元素 Bool 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_single_bool_json_to_ptr_arr_single_char_bool(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_bool(json);
 }
 
-// 多元素 Bool 类型的 json 转换为保存 Bool 类型的单成员 char
+// 多元素 Bool 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_mult_bool_json_to_ptr_arr_single_char_bool(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_bool(json);
 }
 
-// 单元素 Null 类型的 json 转换为保存 Bool 类型的单成员 char
+// 单元素 Null 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_single_null_json_to_ptr_arr_single_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharBool b;
@@ -343,151 +343,173 @@ int test_change_single_null_json_to_ptr_arr_single_char_bool(char* json) {
     return ret;
 }
 
-// 多元素 Null 类型的 json 转换为保存 Bool 类型的单成员 char
+// 多元素 Null 类型的 json 转换为保存 Bool 类型的指针数组单成员 char
 int test_change_mult_null_json_to_ptr_arr_single_char_bool(char* json) {
     return test_change_single_null_json_to_ptr_arr_single_char_bool(json);
 }
 
-// 完全匹配的多元素 Str 类型的 json 转换为保存 Str 类型的多成员 char
+// 完全匹配的多元素 Str 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_equal_mult_str_json_to_ptr_arr_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharStr str;
+    str.str1[0] = malloc(100 * sizeof(char));
+    str.str1[1] = malloc(100 * sizeof(char));
+    str.str2[0] = malloc(100 * sizeof(char));
+    str.str2[1] = malloc(100 * sizeof(char));
+    str.str3[0] = malloc(100 * sizeof(char));
+    str.str3[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
     if (ret) {
         return ret;
     }
-    if (strcmp(str.str1[0], "true") || strcmp(str.str2[0], "false") ||
-        strcmp(str.str3[0], "true")) {
+    if (strcmp(str.str1[0], "true") || strcmp(str.str1[1], "false") ||
+        strcmp(str.str2[0], "false") || strcmp(str.str2[1], "true") ||
+        strcmp(str.str3[0], "true") || strcmp(str.str3[1], "false")) {
         return 1;
     }
     return ret;
 }
 
-// 元素多于成员的多元素 Str 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素多于成员的多元素 Str 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_more_mult_str_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_equal_mult_str_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 元素少于成员的多元素 Str 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素少于成员的多元素 Str 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_less_mult_str_json_to_ptr_arr_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharStr str;
+    str.str1[0] = malloc(100 * sizeof(char));
+    str.str1[1] = malloc(100 * sizeof(char));
+    str.str2[0] = malloc(100 * sizeof(char));
+    str.str2[1] = malloc(100 * sizeof(char));
+    str.str3[0] = malloc(100 * sizeof(char));
+    str.str3[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
     if (ret) {
         return ret;
     }
-    if (strcmp(str.str1[0], "true") || strcmp(str.str2[0], "false")) {
+    if (strcmp(str.str1[0], "true") || strcmp(str.str1[1], "false") ||
+        strcmp(str.str2[0], "false") || strcmp(str.str2[1], "true")) {
         return 1;
     }
     return ret;
 }
 
-// 不完全匹配的多元素 Str 类型的 json 转换为保存 Str 类型的多成员 char
+// 不完全匹配的多元素 Str 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_diff_mult_str_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_less_mult_str_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 完全匹配的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
+// 完全匹配的多元素 Num 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_equal_mult_num_json_to_ptr_arr_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharStr str;
+    str.str1[0] = malloc(100 * sizeof(char));
+    str.str1[1] = malloc(100 * sizeof(char));
+    str.str2[0] = malloc(100 * sizeof(char));
+    str.str2[1] = malloc(100 * sizeof(char));
+    str.str3[0] = malloc(100 * sizeof(char));
+    str.str3[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
     if (ret) {
         return ret;
     }
-    if (strcmp(str.str1[0], "0") || strcmp(str.str2[0], "1234567") ||
-        strcmp(str.str3[0], "147258369")) {
+    if (strcmp(str.str1[0], "12345") || strcmp(str.str1[1], "54321") ||
+        strcmp(str.str2[0], "23456") || strcmp(str.str2[1], "65432") ||
+        strcmp(str.str3[0], "34567") || strcmp(str.str3[1], "76543")) {
         return 1;
     }
     return ret;
 }
 
-// 元素多于成员的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素多于成员的多元素 Num 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_more_mult_num_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_equal_mult_num_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 元素少于成员的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素少于成员的多元素 Num 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_less_mult_num_json_to_ptr_arr_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharStr str;
+    str.str1[0] = malloc(100 * sizeof(char));
+    str.str1[1] = malloc(100 * sizeof(char));
+    str.str2[0] = malloc(100 * sizeof(char));
+    str.str2[1] = malloc(100 * sizeof(char));
+    str.str3[0] = malloc(100 * sizeof(char));
+    str.str3[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
     if (ret) {
         return ret;
     }
-    if (strcmp(str.str1[0], "0") || strcmp(str.str2[0], "1234567")) {
+    if (strcmp(str.str1[0], "12345") || strcmp(str.str1[1], "54321") ||
+        strcmp(str.str2[0], "23456") || strcmp(str.str2[1], "65432")) {
         return 1;
     }
     return ret;
 }
 
-// 不完全匹配的多元素 Num 类型的 json 转换为保存 Str 类型的多成员 char
+// 不完全匹配的多元素 Num 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_diff_mult_num_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_less_mult_num_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
+// 完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_equal_mult_bool_json_to_ptr_arr_mult_char_str(char* json) {
-    int ret = 0;
-    struct TestPtrArrMultCharStr str;
-    ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
-    if (ret) {
-        return ret;
-    }
-    if (strcmp(str.str1[0], "true") || strcmp(str.str2[0], "false") ||
-        strcmp(str.str3[0], "true")) {
-        return 1;
-    }
-    return ret;
+    return test_change_equal_mult_str_json_to_ptr_arr_mult_char_str(json);
 }
 
-//  元素多于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
+//  元素多于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_more_mult_bool_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_equal_mult_bool_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 元素少于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素少于成员的多元素 Bool 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_less_mult_bool_json_to_ptr_arr_mult_char_str(char* json) {
-    int ret = 0;
-    struct TestPtrArrMultCharStr str;
-    ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
-    if (ret) {
-        return ret;
-    }
-    if (strcmp(str.str1[0], "true") || strcmp(str.str2[0], "false")) {
-        return 1;
-    }
-    return ret;
+    return test_change_less_mult_str_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 不完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的多成员 char
+// 不完全匹配的多元素 Bool 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_diff_mult_bool_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_less_mult_bool_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
+// 完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_equal_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharStr str;
+    str.str1[0] = malloc(100 * sizeof(char));
+    str.str1[1] = malloc(100 * sizeof(char));
+    str.str2[0] = malloc(100 * sizeof(char));
+    str.str2[1] = malloc(100 * sizeof(char));
+    str.str3[0] = malloc(100 * sizeof(char));
+    str.str3[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
     if (ret) {
         return ret;
     }
-    if (*str.str1[0] != '\0' || *str.str2[0] != '\0' || *str.str3[0] != '\0') {
+    if (*str.str1[0] != 0 || *str.str1[1] != 0 || *str.str2[0] != 0 ||
+        *str.str2[1] != 0 || *str.str3[0] != 0 || *str.str3[1] != 0) {
         return 1;
     }
     return ret;
 }
 
-// 元素多于成员的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素多于成员的多元素 Null 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_more_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_equal_mult_null_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 元素少于成员的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
+// 元素少于成员的多元素 Null 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_less_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharStr str;
+    str.str1[0] = malloc(100 * sizeof(char));
+    str.str1[1] = malloc(100 * sizeof(char));
+    str.str2[0] = malloc(100 * sizeof(char));
+    str.str2[1] = malloc(100 * sizeof(char));
+    str.str3[0] = malloc(100 * sizeof(char));
+    str.str3[1] = malloc(100 * sizeof(char));
     ret = JsoncDeserialize(json, &str, TestPtrArrMultCharStr);
     if (ret) {
         return ret;
@@ -498,7 +520,7 @@ int test_change_less_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
     return ret;
 }
 
-// 不完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
+// 不完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的指针数组多成员 char
 int test_change_diff_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_less_mult_null_json_to_ptr_arr_mult_char_str(json);
 }
@@ -507,6 +529,12 @@ int test_change_diff_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
 int test_change_equal_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
+    num.num1[0] = malloc(sizeof(char));
+    num.num1[1] = malloc(sizeof(char));
+    num.num2[0] = malloc(sizeof(char));
+    num.num2[1] = malloc(sizeof(char));
+    num.num3[0] = malloc(sizeof(char));
+    num.num3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrMultCharNum);
     if (ret) {
         return ret;
@@ -526,6 +554,12 @@ int test_change_more_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
 int test_change_less_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
+    num.num1[0] = malloc(sizeof(char));
+    num.num1[1] = malloc(sizeof(char));
+    num.num2[0] = malloc(sizeof(char));
+    num.num2[1] = malloc(sizeof(char));
+    num.num3[0] = malloc(sizeof(char));
+    num.num3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrMultCharNum);
     if (ret) {
         return ret;
@@ -565,6 +599,12 @@ int test_change_diff_mult_num_json_to_ptr_arr_mult_char_num(char* json) {
 int test_change_equal_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
+    num.num1[0] = malloc(sizeof(char));
+    num.num1[1] = malloc(sizeof(char));
+    num.num2[0] = malloc(sizeof(char));
+    num.num2[1] = malloc(sizeof(char));
+    num.num3[0] = malloc(sizeof(char));
+    num.num3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrMultCharNum);
     if (ret) {
         return ret;
@@ -584,6 +624,12 @@ int test_change_more_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
 int test_change_less_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
+    num.num1[0] = malloc(sizeof(char));
+    num.num1[1] = malloc(sizeof(char));
+    num.num2[0] = malloc(sizeof(char));
+    num.num2[1] = malloc(sizeof(char));
+    num.num3[0] = malloc(sizeof(char));
+    num.num3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrMultCharNum);
     if (ret) {
         return ret;
@@ -603,6 +649,12 @@ int test_change_diff_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
 int test_change_equal_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
+    num.num1[0] = malloc(sizeof(char));
+    num.num1[1] = malloc(sizeof(char));
+    num.num2[0] = malloc(sizeof(char));
+    num.num2[1] = malloc(sizeof(char));
+    num.num3[0] = malloc(sizeof(char));
+    num.num3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrMultCharNum);
     if (ret) {
         return ret;
@@ -622,6 +674,12 @@ int test_change_more_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
 int test_change_less_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
+    num.num1[0] = malloc(sizeof(char));
+    num.num1[1] = malloc(sizeof(char));
+    num.num2[0] = malloc(sizeof(char));
+    num.num2[1] = malloc(sizeof(char));
+    num.num3[0] = malloc(sizeof(char));
+    num.num3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &num, TestPtrArrMultCharNum);
     if (ret) {
         return ret;
@@ -637,10 +695,16 @@ int test_change_diff_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_less_mult_null_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+// 完全匹配的多元素 Str 类型的 json 转换为保存 Bool 类型的多成员 char
 int test_change_equal_mult_str_json_to_ptr_arr_mult_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharBool bool;
+    bool.bool1[0] = malloc(sizeof(char));
+    bool.bool1[1] = malloc(sizeof(char));
+    bool.bool2[0] = malloc(sizeof(char));
+    bool.bool2[1] = malloc(sizeof(char));
+    bool.bool3[0] = malloc(sizeof(char));
+    bool.bool3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
     if (ret) {
         return ret;
@@ -660,6 +724,12 @@ int test_change_more_mult_str_json_to_ptr_arr_mult_char_bool(char* json) {
 int test_change_less_mult_str_json_to_ptr_arr_mult_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharBool bool;
+    bool.bool1[0] = malloc(sizeof(char));
+    bool.bool1[1] = malloc(sizeof(char));
+    bool.bool2[0] = malloc(sizeof(char));
+    bool.bool2[1] = malloc(sizeof(char));
+    bool.bool3[0] = malloc(sizeof(char));
+    bool.bool3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
     if (ret) {
         return ret;
@@ -699,6 +769,12 @@ int test_change_diff_mult_num_json_to_ptr_arr_mult_char_bool(char* json) {
 int test_change_equal_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharBool bool;
+    bool.bool1[0] = malloc(sizeof(char));
+    bool.bool1[1] = malloc(sizeof(char));
+    bool.bool2[0] = malloc(sizeof(char));
+    bool.bool2[1] = malloc(sizeof(char));
+    bool.bool3[0] = malloc(sizeof(char));
+    bool.bool3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
     if (ret) {
         return ret;
@@ -718,6 +794,12 @@ int test_change_more_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
 int test_change_less_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharBool bool;
+    bool.bool1[0] = malloc(sizeof(char));
+    bool.bool1[1] = malloc(sizeof(char));
+    bool.bool2[0] = malloc(sizeof(char));
+    bool.bool2[1] = malloc(sizeof(char));
+    bool.bool3[0] = malloc(sizeof(char));
+    bool.bool3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
     if (ret) {
         return ret;
@@ -737,6 +819,12 @@ int test_change_diff_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
 int test_change_equal_mult_null_json_to_ptr_arr_mult_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharBool bool;
+    bool.bool1[0] = malloc(sizeof(char));
+    bool.bool1[1] = malloc(sizeof(char));
+    bool.bool2[0] = malloc(sizeof(char));
+    bool.bool2[1] = malloc(sizeof(char));
+    bool.bool3[0] = malloc(sizeof(char));
+    bool.bool3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
     if (ret) {
         return ret;
@@ -756,6 +844,12 @@ int test_change_more_mult_null_json_to_ptr_arr_mult_char_bool(char* json) {
 int test_change_less_mult_null_json_to_ptr_arr_mult_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharBool bool;
+    bool.bool1[0] = malloc(sizeof(char));
+    bool.bool1[1] = malloc(sizeof(char));
+    bool.bool2[0] = malloc(sizeof(char));
+    bool.bool2[1] = malloc(sizeof(char));
+    bool.bool3[0] = malloc(sizeof(char));
+    bool.bool3[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
     if (ret) {
         return ret;

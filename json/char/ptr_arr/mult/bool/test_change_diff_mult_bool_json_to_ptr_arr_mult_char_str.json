@@ -1,5 +1,14 @@
 {
-    "str1": true,
-    "str2": false,
-    "sdb": true
+    "str1": [
+        true,
+        false
+    ],
+    "str2": [
+        false,
+        true
+    ],
+    "usb": [
+        true,
+        false
+    ]
 }
