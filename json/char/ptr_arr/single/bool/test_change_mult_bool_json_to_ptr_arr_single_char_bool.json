@@ -1,5 +1,8 @@
 {
     "a": false,
-    "b": true,
+    "b": [
+        true,
+        false
+    ],
     "d": false
 }

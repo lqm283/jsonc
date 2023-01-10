@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 15:51:04
+ * @LastEditTime : 2023-01-10 15:53:42
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -290,11 +290,13 @@ int test_change_mult_null_json_to_ptr_arr_single_char_num(char* json) {
 int test_change_single_str_json_to_ptr_arr_single_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharBool b;
+    b.b[0] = malloc(sizeof(char));
+    b.b[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &b, TestPtrArrSingleCharBool);
     if (ret) {
         return ret;
     }
-    if (*b.b[0] != 1) {
+    if (*b.b[0] != 1 || *b.b[1] != 0) {
         return -1;
     }
     return ret;
@@ -329,11 +331,13 @@ int test_change_mult_bool_json_to_ptr_arr_single_char_bool(char* json) {
 int test_change_single_null_json_to_ptr_arr_single_char_bool(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharBool b;
+    b.b[0] = malloc(sizeof(char));
+    b.b[1] = malloc(sizeof(char));
     ret = JsoncDeserialize(json, &b, TestPtrArrSingleCharBool);
     if (ret) {
         return ret;
     }
-    if (*b.b != 0) {
+    if (*b.b[0] != 0 || *b.b[1] != 0) {
         return -1;
     }
     return ret;

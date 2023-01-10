@@ -1,5 +1,8 @@
 {
     "a": "true",
-    "b": "aaaa",
+    "b": [
+        "aaaa",
+        "false"
+    ],
     "v": "adsf"
 }
