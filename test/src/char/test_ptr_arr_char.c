@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 15:19:28
+ * @LastEditTime : 2023-01-10 15:21:46
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -193,7 +193,7 @@ int test_change_single_bool_json_to_ptr_arr_single_char_str(char* json) {
     return ret;
 }
 
-// 多元素 Bool 类型的 json 转换为保存 Str 类型的单成员 char
+// 多元素 Bool 类型的 json 转换为保存 Str 类型的指针数组单成员 char
 int test_change_mult_bool_json_to_ptr_arr_single_char_str(char* json) {
     return test_change_single_bool_json_to_ptr_arr_single_char_str(json);
 }
