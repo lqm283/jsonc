@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 16:37:24
+ * @LastEditTime : 2023-01-10 16:53:53
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -525,7 +525,7 @@ int test_change_diff_mult_null_json_to_ptr_arr_mult_char_str(char* json) {
     return test_change_less_mult_null_json_to_ptr_arr_mult_char_str(json);
 }
 
-// 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+// 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_equal_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
@@ -539,18 +539,19 @@ int test_change_equal_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     if (ret) {
         return ret;
     }
-    if (*num.num1[0] != -128 || *num.num2[0] != -1 || *num.num3[0] != 0) {
+    if (*num.num1[0] != -128 || *num.num1[1] != 1 || *num.num2[0] != 0 ||
+        *num.num2[1] != 0 || *num.num3[0] != -1 || *num.num3[1] != 127) {
         return 1;
     }
     return ret;
 }
 
-// 元素多于成员的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素多于成员的多元素 Str 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_more_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_equal_mult_str_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 元素少于成员的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素少于成员的多元素 Str 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_less_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
@@ -564,38 +565,39 @@ int test_change_less_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     if (ret) {
         return ret;
     }
-    if (*num.num2[0] != -1 || *num.num3[0] != 1) {
+    if (*num.num1[0] != -128 || *num.num1[1] != 1 || *num.num3[0] != -1 ||
+        *num.num3[1] != 127) {
         return 1;
     }
     return ret;
 }
 
-// 不完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
+// 不完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_diff_mult_str_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_less_mult_str_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 完全匹配的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
+// 完全匹配的多元素 Num 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_equal_mult_num_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_equal_mult_str_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 元素多于成员的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素多于成员的多元素 Num 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_more_mult_num_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_equal_mult_str_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 元素少于成员的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素少于成员的多元素 Num 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_less_mult_num_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_less_mult_str_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 不完全匹配的多元素 Num 类型的 json 转换为保存 Num 类型的多成员 char
+// 不完全匹配的多元素 Num 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_diff_mult_num_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_less_mult_str_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
+// 完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_equal_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
@@ -609,18 +611,19 @@ int test_change_equal_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     if (ret) {
         return ret;
     }
-    if (*num.num1[0] != 1 || *num.num2[0] != 1 || *num.num3[0] != 0) {
+    if (*num.num1[0] != 1 || *num.num1[1] != 0 || *num.num2[0] != 0 ||
+        *num.num2[1] != 1 || *num.num3[0] != 1 || *num.num3[1] != 0) {
         return 1;
     }
     return ret;
 }
 
-// 元素多于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素多于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_more_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_equal_mult_bool_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 元素少于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素少于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_less_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
@@ -634,18 +637,19 @@ int test_change_less_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     if (ret) {
         return ret;
     }
-    if (*num.num1[0] != 1 || *num.num3[0] != 0) {
+    if (*num.num1[0] != 1 || *num.num1[1] != 0 || *num.num3[0] != 1 ||
+        *num.num3[1] != 0) {
         return 1;
     }
     return ret;
 }
 
-// 不完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
+// 不完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_diff_mult_bool_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_less_mult_bool_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+// 完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_equal_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
@@ -659,18 +663,19 @@ int test_change_equal_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     if (ret) {
         return ret;
     }
-    if (*num.num1[0] != 0 || *num.num2[0] != 0 || *num.num3[0] != 0) {
+    if (*num.num1[0] != 0 || *num.num1[1] != 0 || *num.num2[0] != 0 ||
+        *num.num2[1] != 0 || *num.num3[0] != 0 || *num.num3[1] != 0) {
         return 1;
     }
     return ret;
 }
 
-// 元素多于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素多于成员的多元素 Null 类型的 json 转换为保存 Num 类型指针数组的多成员 char
 int test_change_more_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_equal_mult_null_json_to_ptr_arr_mult_char_num(json);
 }
 
-// 元素少于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+// 元素少于成员的多元素 Null 类型的 json 转换为保存 Num 类型指针数组的多成员 char
 int test_change_less_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     int ret = 0;
     struct TestPtrArrMultCharNum num;
@@ -684,13 +689,14 @@ int test_change_less_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     if (ret) {
         return ret;
     }
-    if (*num.num1[0] != 0 || *num.num3[0] != 0) {
+    if (*num.num1[0] != 0 || *num.num1[1] != 0 || *num.num3[0] != 0 ||
+        *num.num3[1] != 0) {
         return 1;
     }
     return ret;
 }
 
-// 不完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
+// 不完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的指针数组多成员 char
 int test_change_diff_mult_null_json_to_ptr_arr_mult_char_num(char* json) {
     return test_change_less_mult_null_json_to_ptr_arr_mult_char_num(json);
 }
