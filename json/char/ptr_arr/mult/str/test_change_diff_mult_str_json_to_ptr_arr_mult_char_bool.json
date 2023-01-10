@@ -1,7 +1,14 @@
 {
-    "fe": "true",
-    "bool2": "false",
-    "agea": "false",
-    "bool4": "true",
-    "aefe": "false"
+    "bool1": [
+        "true",
+        "false"
+    ],
+    "542": [
+        "false",
+        "true"
+    ],
+    "bool3": [
+        "true",
+        "false"
+    ]
 }

@@ -1,7 +1,14 @@
 {
-    "bool1": null,
-    "fef": null,
-    "bool3": null,
-    "ege": null,
-    "bool5": null
+    "bool1": [
+        null,
+        null
+    ],
+    "garr": [
+        null,
+        null
+    ],
+    "bool3": [
+        null,
+        null
+    ]
 }

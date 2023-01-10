@@ -1,5 +1,10 @@
 {
-    "bool1": true,
-    "bool3": false,
-    "bool5": true
+    "bool1": [
+        true,
+        false
+    ],
+    "bool3": [
+        true,
+        false
+    ]
 }

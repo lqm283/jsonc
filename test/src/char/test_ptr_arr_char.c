@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 16:53:53
+ * @LastEditTime : 2023-01-10 16:59:37
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -715,7 +715,8 @@ int test_change_equal_mult_str_json_to_ptr_arr_mult_char_bool(char* json) {
     if (ret) {
         return ret;
     }
-    if (*bool.bool1[0] != 0 || *bool.bool2[0] != 1 || *bool.bool3[0] != 0) {
+    if (*bool.bool1[0] != 1 || *bool.bool1[1] != 0 || *bool.bool2[0] != 0 ||
+        *bool.bool2[1] != 1 || *bool.bool3[0] != 1 || *bool.bool3[1] != 0) {
         return 1;
     }
     return ret;
@@ -740,7 +741,8 @@ int test_change_less_mult_str_json_to_ptr_arr_mult_char_bool(char* json) {
     if (ret) {
         return ret;
     }
-    if (*bool.bool2 != 0 || *bool.bool3[0] != 1) {
+    if (*bool.bool1[0] != 1 || *bool.bool1[1] != 0 || *bool.bool3[0] != 1 ||
+        *bool.bool3[1] != 0) {
         return 1;
     }
     return ret;
@@ -773,22 +775,7 @@ int test_change_diff_mult_num_json_to_ptr_arr_mult_char_bool(char* json) {
 
 // 完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
-    int ret = 0;
-    struct TestPtrArrMultCharBool bool;
-    bool.bool1[0] = malloc(sizeof(char));
-    bool.bool1[1] = malloc(sizeof(char));
-    bool.bool2[0] = malloc(sizeof(char));
-    bool.bool2[1] = malloc(sizeof(char));
-    bool.bool3[0] = malloc(sizeof(char));
-    bool.bool3[1] = malloc(sizeof(char));
-    ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
-    if (ret) {
-        return ret;
-    }
-    if (*bool.bool1[0] != 1 || *bool.bool2[0] != 1 || *bool.bool3[0] != 0) {
-        return 1;
-    }
-    return ret;
+    return test_change_equal_mult_str_json_to_ptr_arr_mult_char_bool(json);
 }
 
 // 元素多于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
@@ -798,22 +785,7 @@ int test_change_more_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
 
 // 元素少于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_bool_json_to_ptr_arr_mult_char_bool(char* json) {
-    int ret = 0;
-    struct TestPtrArrMultCharBool bool;
-    bool.bool1[0] = malloc(sizeof(char));
-    bool.bool1[1] = malloc(sizeof(char));
-    bool.bool2[0] = malloc(sizeof(char));
-    bool.bool2[1] = malloc(sizeof(char));
-    bool.bool3[0] = malloc(sizeof(char));
-    bool.bool3[1] = malloc(sizeof(char));
-    ret = JsoncDeserialize(json, &bool, TestPtrArrMultCharBool);
-    if (ret) {
-        return ret;
-    }
-    if (*bool.bool1[0] != 1 || *bool.bool3[0] != 0) {
-        return 1;
-    }
-    return ret;
+    return test_change_less_mult_str_json_to_ptr_arr_mult_char_bool(json);
 }
 
 // 不完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
@@ -835,7 +807,8 @@ int test_change_equal_mult_null_json_to_ptr_arr_mult_char_bool(char* json) {
     if (ret) {
         return ret;
     }
-    if (*bool.bool1[0] != 0 || *bool.bool2[0] != 0 || *bool.bool3[0] != 0) {
+    if (*bool.bool1[0] != 0 || *bool.bool1[1] != 0 || *bool.bool2[0] != 0 ||
+        *bool.bool2[1] != 0 || *bool.bool3[0] != 0 || *bool.bool3[1] != 0) {
         return 1;
     }
     return ret;
@@ -860,7 +833,8 @@ int test_change_less_mult_null_json_to_ptr_arr_mult_char_bool(char* json) {
     if (ret) {
         return ret;
     }
-    if (*bool.bool1[0] != 0 || *bool.bool3[0] != 0) {
+    if (*bool.bool1[0] != 0 || *bool.bool1[1] != 0 || *bool.bool3[0] != 0 ||
+        *bool.bool3[1] != 0) {
         return 1;
     }
     return ret;
