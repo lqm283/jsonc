@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 14:01:35
- * @LastEditTime : 2023-01-10 09:12:02
+ * @LastEditTime : 2023-01-10 14:38:30
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -243,8 +243,8 @@ static const struct TestChangeToMult NonArrCharChangeToMult[] = {
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrArrCharChangeToMult[] = {
-    // FUNC(test_change_single_str_json_to_ptr_arr_single_char_str),
-    // FUNC(test_change_mult_str_json_to_ptr_arr_single_char_str),
+    FUNC(test_change_single_str_json_to_ptr_arr_single_char_str),
+    FUNC(test_change_mult_str_json_to_ptr_arr_single_char_str),
     FUNC(test_change_single_num_json_to_ptr_arr_single_char_str),
     // FUNC(test_change_mult_num_json_to_ptr_arr_single_char_str),
     // FUNC(test_change_single_bool_json_to_ptr_arr_single_char_str),

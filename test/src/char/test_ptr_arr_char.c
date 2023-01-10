@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 09:54:23
+ * @LastEditTime : 2023-01-10 15:12:37
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -148,7 +148,7 @@ int test_change_mult_str_json_to_ptr_arr_single_char_str(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_str(json);
 }
 
-// 单元素 Num 类型的 json 转换为保存 Str 类型的单成员 char
+// 单元素 Num 类型的 json 转换为保存 Str 类型的指针数组单成员 char
 int test_change_single_num_json_to_ptr_arr_single_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharStr str;
@@ -165,7 +165,7 @@ int test_change_single_num_json_to_ptr_arr_single_char_str(char* json) {
         return ret;
     }
 
-    if (strcmp(str.str[0], "116")) {
+    if (strcmp(str.str[0], "12359518") || strcmp(str.str[1], "12365871")) {
         return 1;
     }
     return ret;
