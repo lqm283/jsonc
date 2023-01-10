@@ -1,3 +1,6 @@
 {
-    "str": true
+    "str": [
+        true,
+        false
+    ]
 }
