@@ -1,5 +1,8 @@
 {
     "a": null,
     "b": null,
-    "num": null
+    "num": [
+        null,
+        null
+    ]
 }
