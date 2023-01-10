@@ -1,15 +1,15 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-09 13:51:08
+ * @LastEditTime : 2023-01-10 21:02:23
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/src/char/test_non_non_char.c
+ * @FilePath     : /jsonc/test/src/uint8/test_non_non_uint8.c
  */
 
-#include "../../include/char/test_non_non_char.h"
+#include "../../include/uint8/test_non_non_uint8.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -23,9 +23,9 @@
 char* test_change_non_non_single_uint8_str_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"str\":\"a\"}";
-    struct TestNonNonSingleCharStr str;
+    struct TestNonNonSingleUint8Str str;
     str.str = 'a';
-    ret = JsoncSerialize(real, &str, TestNonNonSingleCharStr);
+    ret = JsoncSerialize(real, &str, TestNonNonSingleUint8Str);
     if (ret) {
         strcpy(exp, e);
     }
@@ -36,9 +36,9 @@ char* test_change_non_non_single_uint8_str_to_json(char* exp, char* real) {
 char* test_change_non_non_single_uint8_num_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"num\":10}";
-    struct TestNonNonSingleCharNum num;
+    struct TestNonNonSingleUint8Num num;
     num.num = 10;
-    ret = JsoncSerialize(real, &num, TestNonNonSingleCharNum);
+    ret = JsoncSerialize(real, &num, TestNonNonSingleUint8Num);
     if (ret) {
         strcpy(exp, e);
     }
@@ -49,9 +49,9 @@ char* test_change_non_non_single_uint8_num_to_json(char* exp, char* real) {
 char* test_change_non_non_single_uint8_bool_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"b\":true}";
-    struct TestNonNonSingleCharBool b;
+    struct TestNonNonSingleUint8Bool b;
     b.b = 1;
-    ret = JsoncSerialize(real, &b, TestNonNonSingleCharBool);
+    ret = JsoncSerialize(real, &b, TestNonNonSingleUint8Bool);
     if (ret) {
         strcpy(exp, e);
     }
@@ -62,11 +62,11 @@ char* test_change_non_non_single_uint8_bool_to_json(char* exp, char* real) {
 char* test_change_non_non_mult_uint8_str_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e = "{\"str1\":\"a\",\"str2\":\"b\",\"str3\":\"c\"}";
-    struct TestNonNonMultCharStr str;
+    struct TestNonNonMultUint8Str str;
     str.str1 = 'a';
     str.str2 = 'b';
     str.str3 = 'c';
-    ret = JsoncSerialize(real, &str, TestNonNonMultCharStr);
+    ret = JsoncSerialize(real, &str, TestNonNonMultUint8Str);
     if (ret) {
         strcpy(exp, e);
     }
@@ -76,14 +76,14 @@ char* test_change_non_non_mult_uint8_str_to_json(char* exp, char* real) {
 // char 多成员 Num 转换为 json
 char* test_change_non_non_mult_uint8_num_to_json(char* exp, char* real) {
     char* ret = 0;
-    char* e = "{\"num1\":-128,\"num2\":-1,\"num3\":0,\"num4\":1,\"num5\":127}";
-    struct TestNonNonMultCharNum num;
+    char* e = "{\"num1\":128,\"num2\":255,\"num3\":0,\"num4\":1,\"num5\":127}";
+    struct TestNonNonMultUint8Num num;
     num.num1 = -128;
     num.num2 = -1;
     num.num3 = 0;
     num.num4 = 1;
     num.num5 = 127;
-    ret = JsoncSerialize(real, &num, TestNonNonMultCharNum);
+    ret = JsoncSerialize(real, &num, TestNonNonMultUint8Num);
     if (ret) {
         strcpy(exp, e);
     }
@@ -95,13 +95,13 @@ char* test_change_non_non_mult_uint8_bool_to_json(char* exp, char* real) {
     char* ret = 0;
     char* e =
         "{\"bool1\":true,\"bool2\":true,\"bool3\":false,\"bool4\":true,\"bool5\":true}";
-    struct TestNonNonMultCharBool bool;
+    struct TestNonNonMultUint8Bool bool;
     bool.bool1 = -128;
     bool.bool2 = -1;
     bool.bool3 = 0;
     bool.bool4 = 1;
     bool.bool5 = 127;
-    ret = JsoncSerialize(real, &bool, TestNonNonMultCharBool);
+    ret = JsoncSerialize(real, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         strcpy(exp, e);
     }
@@ -117,8 +117,8 @@ json 转换为复合类型
 // 单元素的 str 类型的 json 转换为单成员的 char 类型
 int test_change_single_str_json_to_non_non_single_uint8_str(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonSingleCharStr);
+    struct TestNonNonSingleUint8Str str;
+    ret = JsoncDeserialize(json, &str, TestNonNonSingleUint8Str);
     if (ret) {
         return ret;
     }
@@ -156,8 +156,8 @@ int test_change_mult_bool_json_to_non_non_single_uint8_str(char* json) {
 // 单元素 Null 类型的 json 转换为保存 Str 类型的单成员 char
 int test_change_single_null_json_to_non_non_single_uint8_str(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonSingleCharStr);
+    struct TestNonNonSingleUint8Str str;
+    ret = JsoncDeserialize(json, &str, TestNonNonSingleUint8Str);
     if (ret) {
         return ret;
     }
@@ -175,8 +175,8 @@ int test_change_mult_null_json_to_non_non_single_uint8_str(char* json) {
 // 单元素 Str 类型的 json 转换为保存 Num 类型的单成员 char
 int test_change_single_str_json_to_non_non_single_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonSingleCharNum);
+    struct TestNonNonSingleUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonSingleUint8Num);
     if (ret) {
         return ret;
     }
@@ -204,8 +204,8 @@ int test_change_mult_num_json_to_non_non_single_uint8_num(char* json) {
 // 单元素 Bool 类型的 json 转换为保存 Num 类型的单成员 char
 int test_change_single_bool_json_to_non_non_single_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonSingleCharNum);
+    struct TestNonNonSingleUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonSingleUint8Num);
     if (ret) {
         return ret;
     }
@@ -223,8 +223,8 @@ int test_change_mult_bool_json_to_non_non_single_uint8_num(char* json) {
 // 单元素 Null 类型的 json 转换为保存 Num 类型的单成员 char
 int test_change_single_null_json_to_non_non_single_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonSingleCharNum);
+    struct TestNonNonSingleUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonSingleUint8Num);
     if (ret) {
         return ret;
     }
@@ -242,8 +242,8 @@ int test_change_mult_null_json_to_non_non_single_uint8_num(char* json) {
 // 单元素 Str 类型的 json 转换为保存 Bool 类型的单成员 char
 int test_change_single_str_json_to_non_non_single_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharBool b;
-    ret = JsoncDeserialize(json, &b, TestNonNonSingleCharBool);
+    struct TestNonNonSingleUint8Bool b;
+    ret = JsoncDeserialize(json, &b, TestNonNonSingleUint8Bool);
     if (ret) {
         return ret;
     }
@@ -281,8 +281,8 @@ int test_change_mult_bool_json_to_non_non_single_uint8_bool(char* json) {
 // 单元素 Null 类型的 json 转换为保存 Bool 类型的单成员 char
 int test_change_single_null_json_to_non_non_single_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonSingleCharBool b;
-    ret = JsoncDeserialize(json, &b, TestNonNonSingleCharBool);
+    struct TestNonNonSingleUint8Bool b;
+    ret = JsoncDeserialize(json, &b, TestNonNonSingleUint8Bool);
     if (ret) {
         return ret;
     }
@@ -300,8 +300,8 @@ int test_change_mult_null_json_to_non_non_single_uint8_bool(char* json) {
 // 完全匹配的多元素 Str 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_equal_mult_str_json_to_non_non_mult_uint8_str(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonMultCharStr);
+    struct TestNonNonMultUint8Str str;
+    ret = JsoncDeserialize(json, &str, TestNonNonMultUint8Str);
     if (ret) {
         return ret;
     }
@@ -319,8 +319,8 @@ int test_change_more_mult_str_json_to_non_non_mult_uint8_str(char* json) {
 // 元素少于成员的多元素 Str 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_less_mult_str_json_to_non_non_mult_uint8_str(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonMultCharStr);
+    struct TestNonNonMultUint8Str str;
+    ret = JsoncDeserialize(json, &str, TestNonNonMultUint8Str);
     if (ret) {
         return ret;
     }
@@ -378,8 +378,8 @@ int test_change_diff_mult_bool_json_to_non_non_mult_uint8_str(char* json) {
 // 完全匹配的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_equal_mult_null_json_to_non_non_mult_uint8_str(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonMultCharStr);
+    struct TestNonNonMultUint8Str str;
+    ret = JsoncDeserialize(json, &str, TestNonNonMultUint8Str);
     if (ret) {
         return ret;
     }
@@ -397,8 +397,8 @@ int test_change_more_mult_null_json_to_non_non_mult_uint8_str(char* json) {
 // 元素少于成员的多元素 Null 类型的 json 转换为保存 Str 类型的多成员 char
 int test_change_less_mult_null_json_to_non_non_mult_uint8_str(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharStr str;
-    ret = JsoncDeserialize(json, &str, TestNonNonMultCharStr);
+    struct TestNonNonMultUint8Str str;
+    ret = JsoncDeserialize(json, &str, TestNonNonMultUint8Str);
     if (ret) {
         return ret;
     }
@@ -416,12 +416,12 @@ int test_change_diff_mult_null_json_to_non_non_mult_uint8_str(char* json) {
 // 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_str_json_to_non_non_mult_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    struct TestNonNonMultUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultUint8Num);
     if (ret) {
         return ret;
     }
-    if (num.num1 != -128 || num.num2 != -1 || num.num3 != 0 || num.num4 != 1 ||
+    if (num.num1 != 128 || num.num2 != 255 || num.num3 != 0 || num.num4 != 1 ||
         num.num5 != 127) {
         return 1;
     }
@@ -436,12 +436,12 @@ int test_change_more_mult_str_json_to_non_non_mult_uint8_num(char* json) {
 // 元素少于成员的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_str_json_to_non_non_mult_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    struct TestNonNonMultUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultUint8Num);
     if (ret) {
         return ret;
     }
-    if (num.num2 != -1 || num.num4 != 1) {
+    if (num.num2 != 255 || num.num4 != 1) {
         return 1;
     }
     return ret;
@@ -475,8 +475,8 @@ int test_change_diff_mult_num_json_to_non_non_mult_uint8_num(char* json) {
 // 完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_bool_json_to_non_non_mult_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    struct TestNonNonMultUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultUint8Num);
     if (ret) {
         return ret;
     }
@@ -495,8 +495,8 @@ int test_change_more_mult_bool_json_to_non_non_mult_uint8_num(char* json) {
 // 元素少于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_bool_json_to_non_non_mult_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    struct TestNonNonMultUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultUint8Num);
     if (ret) {
         return ret;
     }
@@ -514,8 +514,8 @@ int test_change_diff_mult_bool_json_to_non_non_mult_uint8_num(char* json) {
 // 完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_null_json_to_non_non_mult_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    struct TestNonNonMultUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultUint8Num);
     if (ret) {
         return ret;
     }
@@ -534,8 +534,8 @@ int test_change_more_mult_null_json_to_non_non_mult_uint8_num(char* json) {
 // 元素少于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_null_json_to_non_non_mult_uint8_num(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharNum num;
-    ret = JsoncDeserialize(json, &num, TestNonNonMultCharNum);
+    struct TestNonNonMultUint8Num num;
+    ret = JsoncDeserialize(json, &num, TestNonNonMultUint8Num);
     if (ret) {
         return ret;
     }
@@ -553,8 +553,8 @@ int test_change_diff_mult_null_json_to_non_non_mult_uint8_num(char* json) {
 // 完全匹配的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_str_json_to_non_non_mult_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharBool bool;
-    ret = JsoncDeserialize(json, &bool, TestNonNonMultCharBool);
+    struct TestNonNonMultUint8Bool bool;
+    ret = JsoncDeserialize(json, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         return ret;
     }
@@ -573,8 +573,8 @@ int test_change_more_mult_str_json_to_non_non_mult_uint8_bool(char* json) {
 // 元素少于成员的多元素 Str 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_str_json_to_non_non_mult_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharBool bool;
-    ret = JsoncDeserialize(json, &bool, TestNonNonMultCharBool);
+    struct TestNonNonMultUint8Bool bool;
+    ret = JsoncDeserialize(json, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         return ret;
     }
@@ -612,8 +612,8 @@ int test_change_diff_mult_num_json_to_non_non_mult_uint8_bool(char* json) {
 // 完全匹配的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_bool_json_to_non_non_mult_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharBool bool;
-    ret = JsoncDeserialize(json, &bool, TestNonNonMultCharBool);
+    struct TestNonNonMultUint8Bool bool;
+    ret = JsoncDeserialize(json, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         return ret;
     }
@@ -632,8 +632,8 @@ int test_change_more_mult_bool_json_to_non_non_mult_uint8_bool(char* json) {
 // 元素少于成员的多元素 Bool 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_bool_json_to_non_non_mult_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharBool bool;
-    ret = JsoncDeserialize(json, &bool, TestNonNonMultCharBool);
+    struct TestNonNonMultUint8Bool bool;
+    ret = JsoncDeserialize(json, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         return ret;
     }
@@ -651,8 +651,8 @@ int test_change_diff_mult_bool_json_to_non_non_mult_uint8_bool(char* json) {
 // 完全匹配的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_equal_mult_null_json_to_non_non_mult_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharBool bool;
-    ret = JsoncDeserialize(json, &bool, TestNonNonMultCharBool);
+    struct TestNonNonMultUint8Bool bool;
+    ret = JsoncDeserialize(json, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         return ret;
     }
@@ -671,8 +671,8 @@ int test_change_more_mult_null_json_to_non_non_mult_uint8_bool(char* json) {
 // 元素少于成员的多元素 Null 类型的 json 转换为保存 Num 类型的多成员 char
 int test_change_less_mult_null_json_to_non_non_mult_uint8_bool(char* json) {
     int ret = 0;
-    struct TestNonNonMultCharBool bool;
-    ret = JsoncDeserialize(json, &bool, TestNonNonMultCharBool);
+    struct TestNonNonMultUint8Bool bool;
+    ret = JsoncDeserialize(json, &bool, TestNonNonMultUint8Bool);
     if (ret) {
         return ret;
     }
