@@ -13,6 +13,7 @@
 #define __JSON_TO_MULT_H_
 
 #include "char/test_char_json_to_mult.h"
+#include "uint8/test_uint8_json_to_mult.h"
 
 static const struct TestChangeToMult *ChangeToMult[] = {
     //
@@ -20,6 +21,10 @@ static const struct TestChangeToMult *ChangeToMult[] = {
     PtrNonCharChangeToMult,
     NonArrCharChangeToMult,
     PtrArrCharChangeToMult,
+    NonNonUint8ChangeToMult,
+    PtrNonUint8ChangeToMult,
+    NonArrUint8ChangeToMult,
+    PtrArrUint8ChangeToMult,
     NULL};
 
 #endif
