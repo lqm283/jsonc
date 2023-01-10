@@ -1,3 +1,6 @@
 {
-    "num": true
+    "num": [
+        true,
+        false
+    ]
 }
