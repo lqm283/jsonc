@@ -1,5 +1,8 @@
 {
     "a": "asdg",
-    "str": "t",
+    "str": [
+        "test str1",
+        "test str2"
+    ],
     "end": 30
 }

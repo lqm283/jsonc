@@ -1,3 +1,6 @@
 {
-    "str": "t"
+    "str": [
+        "test str1",
+        "test str2"
+    ]
 }

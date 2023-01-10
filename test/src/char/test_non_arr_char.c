@@ -363,10 +363,6 @@ int test_change_equal_mult_num_json_to_non_arr_mult_char_str(char* json) {
     if (ret) {
         return ret;
     }
-    printf("str.str1: %s\n", str.str1);
-    printf("str.str2: %s\n", str.str2);
-    printf("str.str3: %s\n", str.str3);
-
     if (strcmp(str.str1, "0") || strcmp(str.str2, "1234567") ||
         strcmp(str.str3, "147258369")) {
         return 1;

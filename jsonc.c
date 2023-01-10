@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-09 22:27:58
+ * @LastEditTime : 2023-01-10 08:46:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -596,9 +596,9 @@ static inline void skipstr(char** s) {
     (*s)++;
     while (**s != '"') {
         skipescape(s);
-        s++;
+        (*s)++;
     }
-    s++;
+    (*s)++;
 }
 
 static int jsonc_check_number(char* start_num, char** end_num) {
@@ -1195,7 +1195,7 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
 
 static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
     int ret = 0;
-    if (ele->c_type == cPtrBase) {
+    if (ele->c_type & cPtrBase) {
         // 使用指针保存字符串的时候要自己注意指针的越界问题，越界就是自己活该了
         strcpy(ele->mem_addr, ele->value);
     } else if (ele->c_type == cBase) {  // 尝试将数字转换为一个字符
@@ -1463,23 +1463,28 @@ static int jsonc_change_null_to_base(const struct jsonc_ele* ele) {
 int jsonc_change_to_arr(struct jsonc_ele* ele) {
     int ret = 0;
     char* value = ele->value;
-    jsonc_arr_mem mem = *ele;
-    mem.name = NULL;
-    mem.value = NULL;
+    jsonc_arr_mem mem;
 
-    int mem_num = mem.mem.mem_length / mem.mem.type_length;
-
+    int mem_num = ele->mem.mem_length / ele->mem.type_length;
     if (*value != '[') {
         ret = -JSON_ARRAY;
     }
     skipspace(&value);
     value++;
     while (*value != ']' && mem_num--) {
+        mem = *ele;
+        mem.name = NULL;
+        mem.value = NULL;
         ret = jsonc_get_arr_ele(&mem, value, &value);  // 获取一个数组元素
         if (ret) {
             jsonc_destroy_ele(&mem);
             return ret;
         }
+
+        if (mem.c_type & cPtrBase) {
+            mem.mem_addr = (void*)(*(long*)mem.mem_addr);
+        }
+
         switch (mem.type) {
             case Arr:
                 ret = jsonc_change_to_arr(&mem);
@@ -1492,7 +1497,7 @@ int jsonc_change_to_arr(struct jsonc_ele* ele) {
                 break;
         }
         jsonc_destroy_ele(&mem);
-        mem.mem_addr += mem.mem.type_length;
+        ele->mem_addr += mem.mem.type_length;
         skipspace(&value);
         if (*value == ',') {
             value++;

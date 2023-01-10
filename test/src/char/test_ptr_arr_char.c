@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-09 23:05:17
+ * @LastEditTime : 2023-01-10 08:49:19
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -127,22 +127,23 @@ json 转换为复合类型
 ----------------------------------------------
 */
 
-// 单元素的 str 类型的 json 转换为单成员的 char 类型
+// 单元素的 str 类型的 json 转换为指针数组类型的单成员的 char 类型
 int test_change_single_str_json_to_ptr_arr_single_char_str(char* json) {
     int ret = 0;
     struct TestPtrArrSingleCharStr str;
+    str.str[0] = malloc(100);
+    str.str[1] = malloc(100);
     ret = JsoncDeserialize(json, &str, TestPtrArrSingleCharStr);
     if (ret) {
         return ret;
     }
-
-    if (strcmp(str.str[0], "single str json change to ptr non single char str")) {
+    if (strcmp(str.str[0], "test str1") || strcmp(str.str[1], "test str2")) {
         return 1;
     }
     return ret;
 }
 
-// 多元素的 str 类型的 json 转换为单成员的 char 类型
+// 多元素的 str 类型的 json 转换为指针数组类型的单成员的 char 类型
 int test_change_mult_str_json_to_ptr_arr_single_char_str(char* json) {
     return test_change_single_str_json_to_ptr_arr_single_char_str(json);
 }
@@ -378,10 +379,6 @@ int test_change_equal_mult_num_json_to_ptr_arr_mult_char_str(char* json) {
     if (ret) {
         return ret;
     }
-    printf("str.str1: %s\n", str.str1[0]);
-    printf("str.str2: %s\n", str.str2[0]);
-    printf("str.str3: %s\n", str.str3[0]);
-
     if (strcmp(str.str1[0], "0") || strcmp(str.str2[0], "1234567") ||
         strcmp(str.str3[0], "147258369")) {
         return 1;
