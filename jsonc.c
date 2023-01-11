@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-11 11:44:31
+ * @LastEditTime : 2023-01-11 12:41:30
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -227,7 +227,6 @@ static enum c_base_type is_base_type(const char* src) {
         count++;
     }
     s[count] = '\0';
-
     while (count--) {
         if (src[count] == '*' || isspace(src[count])) {
             s[count] = '\0';
