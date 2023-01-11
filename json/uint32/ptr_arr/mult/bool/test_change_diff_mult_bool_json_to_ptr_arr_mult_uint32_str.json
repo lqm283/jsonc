@@ -1,0 +1,14 @@
+{
+    "str1": [
+        true,
+        false
+    ],
+    "str2": [
+        false,
+        true
+    ],
+    "usb": [
+        true,
+        false
+    ]
+}

@@ -2,16 +2,16 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:39:01
- # @LastEditTime : 2023-01-11 10:15:44
+ # @LastEditTime : 2023-01-11 10:19:36
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
  # --------------------------------------------------------------------------------<
- # @FilePath     : /jsonc/json/int32/change.sh
+ # @FilePath     : /jsonc/json/change.sh
 ###
 
 
-cd int32
+cd uint32
 
 firstdir=`ls .`
 
@@ -26,7 +26,7 @@ do
         for tname in ${thirddir}
         do
             cd ${tname}
-            rename 's/_int16_/_int32_/' *.json;
+            rename 's/_uint16_/_uint32_/' *.json;
             cd ../
         done
         cd ../
