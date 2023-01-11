@@ -1,0 +1,14 @@
+{
+    "bool1": [
+        true,
+        false
+    ],
+    "bool2": [
+        false,
+        true
+    ],
+    "bool3": [
+        true,
+        false
+    ]
+}

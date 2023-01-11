@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-09 14:22:09
+ * @LastEditTime : 2023-01-11 16:09:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -97,15 +97,19 @@ int test_change_json_to_mult() {
              c++) {
             ret = get_path(c->name, path1, path2, path3, path4);
 
-            sprintf(path,
-                    "json/%s/%s/%s/%s/%s.json",
-                    path1,
-                    path2,
-                    path3,
-                    path4,
-                    c->name);
-            ;
-
+            if (!strcmp(path1, "struct") || !strcmp(path1, "union")) {
+                sprintf(path, "json/%s/%s/%s/%s.json", path1, path2, path3, c->name);
+                ;
+            } else {
+                sprintf(path,
+                        "json/%s/%s/%s/%s/%s.json",
+                        path1,
+                        path2,
+                        path3,
+                        path4,
+                        c->name);
+                ;
+            }
             FILE* file = fopen(path, "r");
             if (!file) {
                 printf("\033[0m\033[1;31mRead %s.json err:\033[0m file is not exist\n",

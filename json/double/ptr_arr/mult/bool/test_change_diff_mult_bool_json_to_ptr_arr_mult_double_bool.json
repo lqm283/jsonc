@@ -1,0 +1,14 @@
+{
+    "bool1": [
+        true,
+        false
+    ],
+    "sgsr": [
+        false,
+        true
+    ],
+    "bool3": [
+        true,
+        false
+    ]
+}
