@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-11 10:51:35
+ * @LastEditTime : 2023-01-11 11:54:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -22,34 +22,16 @@
 
 static const struct TestChangeToJson *ChangeToJson[] = {
     //
-    NonNonCharChangeToJson,
-    PtrNonCharChangeToJson,
-    NonArrCharChangeToJson,
-    PtrArrCharChangeToJson,
-    NonNonUint8ChangeToJson,
-    PtrNonUint8ChangeToJson,
-    NonArrUint8ChangeToJson,
-    PtrArrUint8ChangeToJson,
-    NonNonUint16ChangeToJson,
-    PtrNonUint16ChangeToJson,
-    NonArrUint16ChangeToJson,
-    PtrArrUint16ChangeToJson,
-    NonNonInt16ChangeToJson,
-    PtrNonInt16ChangeToJson,
-    NonArrInt16ChangeToJson,
-    PtrArrInt16ChangeToJson,
-    NonNonInt32ChangeToJson,
-    PtrNonInt32ChangeToJson,
-    NonArrInt32ChangeToJson,
-    PtrArrInt32ChangeToJson,
-    NonNonUint32ChangeToJson,
-    PtrNonUint32ChangeToJson,
-    NonArrUint32ChangeToJson,
-    PtrArrUint32ChangeToJson,
-    NonNonInt32ChangeToJson,
-    PtrNonInt32ChangeToJson,
-    NonArrInt32ChangeToJson,
-    PtrArrInt32ChangeToJson,
-    NULL};
+    NonNonCharChangeToJson,   PtrNonCharChangeToJson,   NonArrCharChangeToJson,
+    PtrArrCharChangeToJson,   NonNonUint8ChangeToJson,  PtrNonUint8ChangeToJson,
+    NonArrUint8ChangeToJson,  PtrArrUint8ChangeToJson,  NonNonUint16ChangeToJson,
+    PtrNonUint16ChangeToJson, NonArrUint16ChangeToJson, PtrArrUint16ChangeToJson,
+    NonNonInt16ChangeToJson,  PtrNonInt16ChangeToJson,  NonArrInt16ChangeToJson,
+    PtrArrInt16ChangeToJson,  NonNonInt32ChangeToJson,  PtrNonInt32ChangeToJson,
+    NonArrInt32ChangeToJson,  PtrArrInt32ChangeToJson,  NonNonUint32ChangeToJson,
+    PtrNonUint32ChangeToJson, NonArrUint32ChangeToJson, PtrArrUint32ChangeToJson,
+    NonNonInt32ChangeToJson,  PtrNonInt32ChangeToJson,  NonArrInt32ChangeToJson,
+    PtrArrInt32ChangeToJson,  NonNonUint32ChangeToJson, PtrNonUint32ChangeToJson,
+    NonArrUint32ChangeToJson, PtrArrUint32ChangeToJson, NULL};
 
 #endif

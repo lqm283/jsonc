@@ -22,4 +22,4 @@
 
 
 
-rename 's/_int32/_int64/' *.c;
+rename 's/_uint32/_uint64/' *.c;
