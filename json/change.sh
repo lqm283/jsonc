@@ -2,7 +2,7 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:39:01
- # @LastEditTime : 2023-01-11 11:59:36
+ # @LastEditTime : 2023-01-11 13:35:52
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
@@ -11,7 +11,7 @@
 ###
 
 
-cd 'unsigned char'
+cd 'float'
 
 firstdir=`ls .`
 
@@ -26,7 +26,7 @@ do
         for tname in ${thirddir}
         do
             cd ${tname}
-            rename 's/_unsigned_char_/_unsignedchar_/' *.json;
+            rename 's/_uint32_/_float_/' *.json;
             cd ../
         done
         cd ../

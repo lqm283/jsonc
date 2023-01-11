@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-11 12:34:31
+ * @LastEditTime : 2023-01-11 13:42:13
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -19,6 +19,7 @@
 #include "uint16/test_uint16_mult_to_json.h"
 #include "uint32/test_uint32_mult_to_json.h"
 #include "uint8/test_uint8_mult_to_json.h"
+#include "float/test_float_mult_to_json.h"
 #include "unsigned_char/test_unsignedchar_mult_to_json.h"
 
 static const struct TestChangeToJson *ChangeToJson[] = {
@@ -59,6 +60,10 @@ static const struct TestChangeToJson *ChangeToJson[] = {
     PtrNonUint32ChangeToJson,
     NonArrUint32ChangeToJson,
     PtrArrUint32ChangeToJson,
+    NonNonFloatChangeToJson,
+    PtrNonFloatChangeToJson,
+    NonArrFloatChangeToJson,
+    PtrArrFloatChangeToJson,
     NULL};
 
 #endif
