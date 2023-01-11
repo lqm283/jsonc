@@ -1,0 +1,30 @@
+{
+    "s1": [
+        {
+            "a": 10,
+            "b": -20,
+            "c": "Hello world",
+            "d": true
+        },
+        {
+            "a": 10,
+            "b": -20,
+            "c": "Hello world",
+            "d": true
+        }
+    ],
+    "s2": [
+        {
+            "a": 33,
+            "b": 100,
+            "c": "Good morning",
+            "d": false
+        },
+        {
+            "a": 33,
+            "b": 100,
+            "c": "Good morning",
+            "d": false
+        }
+    ]
+}

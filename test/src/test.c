@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-11 16:09:47
+ * @LastEditTime : 2023-01-11 20:15:23
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -17,8 +17,8 @@
 
 int test_change_mult_to_json() {
     int ret = 0;
-    char exp[81920];
-    char real[81920];
+    char exp[81920] = {0};
+    char real[81920] = {0};
     const struct TestChangeToJson** Change = ChangeToJson;
     while (*Change != NULL) {
         for (const struct TestChangeToJson* c = *Change; *c->test_change_to_json != NULL;

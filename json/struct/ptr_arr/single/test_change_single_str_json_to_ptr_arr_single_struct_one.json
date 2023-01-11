@@ -1,0 +1,16 @@
+{
+    "s": [
+        {
+            "a": 10,
+            "b": 50,
+            "c": "Hello world",
+            "d": true
+        },
+        {
+            "a": 10,
+            "b": 50,
+            "c": "Hello world",
+            "d": true
+        }
+    ]
+}

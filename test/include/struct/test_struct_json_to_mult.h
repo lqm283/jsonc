@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 14:01:35
- * @LastEditTime : 2023-01-11 17:17:09
+ * @LastEditTime : 2023-01-11 20:04:34
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -36,6 +36,9 @@ static const struct TestChangeToMult NonArrStructChangeToMult[] = {
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrArrStructChangeToMult[] = {
+    FUNC(test_change_single_str_json_to_ptr_arr_single_struct_one),
+    FUNC(test_change_single_str_json_to_ptr_arr_mult_struct_two),
+    FUNC(test_change_single_str_json_to_ptr_arr_mult_struct_max),
     {NULL, NULL}};
 
 #endif
