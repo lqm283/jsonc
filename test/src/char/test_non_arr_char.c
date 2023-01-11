@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 16:19:33
- * @LastEditTime : 2023-01-09 21:31:54
+ * @LastEditTime : 2023-01-10 14:53:22
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -141,7 +141,7 @@ int test_change_single_num_json_to_non_arr_single_char_str(char* json) {
         return ret;
     }
 
-    if (strcmp(str.str, "116")) {
+    if (strcmp(str.str, "t")) {
         return 1;
     }
     return ret;
@@ -363,10 +363,6 @@ int test_change_equal_mult_num_json_to_non_arr_mult_char_str(char* json) {
     if (ret) {
         return ret;
     }
-    printf("str.str1: %s\n", str.str1);
-    printf("str.str2: %s\n", str.str2);
-    printf("str.str3: %s\n", str.str3);
-
     if (strcmp(str.str1, "0") || strcmp(str.str2, "1234567") ||
         strcmp(str.str3, "147258369")) {
         return 1;

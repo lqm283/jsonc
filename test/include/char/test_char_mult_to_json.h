@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:53:50
- * @LastEditTime : 2023-01-09 16:33:10
+ * @LastEditTime : 2023-01-09 23:05:45
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -15,6 +15,7 @@
 #include "../../include/obj.h"
 #include "test_non_arr_char.h"
 #include "test_non_non_char.h"
+#include "test_ptr_arr_char.h"
 #include "test_ptr_non_char.h"
 
 static const struct TestChangeToJson NonNonCharChangeToJson[] = {
@@ -42,6 +43,15 @@ static const struct TestChangeToJson NonArrCharChangeToJson[] = {
     FUNC(test_change_non_arr_mult_char_str_to_json),
     FUNC(test_change_non_arr_mult_char_num_to_json),
     FUNC(test_change_non_arr_mult_char_bool_to_json),
+    {NULL, NULL}};
+
+static const struct TestChangeToJson PtrArrCharChangeToJson[] = {
+    FUNC(test_change_ptr_arr_single_char_str_to_json),
+    FUNC(test_change_ptr_arr_single_char_num_to_json),
+    FUNC(test_change_ptr_arr_single_char_bool_to_json),
+    FUNC(test_change_ptr_arr_mult_char_str_to_json),
+    FUNC(test_change_ptr_arr_mult_char_num_to_json),
+    FUNC(test_change_ptr_arr_mult_char_bool_to_json),
     {NULL, NULL}};
 
 #endif
