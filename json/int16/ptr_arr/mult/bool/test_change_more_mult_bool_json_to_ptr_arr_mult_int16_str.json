@@ -1,0 +1,16 @@
+{
+    "a": false,
+    "str1": [
+        true,
+        false
+    ],
+    "str2": [
+        false,
+        true
+    ],
+    "str3": [
+        true,
+        false
+    ],
+    "end": true
+}
