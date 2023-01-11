@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-11 16:17:44
+ * @LastEditTime : 2023-01-11 16:25:32
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -72,3 +72,4 @@ char* test_change_non_non_multmax_struct_to_json(char* exp, char* real);
 // json 转换为 json 类型
 int test_change_single_str_json_to_non_non_single_struct_one(char* json);
 int test_change_single_str_json_to_non_non_mult_struct_two(char* json);
+int test_change_single_str_json_to_non_non_mult_struct_max(char* json);
