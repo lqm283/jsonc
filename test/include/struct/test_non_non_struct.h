@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-11 15:40:27
+ * @LastEditTime : 2023-01-11 15:59:56
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -64,7 +64,10 @@ INIT(TestNonNonMultMaxStruct,
 
 #endif
 
-// 单个 struct 类型转换为 json
+// struct 类型转换为 json
 char* test_change_non_non_single_struct_to_json(char* exp, char* real);
 char* test_change_non_non_mult1_struct_to_json(char* exp, char* real);
 char* test_change_non_non_multmax_struct_to_json(char* exp, char* real);
+
+// json 转换为 json 类型
+int test_change_single_str_json_to_non_non_single_struct_one(char* json);

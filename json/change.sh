@@ -2,7 +2,7 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:39:01
- # @LastEditTime : 2023-01-11 14:26:38
+ # @LastEditTime : 2023-01-11 15:49:12
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
@@ -26,7 +26,7 @@ do
         for tname in ${thirddir}
         do
             cd ${tname}
-            rename 's/_float_/_double_/' *.json;
+            rename 's/_double_/_struct_/' *.json;
             cd ../
         done
         cd ../

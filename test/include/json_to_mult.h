@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:58:17
- * @LastEditTime : 2023-01-11 12:29:52
+ * @LastEditTime : 2023-01-11 15:54:42
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -13,15 +13,16 @@
 #define __JSON_TO_MULT_H_
 
 #include "char/test_char_json_to_mult.h"
+#include "double/test_double_json_to_mult.h"
+#include "float/test_float_json_to_mult.h"
 #include "int16/test_int16_json_to_mult.h"
 #include "int32/test_int32_json_to_mult.h"
 #include "int64/test_int64_json_to_mult.h"
+#include "struct/test_struct_json_to_mult.h"
 #include "uint16/test_uint16_json_to_mult.h"
 #include "uint32/test_uint32_json_to_mult.h"
 #include "uint64/test_uint64_json_to_mult.h"
 #include "uint8/test_uint8_json_to_mult.h"
-#include "float/test_float_json_to_mult.h"
-#include "double/test_double_json_to_mult.h"
 #include "unsigned_char/test_unsignedchar_json_to_mult.h"
 
 static const struct TestChangeToMult *ChangeToMult[] = {
@@ -70,6 +71,7 @@ static const struct TestChangeToMult *ChangeToMult[] = {
     // PtrNonDoubleChangeToMult,
     // NonArrDoubleChangeToMult,
     // PtrArrDoubleChangeToMult,
+    NonNonStructChangeToMult,
     NULL};
 
 #endif

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-11 12:41:30
+ * @LastEditTime : 2023-01-11 16:09:17
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1013,30 +1013,35 @@ static inline char* get_string(char** src) {
 static inline char* get_obj(char** src) {
     int count = 0;
     char* str = *src;
-
     if (**src != '{') {
         return NULL;
-    } else {
-        count++;
     }
-
-    while (*str++ != '}') {
-        if (!isspace(*str)) {
+    // 获取对象的结尾
+    count++;
+    while (count != 0 && *str++ != '\0') {
+        if (*str != '}' && !isspace(*str)) {
+        }
+        if (*str == '{') {
             count++;
+        } else if (*str == '}') {
+            count--;
+        } else if (*str == '"') {
+            skipstr(&str);
         }
     }
-    count++;
-
-    char* obj = (char*)JSONCALLOC(count + 1);
-    if (!obj) {
+    str++;
+    if (count != 0) {
         return NULL;
     }
+    char* obj;
 
-    for (int i = 0; i < count; i++) {
-        skipspace(src);
-        obj[i] = **src++;
-    }
+    count = (long)str - (long)*src;
+    obj = JSONCALLOC(count + 1);
+    memcpy(obj, *src, count);
     obj[count] = '\0';
+
+    *src = str;
+
     return obj;
 }
 

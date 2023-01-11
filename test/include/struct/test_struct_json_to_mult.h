@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 14:01:35
- * @LastEditTime : 2023-01-11 14:58:41
+ * @LastEditTime : 2023-01-11 15:59:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -18,6 +18,7 @@
 #include "test_ptr_non_struct.h"
 
 static const struct TestChangeToMult NonNonStructChangeToMult[] = {
+    FUNC(test_change_single_str_json_to_non_non_single_struct_one),
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrNonStructChangeToMult[] = {

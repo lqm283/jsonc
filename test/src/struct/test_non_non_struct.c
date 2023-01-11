@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-11 15:44:21
+ * @LastEditTime : 2023-01-11 16:16:25
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -63,6 +63,26 @@ char* test_change_non_non_multmax_struct_to_json(char* exp, char* real) {
     ret = JsoncSerialize(real, &s, TestNonNonMultMaxStruct);
     if (ret) {
         strcpy(exp, e);
+    }
+    return ret;
+}
+
+// json 转换为单个 struct 成员的 struct
+int test_change_single_str_json_to_non_non_single_struct_one(char* json) {
+    int ret = 0;
+    struct TestNonNonSingleStruct s;
+    ret = JsoncDeserialize(json, &s, TestNonNonSingleStruct);
+
+    if (s.s.a != 10 || s.s.b != 50 || s.s.d != 1) {
+        return -1;
+    }
+
+    if (strcmp("Hello world", s.s.c)) {
+        return -1;
+    }
+
+    if (ret) {
+        return ret;
     }
     return ret;
 }
