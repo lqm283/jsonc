@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 14:01:35
- * @LastEditTime : 2023-01-11 15:59:44
+ * @LastEditTime : 2023-01-11 16:21:37
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -19,6 +19,7 @@
 
 static const struct TestChangeToMult NonNonStructChangeToMult[] = {
     FUNC(test_change_single_str_json_to_non_non_single_struct_one),
+    FUNC(test_change_single_str_json_to_non_non_mult_struct_two),
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrNonStructChangeToMult[] = {

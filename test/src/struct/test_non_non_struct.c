@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-11 16:16:25
+ * @LastEditTime : 2023-01-11 16:18:53
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -78,6 +78,27 @@ int test_change_single_str_json_to_non_non_single_struct_one(char* json) {
     }
 
     if (strcmp("Hello world", s.s.c)) {
+        return -1;
+    }
+
+    if (ret) {
+        return ret;
+    }
+    return ret;
+}
+
+// json 转换为多个纯 struct 成员的 struct
+int test_change_single_str_json_to_non_non_mult_struct_two(char* json) {
+    int ret = 0;
+    struct TestNonNonMult1Struct s;
+    ret = JsoncDeserialize(json, &s, TestNonNonMult1Struct);
+
+    if (s.s1.a != 10 || s.s1.b != -20 || s.s1.d != 1 || s.s2.a != 33 || s.s2.b != 100 ||
+        s.s2.d != 0) {
+        return -1;
+    }
+
+    if (strcmp("Hello world", s.s1.c) || strcmp("Good morning", s.s2.c)) {
         return -1;
     }
 
