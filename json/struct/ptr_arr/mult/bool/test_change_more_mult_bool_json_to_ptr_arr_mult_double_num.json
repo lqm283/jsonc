@@ -1,0 +1,16 @@
+{
+    "asdf": false,
+    "num1": [
+        true,
+        false
+    ],
+    "num2": [
+        false,
+        true
+    ],
+    "num3": [
+        true,
+        false
+    ],
+    "s": true
+}

@@ -2,7 +2,7 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:39:01
- # @LastEditTime : 2023-01-11 14:11:07
+ # @LastEditTime : 2023-01-11 14:26:38
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
@@ -11,7 +11,7 @@
 ###
 
 
-cd 'double'
+cd 'struct'
 
 firstdir=`ls .`
 
