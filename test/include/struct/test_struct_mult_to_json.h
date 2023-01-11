@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:53:50
- * @LastEditTime : 2023-01-11 15:39:03
+ * @LastEditTime : 2023-01-11 17:10:17
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -24,9 +24,17 @@ static const struct TestChangeToJson NonNonStructChangeToJson[] = {
     FUNC(test_change_non_non_multmax_struct_to_json),
     {NULL, NULL}};
 
-static const struct TestChangeToJson PtrNonStructChangeToJson[] = {{NULL, NULL}};
+static const struct TestChangeToJson PtrNonStructChangeToJson[] = {
+    FUNC(test_change_ptr_non_single_struct_to_json),
+    FUNC(test_change_ptr_non_mult1_struct_to_json),
+    FUNC(test_change_ptr_non_multmax_struct_to_json),
+    {NULL, NULL}};
 
-static const struct TestChangeToJson NonArrStructChangeToJson[] = {{NULL, NULL}};
+static const struct TestChangeToJson NonArrStructChangeToJson[] = {
+    FUNC(test_change_non_arr_single_struct_to_json),
+    FUNC(test_change_non_arr_mult1_struct_to_json),
+    FUNC(test_change_non_arr_multmax_struct_to_json),
+    {NULL, NULL}};
 
 static const struct TestChangeToJson PtrArrStructChangeToJson[] = {{NULL, NULL}};
 

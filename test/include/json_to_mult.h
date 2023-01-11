@@ -72,6 +72,9 @@ static const struct TestChangeToMult *ChangeToMult[] = {
     // NonArrDoubleChangeToMult,
     // PtrArrDoubleChangeToMult,
     NonNonStructChangeToMult,
+    PtrNonStructChangeToMult,
+    NonArrStructChangeToMult,
+    PtrArrStructChangeToMult,
     NULL};
 
 #endif

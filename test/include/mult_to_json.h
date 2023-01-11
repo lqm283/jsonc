@@ -67,6 +67,9 @@ static const struct TestChangeToJson *ChangeToJson[] = {
     // NonArrFloatChangeToJson,
     // PtrArrFloatChangeToJson,
     NonNonStructChangeToJson,
+    PtrNonStructChangeToJson,
+    NonArrStructChangeToJson,
+    PtrArrStructChangeToJson,
     NULL};
 
 #endif
