@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-11 10:24:35
+ * @LastEditTime : 2023-01-11 10:51:35
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -15,6 +15,7 @@
 #include "char/test_char_mult_to_json.h"
 #include "int16/test_int16_mult_to_json.h"
 #include "int32/test_int32_mult_to_json.h"
+#include "int64/test_int64_mult_to_json.h"
 #include "uint16/test_uint16_mult_to_json.h"
 #include "uint32/test_uint32_mult_to_json.h"
 #include "uint8/test_uint8_mult_to_json.h"
@@ -45,6 +46,10 @@ static const struct TestChangeToJson *ChangeToJson[] = {
     PtrNonUint32ChangeToJson,
     NonArrUint32ChangeToJson,
     PtrArrUint32ChangeToJson,
+    NonNonInt32ChangeToJson,
+    PtrNonInt32ChangeToJson,
+    NonArrInt32ChangeToJson,
+    PtrArrInt32ChangeToJson,
     NULL};
 
 #endif

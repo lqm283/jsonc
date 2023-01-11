@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-10 14:38:10
+ * @LastEditTime : 2023-01-11 11:44:31
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -217,23 +217,30 @@ static int is_omitempty(const char* str) {
 
 static enum c_base_type is_base_type(const char* src) {
     const char*** base_type = jsonc_c_base_type;
-    int i = 0;
+    int i = 0, count = 0;
     enum c_base_type type = cInt8;
+    char s[100];
     const char* str;
-    const char* s;
+
+    while (src[count] != '*' && src[count] != '\0') {
+        s[count] = src[count];
+        count++;
+    }
+    s[count] = '\0';
+
+    while (count--) {
+        if (src[count] == '*' || isspace(src[count])) {
+            s[count] = '\0';
+        } else {
+            break;
+        }
+    }
 
     while (*base_type != NULL) {
         while ((*base_type)[i] != NULL) {
             str = (*base_type)[i];
-            s = src;
-            while (*s != 0 && *str != 0) {
-                if (*s != *str) {
-                    break;
-                }
-                s++;
-                (str)++;
-            }
-            if (*str == 0) {
+
+            if (!strcmp(s, str)) {
                 return type;
             }
             i++;

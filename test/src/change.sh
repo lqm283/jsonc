@@ -2,12 +2,12 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:15:20
- # @LastEditTime : 2023-01-11 10:21:05
+ # @LastEditTime : 2023-01-11 10:46:36
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
  # --------------------------------------------------------------------------------<
- # @FilePath     : /jsonc/test/src/uint32/change.sh
+ # @FilePath     : /jsonc/test/src/int64/change.sh
 ###
 ###
  # @Author       : lqm283
@@ -22,4 +22,4 @@
 
 
 
-rename 's/_uint16/_uint32/' *.c;
+rename 's/_int32/_int64/' *.c;
