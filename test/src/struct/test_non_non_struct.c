@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-11 15:26:26
+ * @LastEditTime : 2023-01-11 15:33:09
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -26,6 +26,22 @@ char* test_change_non_non_single_struct_to_json(char* exp, char* real) {
     char* e = "{\"s\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello world\",\"d\":true}}";
     struct TestNonNonSingleStruct s = {{10, 3.14159, "Hello world", 1}};
     ret = JsoncSerialize(real, &s, TestNonNonSingleStruct);
+    if (ret) {
+        strcpy(exp, e);
+    }
+    return ret;
+}
+
+// 多个 纯 struct 类型转换为 json
+char* test_change_non_non_mult1_struct_to_json(char* exp, char* real) {
+    char* ret = 0;
+    char* e =
+        "{\"s1\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
+        "world\",\"d\":true},\"s2\":{\"a\":33,\"b\":2.717300,\"c\":\"Good "
+        "morning\",\"d\":false}}";
+    struct TestNonNonMult1Struct s = {{10, 3.14159, "Hello world", 1},
+                                      {33, 2.7173, "Good morning", 0}};
+    ret = JsoncSerialize(real, &s, TestNonNonMult1Struct);
     if (ret) {
         strcpy(exp, e);
     }

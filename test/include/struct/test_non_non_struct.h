@@ -36,7 +36,18 @@ INIT(TestNonNonSingleStruct,
      struct TestNonNonSingleStruct,
      MEM(struct TestNonNonSingleStruct, Obj, struct BaseStruct, s, BaseStruct));
 
+// 多元素纯 struct
+struct TestNonNonMult1Struct {
+    struct BaseStruct s1;
+    struct BaseStruct s2;
+};
+INIT(TestNonNonMult1Struct,
+     struct TestNonNonMult1Struct,
+     MEM(struct TestNonNonMult1Struct, Obj, struct BaseStruct, s1, BaseStruct),
+     MEM(struct TestNonNonMult1Struct, Obj, struct BaseStruct, s2, BaseStruct));
+
 #endif
 
 // 单个 struct 类型转换为 json
 char* test_change_non_non_single_struct_to_json(char* exp, char* real);
+char* test_change_non_non_mult1_struct_to_json(char* exp, char* real);
