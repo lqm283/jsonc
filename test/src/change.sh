@@ -2,7 +2,7 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:15:20
- # @LastEditTime : 2023-01-11 13:36:57
+ # @LastEditTime : 2023-01-11 14:13:04
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
@@ -22,4 +22,4 @@
 
 
 
-rename 's/_uint32/_float/' *.c;
+rename 's/_float/_double/' *.c;

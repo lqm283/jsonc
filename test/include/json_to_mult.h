@@ -21,6 +21,7 @@
 #include "uint64/test_uint64_json_to_mult.h"
 #include "uint8/test_uint8_json_to_mult.h"
 #include "float/test_float_json_to_mult.h"
+#include "double/test_double_json_to_mult.h"
 #include "unsigned_char/test_unsignedchar_json_to_mult.h"
 
 static const struct TestChangeToMult *ChangeToMult[] = {
@@ -65,6 +66,10 @@ static const struct TestChangeToMult *ChangeToMult[] = {
     PtrNonFloatChangeToMult,
     NonArrFloatChangeToMult,
     PtrArrFloatChangeToMult,
+    NonNonDoubleChangeToMult,
+    PtrNonDoubleChangeToMult,
+    NonArrDoubleChangeToMult,
+    PtrArrDoubleChangeToMult,
     NULL};
 
 #endif

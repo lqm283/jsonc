@@ -2,12 +2,12 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:15:11
- # @LastEditTime : 2023-01-11 13:37:50
+ # @LastEditTime : 2023-01-11 14:11:59
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
  # --------------------------------------------------------------------------------<
- # @FilePath     : /jsonc/test/include/float/change.sh
+ # @FilePath     : /jsonc/test/include/double/change.sh
 ###
 ###
  # @Author       : lqm283
@@ -20,4 +20,4 @@
  # @FilePath     : /jsonc/test/src/uint16/change.sh
 ###
 
-rename 's/_uint32/_float/' *.h;
+rename 's/_float/_double/' *.h;
