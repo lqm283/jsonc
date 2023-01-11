@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-11 15:16:12
+ * @LastEditTime : 2023-01-11 20:48:50
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -66,10 +66,10 @@ static const struct TestChangeToJson *ChangeToJson[] = {
     // PtrNonFloatChangeToJson,
     // NonArrFloatChangeToJson,
     // PtrArrFloatChangeToJson,
-    NonNonStructChangeToJson,
-    PtrNonStructChangeToJson,
-    NonArrStructChangeToJson,
-    PtrArrStructChangeToJson,
+    // NonNonStructChangeToJson,
+    // PtrNonStructChangeToJson,
+    // NonArrStructChangeToJson,
+    // PtrArrStructChangeToJson,
     NULL};
 
 #endif

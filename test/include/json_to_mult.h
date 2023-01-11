@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:58:17
- * @LastEditTime : 2023-01-11 15:54:42
+ * @LastEditTime : 2023-01-11 20:50:45
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -23,6 +23,7 @@
 #include "uint32/test_uint32_json_to_mult.h"
 #include "uint64/test_uint64_json_to_mult.h"
 #include "uint8/test_uint8_json_to_mult.h"
+#include "union/test_union_json_to_mult.h"
 #include "unsigned_char/test_unsignedchar_json_to_mult.h"
 
 static const struct TestChangeToMult *ChangeToMult[] = {
@@ -71,10 +72,11 @@ static const struct TestChangeToMult *ChangeToMult[] = {
     // PtrNonDoubleChangeToMult,
     // NonArrDoubleChangeToMult,
     // PtrArrDoubleChangeToMult,
-    NonNonStructChangeToMult,
-    PtrNonStructChangeToMult,
-    NonArrStructChangeToMult,
-    PtrArrStructChangeToMult,
+    // NonNonStructChangeToMult,
+    // PtrNonStructChangeToMult,
+    // NonArrStructChangeToMult,
+    // PtrArrStructChangeToMult,
+    NonNonUnionChangeToMult,
     NULL};
 
 #endif

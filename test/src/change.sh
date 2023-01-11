@@ -2,12 +2,12 @@
 ###
  # @Author       : lqm283
  # @Date         : 2023-01-11 08:15:20
- # @LastEditTime : 2023-01-11 14:53:24
+ # @LastEditTime : 2023-01-11 20:34:50
  # @LastEditors  : lqm283
  # --------------------------------------------------------------------------------<
  # @Description  : Please edit a descrition about this file at here.
  # --------------------------------------------------------------------------------<
- # @FilePath     : /jsonc/test/src/struct/change.sh
+ # @FilePath     : /jsonc/test/src/union/change.sh
 ###
 ###
  # @Author       : lqm283
@@ -22,4 +22,4 @@
 
 
 
-rename 's/_float/_struct/' *.c;
+rename 's/_struct/_union/' *.c;

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-11 16:09:17
+ * @LastEditTime : 2023-01-11 22:55:22
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -966,17 +966,23 @@ static const struct struct_mem* jsonc_probe_mem_and_ele(const struct struct_mem*
     return NULL;
 }
 
-static void jsonc_destroy_ele(struct jsonc_ele* ele) {
+static inline void jsonc_destroy_ele(struct jsonc_ele* ele) {
     if (ele->name != NULL) {
         JSONFREE(ele->name);
     }
     if (ele->name != NULL) {
         JSONFREE(ele->value);
     }
-    ele->name = NULL;
-    ele->value = NULL;
 }
 
+static inline void jsonc_destroy_ele_list(struct jsonc_ele** list) {
+    int count = 0;
+    while (list[count] != NULL) {
+        jsonc_destroy_ele(list[count]);
+        list[count] = NULL;
+        count++;
+    }
+}
 static inline char* get_double_quotes(char* src) {
     while (*src != 0) {
         skipescape(&src);
@@ -1597,11 +1603,75 @@ static int jsonc_change_ele_to_mem(void* st,
     return ret;
 }
 
+int jsonc_get_json_ele_num(char* str) {
+    int count = 1;
+    int end = 1;
+    skipspace(&str);
+    str++;
+    skipspace(&str);
+    while (end != 0) {
+        if (*str == '"') {
+            skipstr(&str);
+        } else if (*str == ',') {
+            count++;
+        } else if (*str == '{') {
+            end++;
+        } else if (*str == '}') {
+            end--;
+        }
+        str++;
+    }
+    return count;
+}
+
 int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
     int ret = 0;
     (void)buf;
     (void)st;
     (void)type;
+    int ele_num = 1;
+    int count = 0;
+    struct jsonc_ele** list;
+    struct jsonc_ele* ele;
+
+    // 检查 json 的元素个数，只有一个元素时尝试与 union 自身的成员进行匹配
+    // 有多个元素时则需要先尝试与 union 成员的成员进行匹配
+    ele_num = jsonc_get_json_ele_num(buf);
+
+    skipspace(&buf);
+    buf++;
+    skipspace(&buf);
+    list = JSONCALLOC(sizeof(struct jsonc_ele*) * ele_num + 1);
+
+    // 获取所有的 json 元素
+    while (*buf != '}') {
+        // 获取元素
+        ele = JSONCALLOC(sizeof(struct jsonc_ele));
+        *ele = jsonc_get_ele(buf, &buf);
+        if (!(ele->name && ele->value)) {
+            jsonc_destroy_ele(ele);
+            jsonc_destroy_ele_list(list);
+            return -JSON_ELE;
+        }
+        list[count] = ele;
+        count++;
+        list[count] = NULL;
+        skipspace(&buf);
+        if (*buf == ',') {
+            buf++;
+        }
+    }
+
+    if (ele_num == 1) {
+        // 先尝试与nion自身的成员进行匹配，不行才与其子成员进行匹配（该子成员必须是
+        // union）
+    } else {
+        // 尝试与 nion
+        // 成员的子成员进行匹配（该成员必须是结构体才行）,否则再尝试与自身的成员匹配
+    }
+
+    jsonc_destroy_ele_list(list);
+
     return ret;
 }
 
@@ -1648,7 +1718,7 @@ int jsonc_change_to_obj(char* buf, void* st, const struct type* type) {
         mem++;
     }
     if (type->length < length) {
-        // 匹配 union
+        // 匹配 union 只有一个成员的 union 会被当做 struct 处理
         ret = jsonc_change_to_union(buf, st, type);
     } else {
         // 匹配 struct
