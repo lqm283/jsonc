@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:58:17
- * @LastEditTime : 2023-01-11 09:40:16
+ * @LastEditTime : 2023-01-11 10:13:39
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -14,6 +14,7 @@
 
 #include "char/test_char_json_to_mult.h"
 #include "int16/test_int16_json_to_mult.h"
+#include "int32/test_int32_json_to_mult.h"
 #include "uint16/test_uint16_json_to_mult.h"
 #include "uint8/test_uint8_json_to_mult.h"
 
@@ -35,6 +36,10 @@ static const struct TestChangeToMult *ChangeToMult[] = {
     PtrNonInt16ChangeToMult,
     NonArrInt16ChangeToMult,
     PtrArrInt16ChangeToMult,
+    NonNonInt32ChangeToMult,
+    PtrNonInt32ChangeToMult,
+    NonArrInt32ChangeToMult,
+    PtrArrInt32ChangeToMult,
     NULL};
 
 #endif
