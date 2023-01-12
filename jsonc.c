@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-12 11:20:33
+ * @LastEditTime : 2023-01-12 17:00:23
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -601,11 +601,13 @@ static inline void skipstr(char** s) {
         return;
     }
     (*s)++;
-    while (**s != '"') {
+    while (**s != '"' && **s != '\0') {
         skipescape(s);
         (*s)++;
     }
-    (*s)++;
+    if (**s == '"') {
+        (*s)++;
+    }
 }
 
 static int jsonc_check_number(char* start_num, char** end_num) {
@@ -912,15 +914,7 @@ static int jsonc_check_json(char* src) {
         }
         // 跳过字符串
         if (*str == '"') {
-            str++;
-            quotes++;
-            while (*str != '"' && *str++ != 0) {
-                // 忽略掉\后面的字符
-                skipescape(&str);
-            }
-            if (*str == '"') {
-                quotes++;
-            }
+            skipstr(&str);
         }
 
         if (*str == '{' || *str == '[') {
@@ -1700,6 +1694,12 @@ static int jsonc_change_to_mem_son(void* st,
                                    struct jsonc_ele** list) {
     int ret = 0;
     const struct struct_mem* mem = jsonc_find_best_mem(type, list);
+
+    // 如果 union 的成员是指针，先进行指针的转换
+    enum c_type c_type = jsonc_get_ctype(mem);
+    if (c_type & cPtrBase) {
+        st = (void*)(*(long*)st);
+    }
 
     // 将json元素转换为mem的成员
     while (*list != NULL) {
