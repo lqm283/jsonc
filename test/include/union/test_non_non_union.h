@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-11 20:57:25
+ * @LastEditTime : 2023-01-12 08:19:21
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "../../../jsonc.h"
+#include "test_base_struct.h"
 
 union TestNonNonSingleUnion {
     int a;
@@ -31,10 +32,20 @@ INIT(TestNonNonMultBaseUnion,
      MEM(union TestNonNonMultBaseUnion, Num, int, a, NULL),
      MEM(union TestNonNonMultBaseUnion, Num, float, b, NULL));
 
+union TestNonNonMultObjUnion {
+    int n;
+    struct BaseStruct b;
+};
+INIT(TestNonNonMultObjUnion,
+     union TestNonNonMultObjUnion,
+     MEM(union TestNonNonMultObjUnion, Num, int, n, NULL),
+     MEM(union TestNonNonMultObjUnion, Num, struct BaseStruct, b, BaseStruct));
+
 //  只有一个成员的 union 进行 json 转换
-int test_change_single_str_json_to_non_non_single_union_lone(char* json);
+int test_change_single_s_json_to_non_non_single_union_lone(char* json);
 
 // 有多个成员的 union 进行转换
-int test_change_single_str_json_to_non_non_mult_union_base(char* json);
+int test_change_single_s_json_to_non_non_mult_union_base(char* json);
+int test_change_single_s_json_to_non_non_mult_union_obj(char* json);
 
 #endif

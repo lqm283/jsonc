@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-11 22:55:22
+ * @LastEditTime : 2023-01-12 08:28:40
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1613,7 +1613,9 @@ int jsonc_get_json_ele_num(char* str) {
         if (*str == '"') {
             skipstr(&str);
         } else if (*str == ',') {
-            count++;
+            if (end == 1) {
+                count++;
+            }
         } else if (*str == '{') {
             end++;
         } else if (*str == '}') {
@@ -1665,11 +1667,18 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
     if (ele_num == 1) {
         // 先尝试与nion自身的成员进行匹配，不行才与其子成员进行匹配（该子成员必须是
         // union）
+
+        ret = jsonc_change_ele_to_mem(st, type, *list);
+        if (ret) {
+            // 与子成员进行匹配
+        }
+        goto end;
     } else {
         // 尝试与 nion
         // 成员的子成员进行匹配（该成员必须是结构体才行）,否则再尝试与自身的成员匹配
     }
 
+end:
     jsonc_destroy_ele_list(list);
 
     return ret;
