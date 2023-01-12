@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-12 11:24:29
+ * @LastEditTime : 2023-01-12 17:28:39
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -71,6 +71,23 @@ int test_change_single_s_json_to_non_non_mult_union_son(char* json) {
     }
 
     if (strcmp(u.abc.c, "3.14159") || u.abc.a != 20 || u.abc.b != 50) {
+        return -1;
+    }
+
+    return ret;
+}
+
+// 转换到自身成员的子成员
+int test_change_single_s_json_to_non_non_mult_union_sonarr(char* json) {
+    int ret = 0;
+    union TestNonNonMultObjUnion u;
+    ret = JsoncDeserialize(json, &u, TestNonNonMultObjUnion);
+    if (ret) {
+        return ret;
+    }
+
+    if (u.abc.c[0] != 1 || u.abc.c[1] != 2 || u.abc.c[2] != 3 || u.abc.c[3] != 4 ||
+        u.abc.c[4] != 5 || u.abc.a != 10 || u.abc.b != 20) {
         return -1;
     }
 
