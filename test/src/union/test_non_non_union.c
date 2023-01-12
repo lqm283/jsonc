@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-12 10:41:34
+ * @LastEditTime : 2023-01-12 11:24:29
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -70,7 +70,7 @@ int test_change_single_s_json_to_non_non_mult_union_son(char* json) {
         return ret;
     }
 
-    if (strcmp(u.b.c, "3.14159")) {
+    if (strcmp(u.abc.c, "3.14159") || u.abc.a != 20 || u.abc.b != 50) {
         return -1;
     }
 
