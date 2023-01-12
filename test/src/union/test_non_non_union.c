@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-12 17:28:39
+ * @LastEditTime : 2023-01-12 21:55:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -55,6 +55,22 @@ int test_change_single_s_json_to_non_non_mult_union_obj(char* json) {
     }
 
     if (u.b.a != 10) {
+        return -1;
+    }
+
+    return ret;
+}
+
+// 转换为自身的对象类型的子成员
+int test_change_single_m_json_to_non_non_mult_union_obj(char* json) {
+    int ret = 0;
+    union TestNonNonMultObj1Union u;
+    ret = JsoncDeserialize(json, &u, TestNonNonMultObj1Union);
+    if (ret) {
+        return ret;
+    }
+
+    if (u.b.a != 20 || u.b.b != 50 || strcmp("3.14159", u.b.c)) {
         return -1;
     }
 

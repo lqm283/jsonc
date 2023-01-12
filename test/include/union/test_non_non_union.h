@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-12 17:25:04
+ * @LastEditTime : 2023-01-12 21:12:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -32,6 +32,15 @@ INIT(TestNonNonMultBaseUnion,
      MEM(union TestNonNonMultBaseUnion, Num, int, a, NULL),
      MEM(union TestNonNonMultBaseUnion, Num, float, b, NULL));
 
+union TestNonNonMultObj1Union {
+    int n;
+    struct BaseUnionStruct b;
+};
+INIT(TestNonNonMultObj1Union,
+     union TestNonNonMultObj1Union,
+     MEM(union TestNonNonMultObj1Union, Num, int, n, NULL),
+     MEM(union TestNonNonMultObj1Union, Obj, struct BaseUnionStruct, b, BaseUnionStruct));
+
 union TestNonNonMultObjUnion {
     int n;
     struct BaseUnionStruct b;
@@ -58,6 +67,7 @@ int test_change_single_s_json_to_non_non_single_union_lone(char* json);
 // 有多个成员的 union 进行转换
 int test_change_single_s_json_to_non_non_mult_union_base(char* json);
 int test_change_single_s_json_to_non_non_mult_union_obj(char* json);
+int test_change_single_m_json_to_non_non_mult_union_obj(char* json);
 int test_change_single_s_json_to_non_non_mult_union_son(char* json);
 int test_change_single_s_json_to_non_non_mult_union_sonarr(char* json);
 

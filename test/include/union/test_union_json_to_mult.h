@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 14:01:35
- * @LastEditTime : 2023-01-12 17:24:11
+ * @LastEditTime : 2023-01-12 21:08:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -21,7 +21,10 @@ static const struct TestChangeToMult NonNonUnionChangeToMult[] = {
     FUNC(test_change_single_s_json_to_non_non_single_union_lone),
     FUNC(test_change_single_s_json_to_non_non_mult_union_base),
     FUNC(test_change_single_s_json_to_non_non_mult_union_obj),
+    FUNC(test_change_single_m_json_to_non_non_mult_union_obj),
     FUNC(test_change_single_s_json_to_non_non_mult_union_son),
+    FUNC(test_change_single_s_json_to_non_non_mult_union_sonarr),
+
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrNonUnionChangeToMult[] = {
@@ -30,10 +33,13 @@ static const struct TestChangeToMult PtrNonUnionChangeToMult[] = {
     FUNC(test_change_single_s_json_to_ptr_non_mult_union_obj),
     FUNC(test_change_single_s_json_to_ptr_non_mult_union_nson),
     FUNC(test_change_single_s_json_to_ptr_non_mult_union_pson),
-    FUNC(test_change_single_s_json_to_non_non_mult_union_sonarr),
+
     {NULL, NULL}};
 
-static const struct TestChangeToMult NonArrUnionChangeToMult[] = {{NULL, NULL}};
+static const struct TestChangeToMult NonArrUnionChangeToMult[] = {
+    FUNC(test_change_single_s_json_to_non_arr_single_union_lone),
+    FUNC(test_change_single_s_json_to_non_arr_mult_union_base),
+    {NULL, NULL}};
 
 static const struct TestChangeToMult PtrArrUnionChangeToMult[] = {{NULL, NULL}};
 

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-12 17:00:23
+ * @LastEditTime : 2023-01-12 20:44:05
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -606,6 +606,24 @@ static inline void skipstr(char** s) {
         (*s)++;
     }
     if (**s == '"') {
+        (*s)++;
+    }
+}
+
+static inline void skiparr(char** s) {
+    int end = 1;
+    if (**s != '[') {
+        return;
+    }
+    (*s)++;
+    while (end != 0) {
+        if (**s == '[') {
+            end++;
+        } else if (**s == ']') {
+            end--;
+        } else if (**s == '"') {
+            skipstr(s);
+        }
         (*s)++;
     }
 }
@@ -1603,7 +1621,7 @@ static const struct struct_mem* jsonc_find_best_mem(const struct type* type,
     int max_level = -100000;
     int level = 0;
     char tag_name[100];
-    const struct struct_mem* max_mem;
+    const struct struct_mem* max_mem = NULL;
     const struct struct_mem* mem = type->mem;
 
     // 获取 json 元素的个数
@@ -1694,6 +1712,9 @@ static int jsonc_change_to_mem_son(void* st,
                                    struct jsonc_ele** list) {
     int ret = 0;
     const struct struct_mem* mem = jsonc_find_best_mem(type, list);
+    if (mem == NULL) {
+        return -JSON_MATCH;
+    }
 
     // 如果 union 的成员是指针，先进行指针的转换
     enum c_type c_type = jsonc_get_ctype(mem);
@@ -1712,6 +1733,53 @@ static int jsonc_change_to_mem_son(void* st,
     return ret;
 }
 
+static int jsonc_change_to_self_mem(void* st,
+                                    const struct type* type,
+                                    struct jsonc_ele** list) {
+    int ret = -JSON_MATCH;
+    char tag_name[100];
+    while (*list != NULL) {
+        if ((*list)->type == Obj) {
+            list++;
+            continue;
+        }
+
+        const struct struct_mem* mem = type->mem;
+        while (mem->mem_type != NULL) {
+            get_tag_name(tag_name, mem->tag);
+            if (!strcmp(mem->mem_name, (*list)->name) ||
+                !strcmp(tag_name, (*list)->name)) {
+                // 根据该元素是不是数组来执行不同的操作
+                (*list)->mem = *mem;
+                (*list)->mem_addr = st + mem->mem_offset;
+                (*list)->c_type = jsonc_get_ctype(mem);
+
+                // @todo 跳过显然无法完成转换的匹配
+                if (((*list)->c_type & cStruct) &&
+                    ((*list)->type == Str || (*list)->type == Num ||
+                     (*list)->type == Bool)) {
+                    return -JSON_MATCH;
+                    ;
+                }
+
+                // 根据对象成员是否是数组来执行操作
+                if ((*list)->c_type & cBaseArr && ((*list)->type == Arr)) {
+                    ret = jsonc_change_arr((*list));
+                } else {
+                    ret = jsonc_change_alone((*list));
+                }
+                if (!ret) {
+                    return ret;
+                }
+            }
+            mem++;
+        }
+        list++;
+    }
+
+    return ret;
+}
+
 int jsonc_get_json_ele_num(char* str) {
     int count = 1;
     int end = 1;
@@ -1721,14 +1789,16 @@ int jsonc_get_json_ele_num(char* str) {
     while (end != 0) {
         if (*str == '"') {
             skipstr(&str);
-        } else if (*str == ',') {
+        } else if (*str == '[' || *str == '{') {
+            end++;
+        } else if (*str == ']' || *str == '}') {
+            end--;
+        }
+
+        if (*str == ',') {
             if (end == 1) {
                 count++;
             }
-        } else if (*str == '{') {
-            end++;
-        } else if (*str == '}') {
-            end--;
         }
         str++;
     }
@@ -1787,7 +1857,9 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
         // 成员的子成员进行匹配（该成员必须是结构体才行）,否则再尝试与自身的成员匹配
         ret = jsonc_change_to_mem_son(st, type, list);
         if (ret) {
-            // 与自身成员匹配,展事不考虑这种情况，直接返回错误
+            // 与自身成员匹配,以 json 为基础，成功匹配到一个就退出。
+            ret = jsonc_change_to_self_mem(st, type, list);
+
             return ret;
         }
     }
