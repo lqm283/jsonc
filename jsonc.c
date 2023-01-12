@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-12 08:41:47
+ * @LastEditTime : 2023-01-12 11:20:33
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1603,19 +1603,111 @@ static int jsonc_change_ele_to_mem(void* st,
     return ret;
 }
 
-static int jsonc_change_to_mem_son(void* st,
-                                   const struct type* type,
-                                   struct jsonc_ele* ele) {
-    int ret = 0;
+static const struct struct_mem* jsonc_find_best_mem(const struct type* type,
+                                                    struct jsonc_ele** list) {
+    int ele_num = 0;
+    int max_level = -100000;
+    int level = 0;
+    char tag_name[100];
+    const struct struct_mem* max_mem;
     const struct struct_mem* mem = type->mem;
+
+    // 获取 json 元素的个数
+    while (list[ele_num] != NULL) {
+        ele_num++;
+    }
+
+    // 开始进行匹配
     while (mem->mem_type != NULL) {
+        // 排除非复合类型对象和union对象
         if (mem->type_info != NULL) {
-            ret = jsonc_change_ele_to_mem(st, mem->type_info, ele);
-            if (!ret) {
-                return ret;
+            level = 0;
+            int mem_num = 0;
+            int temp_ele_num = ele_num;
+            const struct struct_mem* SubMem = mem->type_info->mem;
+            // 获取 nion 成员的子成员个数
+            while (SubMem[mem_num].mem_type != NULL) {
+                mem_num++;
+            }
+            // 开始子成员的匹配
+            while (SubMem->mem_type != NULL) {
+                get_tag_name(tag_name, SubMem->tag);
+                for (struct jsonc_ele** ele = list; *ele != NULL; ele++) {
+                    // 匹配成员名称和tag名称
+                    if (!strcmp(SubMem->mem_name, (*ele)->name) ||
+                        !strcmp(tag_name, (*ele)->name)) {
+                        int probe = 0;
+                        mem_num--;
+                        temp_ele_num--;
+                        // 名称匹配上，加 10分
+                        level += 10;
+                        enum c_type c_type = jsonc_get_ctype(SubMem);
+                        // 匹配类型
+                        switch ((*ele)->type) {
+                            case Num:
+                            case Str:
+                            case Bool:
+                            case Null:
+                                if (!(c_type & (cStruct & cUnion))) {
+                                    level += 10;
+                                    probe = 1;
+                                    if (c_type & cBaseArr) {
+                                        level -= 5;
+                                    }
+                                }
+                                break;
+                            case Arr:
+                                if (c_type & cBaseArr) {
+                                    level += 10;
+                                    probe = 1;
+                                } else if (c_type & (cStruct & cUnion)) {
+                                    level += 5;
+                                    probe = 1;
+                                }
+                                break;
+                            case Obj:
+                                if (c_type & cStruct || c_type & cUnion) {
+                                    level += 10;
+                                    probe = 1;
+                                }
+                            default:
+                                break;
+                        }
+                        if (probe) {
+                            break;
+                        }
+                    }
+                }
+                if (!temp_ele_num) {
+                    break;
+                }
+                SubMem++;
+            }
+            level -= mem_num * 5;
+            level -= temp_ele_num * 3;
+            if (max_level < level) {
+                max_mem = mem;
+                max_level = level;
             }
         }
         mem++;
+    }
+    return max_mem;
+}
+
+static int jsonc_change_to_mem_son(void* st,
+                                   const struct type* type,
+                                   struct jsonc_ele** list) {
+    int ret = 0;
+    const struct struct_mem* mem = jsonc_find_best_mem(type, list);
+
+    // 将json元素转换为mem的成员
+    while (*list != NULL) {
+        ret = jsonc_change_ele_to_mem(st, mem->type_info, *list);
+        if (ret) {
+            return ret;
+        }
+        list++;
     }
     return ret;
 }
@@ -1684,16 +1776,20 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
     if (ele_num == 1) {
         // 先尝试与nion自身的成员进行匹配，不行才与其子成员进行匹配（该子成员必须是
         // union）
-
         ret = jsonc_change_ele_to_mem(st, type, *list);
         if (ret) {
             // 与子成员进行匹配
-            ret = jsonc_change_to_mem_son(st, type, *list);
+            ret = jsonc_change_to_mem_son(st, type, list);
         }
         goto end;
     } else {
         // 尝试与 nion
         // 成员的子成员进行匹配（该成员必须是结构体才行）,否则再尝试与自身的成员匹配
+        ret = jsonc_change_to_mem_son(st, type, list);
+        if (ret) {
+            // 与自身成员匹配,展事不考虑这种情况，直接返回错误
+            return ret;
+        }
     }
 
 end:

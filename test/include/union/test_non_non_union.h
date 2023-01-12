@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-12 08:19:21
+ * @LastEditTime : 2023-01-12 11:10:37
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 #include "../../../jsonc.h"
-#include "test_base_struct.h"
+#include "test_base_union.h"
 
 union TestNonNonSingleUnion {
     int a;
@@ -34,12 +34,23 @@ INIT(TestNonNonMultBaseUnion,
 
 union TestNonNonMultObjUnion {
     int n;
-    struct BaseStruct b;
+    struct BaseUnionStruct b;
+    struct BaseTestStructABC abc;
+    struct BaseTestStructAB ab;
+    struct BaseTestStructA a;
 };
-INIT(TestNonNonMultObjUnion,
-     union TestNonNonMultObjUnion,
-     MEM(union TestNonNonMultObjUnion, Num, int, n, NULL),
-     MEM(union TestNonNonMultObjUnion, Num, struct BaseStruct, b, BaseStruct));
+INIT(
+    TestNonNonMultObjUnion,
+    union TestNonNonMultObjUnion,
+    MEM(union TestNonNonMultObjUnion, Num, int, n, NULL),
+    MEM(union TestNonNonMultObjUnion, Obj, struct BaseUnionStruct, b, BaseUnionStruct),
+    MEM(union TestNonNonMultObjUnion,
+        Obj,
+        struct BaseTestStructABC,
+        abc,
+        BaseTestStructABC),
+    MEM(union TestNonNonMultObjUnion, Obj, struct BaseTestStructAB, ab, BaseTestStructAB),
+    MEM(union TestNonNonMultObjUnion, Obj, struct BaseTestStructA, a, BaseTestStructA));
 
 //  只有一个成员的 union 进行 json 转换
 int test_change_single_s_json_to_non_non_single_union_lone(char* json);
