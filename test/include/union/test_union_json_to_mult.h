@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 14:01:35
- * @LastEditTime : 2023-01-12 08:17:46
+ * @LastEditTime : 2023-01-12 08:50:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -21,6 +21,7 @@ static const struct TestChangeToMult NonNonUnionChangeToMult[] = {
     FUNC(test_change_single_s_json_to_non_non_single_union_lone),
     FUNC(test_change_single_s_json_to_non_non_mult_union_base),
     FUNC(test_change_single_s_json_to_non_non_mult_union_obj),
+    FUNC(test_change_single_s_json_to_non_non_mult_union_son),
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrNonUnionChangeToMult[] = {{NULL, NULL}};

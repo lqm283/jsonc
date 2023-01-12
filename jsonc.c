@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-12 08:28:40
+ * @LastEditTime : 2023-01-12 08:41:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1603,6 +1603,23 @@ static int jsonc_change_ele_to_mem(void* st,
     return ret;
 }
 
+static int jsonc_change_to_mem_son(void* st,
+                                   const struct type* type,
+                                   struct jsonc_ele* ele) {
+    int ret = 0;
+    const struct struct_mem* mem = type->mem;
+    while (mem->mem_type != NULL) {
+        if (mem->type_info != NULL) {
+            ret = jsonc_change_ele_to_mem(st, mem->type_info, ele);
+            if (!ret) {
+                return ret;
+            }
+        }
+        mem++;
+    }
+    return ret;
+}
+
 int jsonc_get_json_ele_num(char* str) {
     int count = 1;
     int end = 1;
@@ -1671,6 +1688,7 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
         ret = jsonc_change_ele_to_mem(st, type, *list);
         if (ret) {
             // 与子成员进行匹配
+            ret = jsonc_change_to_mem_son(st, type, *list);
         }
         goto end;
     } else {

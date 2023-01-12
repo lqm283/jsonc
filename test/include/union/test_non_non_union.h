@@ -47,5 +47,6 @@ int test_change_single_s_json_to_non_non_single_union_lone(char* json);
 // 有多个成员的 union 进行转换
 int test_change_single_s_json_to_non_non_mult_union_base(char* json);
 int test_change_single_s_json_to_non_non_mult_union_obj(char* json);
+int test_change_single_s_json_to_non_non_mult_union_son(char* json);
 
 #endif
