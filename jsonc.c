@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-13 14:08:24
+ * @LastEditTime : 2023-01-13 14:26:10
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -182,7 +182,7 @@ static enum c_type jsonc_get_ctype(const struct struct_mem* mem) {
 
 static void get_tag_name(char* buf, const char* str) {
     while (*str != ',' && *str != 0) {
-        if (isalpha(*str)) {
+        if (isalpha((int)*str)) {
             *buf++ = *str++;
         } else {
             break;
@@ -202,19 +202,19 @@ static int is_omitempty(const char* str) {
         }
     }
 
-    while (!isalpha(*str)) {
+    while (!isalpha((int)*str)) {
         str++;
     };
 
     while (*cmp != '\0') {
-        if ((*cmp != *str && *cmp != (*str + 0x20)) || !isalpha(*str)) {
+        if ((*cmp != *str && *cmp != (*str + 0x20)) || !isalpha((int)*str)) {
             return 0;
         }
         cmp++;
         str++;
     }
 
-    if (isalpha(*str)) {
+    if (isalpha((int)*str)) {
         return 0;
     }
 
@@ -234,7 +234,7 @@ static enum c_base_type is_base_type(const char* src) {
     }
     s[count] = '\0';
     while (count--) {
-        if (src[count] == '*' || isspace(src[count])) {
+        if (src[count] == '*' || isspace((int)src[count])) {
             s[count] = '\0';
         } else {
             break;
@@ -589,7 +589,7 @@ static void* jsonc_change_cptrstructarr_to_json(char* buf,
 // 反序列化函数
 
 static inline void skipspace(char** s) {
-    while (isspace(**s)) {
+    while (isspace((int)**s)) {
         (*s)++;
     }
 }
@@ -643,7 +643,7 @@ static int jsonc_check_number(char* start_num, char** end_num) {
         start_num++;
     }
 
-    while (*start_num != 0 && !isspace(*start_num)) {
+    while (*start_num != 0 && !isspace((int)*start_num)) {
         switch (*start_num) {
             case '0' ... '9':
                 break;
@@ -745,7 +745,7 @@ static int jsonc_check_bool(char* start_bool, char** end_bool) {
         }
         start_bool++;
     }
-    if (!isspace(*(start_bool)) && *start_bool != ',' && *start_bool != ']' &&
+    if (!isspace((int)*(start_bool)) && *start_bool != ',' && *start_bool != ']' &&
         *start_bool != '}') {
         ret = -JSON_BOOL;
     }
@@ -1052,7 +1052,7 @@ static inline char* get_obj(char** src) {
     // 获取对象的结尾
     count++;
     while (count != 0 && *str++ != '\0') {
-        if (*str != '}' && !isspace(*str)) {
+        if (*str != '}' && !isspace((int)*str)) {
         }
         if (*str == '{') {
             count++;
@@ -1091,7 +1091,7 @@ static inline char* get_arr(int* num, char** src) {
     // 获取数组的结尾
     count++;
     while (count != 0 && *str++ != '\0') {
-        if (*str != ']' && !isspace(*str) && *num == 0) {
+        if (*str != ']' && !isspace((int)*str) && *num == 0) {
             *num = 1;
         }
         if (*str == '[') {
@@ -1155,7 +1155,7 @@ static inline char* get_num(char* start_str, char** end_str) {
 
     temp = start_str;
     count = 0;
-    while (isdigit(*temp) || is_this_char('-', *temp) || is_this_char('e', *temp) ||
+    while (isdigit((int)*temp) || is_this_char('-', *temp) || is_this_char('e', *temp) ||
            is_this_char('E', *temp) || is_this_char('.', *temp)) {
         temp++;
         count++;

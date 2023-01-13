@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-01-13 13:38:48
+ * @LastEditTime : 2023-01-13 14:09:11
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -48,12 +48,7 @@ int main(int argc, char** argv) {
     (void)argc;
     (void)argv;
 
-    while (1) {
-        // test();
-        int ret = mem_test();
-        usleep(1000 * 1);
-        printf("test ok  ret = %d\n", ret);
-    }
+    test();
 
     return 0;
 }
