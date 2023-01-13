@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-13 14:26:10
+ * @LastEditTime : 2023-01-13 15:39:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1871,7 +1871,7 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
         list[count] = ele;
         mem_ele++;
         *ele = jsonc_get_ele(buf, &buf);
-        if (!(ele->name && ele->value)) {
+        if (ele->name == NULL || ele->value == NULL) {
             ret = -JSON_ELE;
             goto end;
         }
@@ -1891,7 +1891,6 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
             // 与子成员进行匹配
             ret = jsonc_change_to_mem_son(st, type, list);
         }
-        goto end;
     } else {
         // 尝试与 nion
         // 成员的子成员进行匹配（该成员必须是结构体才行）,否则再尝试与自身的成员匹配
@@ -1899,8 +1898,6 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
         if (ret) {
             // 与自身成员匹配,以 json 为基础，成功匹配到一个就退出。
             ret = jsonc_change_to_self_mem(st, type, list);
-
-            return ret;
         }
     }
 
@@ -1920,7 +1917,7 @@ int jsonc_change_to_struct(char* buf, void* st, const struct type* type) {
     while (*buf != '}') {
         // 获取元素
         struct jsonc_ele ele = jsonc_get_ele(buf, &buf);
-        if (!(ele.name && ele.value)) {
+        if (ele.name == NULL || ele.value == NULL) {
             jsonc_destroy_ele(&ele);
             return -JSON_ELE;
         }
