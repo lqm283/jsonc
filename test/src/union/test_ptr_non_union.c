@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:46:01
- * @LastEditTime : 2023-01-12 17:12:26
+ * @LastEditTime : 2023-01-13 11:56:19
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -23,30 +23,33 @@ int test_change_single_s_json_to_ptr_non_single_union_lone(char* json) {
     u.a = malloc(sizeof(int));
     ret = JsoncDeserialize(json, &u, TestPtrNonSingleUnion);
     if (ret) {
+        free(u.a);
         return ret;
     }
 
     if (*u.a != 10) {
+        free(u.a);
         return -1;
     }
-
+    free(u.a);
     return ret;
 }
 
 int test_change_single_s_json_to_ptr_non_mult_union_base(char* json) {
     int ret = 0;
     union TestPtrNonMultBaseUnion u;
-    u.a = malloc(sizeof(int));
     u.b = malloc(sizeof(float));
     ret = JsoncDeserialize(json, &u, TestPtrNonMultBaseUnion);
     if (ret) {
+        free(u.b);
         return ret;
     }
 
     if (*u.a != 10) {
+        free(u.b);
         return -1;
     }
-
+    free(u.b);
     return ret;
 }
 
@@ -57,13 +60,15 @@ int test_change_single_s_json_to_ptr_non_mult_union_obj(char* json) {
     u.b = malloc(sizeof(struct BaseUnionStruct));
     ret = JsoncDeserialize(json, &u, TestPtrNonMultObjUnion);
     if (ret) {
+        free(u.b);
         return ret;
     }
 
     if (u.b->a != 10) {
+        free(u.b);
         return -1;
     }
-
+    free(u.b);
     return ret;
 }
 
@@ -71,7 +76,6 @@ int test_change_single_s_json_to_ptr_non_mult_union_obj(char* json) {
 int test_change_single_s_json_to_ptr_non_mult_union_nson(char* json) {
     int ret = 0;
     union TestPtrNonMultObjUnion u;
-    u.b = malloc(sizeof(struct BaseUnionStruct));
 
     ret = JsoncDeserialize(json, &u, TestPtrNonMultObjUnion);
     if (ret) {
@@ -81,7 +85,6 @@ int test_change_single_s_json_to_ptr_non_mult_union_nson(char* json) {
     if (strcmp(u.abc.c, "3.14159") || u.abc.a != 20 || u.abc.b != 50) {
         return -1;
     }
-
     return ret;
 }
 
@@ -92,12 +95,14 @@ int test_change_single_s_json_to_ptr_non_mult_union_pson(char* json) {
 
     ret = JsoncDeserialize(json, &u, TestPtrNonMultObjUnion);
     if (ret) {
+        free(u.b);
         return ret;
     }
 
     if (u.ab->a != 10 || u.ab->b != 30) {
+        free(u.b);
         return -1;
     }
-
+    free(u.b);
     return ret;
 }

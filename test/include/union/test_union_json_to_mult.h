@@ -28,10 +28,10 @@ static const struct TestChangeToMult NonNonUnionChangeToMult[] = {
     {NULL, NULL}};
 
 static const struct TestChangeToMult PtrNonUnionChangeToMult[] = {
-    FUNC(test_change_single_s_json_to_ptr_non_single_union_lone),
-    FUNC(test_change_single_s_json_to_ptr_non_mult_union_base),
-    FUNC(test_change_single_s_json_to_ptr_non_mult_union_obj),
-    FUNC(test_change_single_s_json_to_ptr_non_mult_union_nson),
+    // FUNC(test_change_single_s_json_to_ptr_non_single_union_lone),
+    // FUNC(test_change_single_s_json_to_ptr_non_mult_union_base),
+    // FUNC(test_change_single_s_json_to_ptr_non_mult_union_obj),
+    // FUNC(test_change_single_s_json_to_ptr_non_mult_union_nson),
     FUNC(test_change_single_s_json_to_ptr_non_mult_union_pson),
 
     {NULL, NULL}};

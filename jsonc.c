@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-12 20:44:05
+ * @LastEditTime : 2023-01-13 14:08:24
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -14,7 +14,13 @@
 #include <bits/stdint-uintn.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+static int mem_name = 0;
+static int mem_value = 0;
+static int mem_ele = 0;
+static int mem_list = 0;
 
 enum c_base_type {
     cInt8,
@@ -981,18 +987,28 @@ static const struct struct_mem* jsonc_probe_mem_and_ele(const struct struct_mem*
 static inline void jsonc_destroy_ele(struct jsonc_ele* ele) {
     if (ele->name != NULL) {
         JSONFREE(ele->name);
+        mem_name--;
     }
-    if (ele->name != NULL) {
+    ele->name = NULL;
+    if (ele->value != NULL) {
         JSONFREE(ele->value);
+        mem_value--;
     }
+    ele->name = NULL;
 }
 
 static inline void jsonc_destroy_ele_list(struct jsonc_ele** list) {
     int count = 0;
-    while (list[count] != NULL) {
-        jsonc_destroy_ele(list[count]);
-        list[count] = NULL;
-        count++;
+    if (list != NULL) {
+        while (list[count] != NULL) {
+            jsonc_destroy_ele(list[count]);
+            JSONFREE(list[count]);
+            mem_ele--;
+            list[count] = NULL;
+            count++;
+        }
+        JSONFREE(list);
+        mem_list--;
     }
 }
 static inline char* get_double_quotes(char* src) {
@@ -1015,11 +1031,10 @@ static inline char* get_string(char** src) {
     to = get_double_quotes(*src);
     int size = to - from;
     string = (char*)JSONCALLOC(size);
-    if (string != NULL) {
-        temp = string;
-    } else {
+    if (!string) {
         return NULL;
     }
+    temp = string;
     for (; *src < to; (*src)++) {
         *temp++ = **src;
     }
@@ -1055,6 +1070,9 @@ static inline char* get_obj(char** src) {
 
     count = (long)str - (long)*src;
     obj = JSONCALLOC(count + 1);
+    if (obj == NULL) {
+        return NULL;
+    }
     memcpy(obj, *src, count);
     obj[count] = '\0';
 
@@ -1093,10 +1111,16 @@ static inline char* get_arr(int* num, char** src) {
     char* arr;
     if (!(*num)) {
         arr = JSONCALLOC(3);
+        if (arr == NULL) {
+            return NULL;
+        }
         strcpy(arr, "[]");
     } else {
         count = (long)str - (long)*src;
         arr = JSONCALLOC(count + 1);
+        if (arr == NULL) {
+            return NULL;
+        }
         memcpy(arr, *src, count);
         arr[count] = '\0';
     }
@@ -1110,7 +1134,6 @@ static char* get_bool(char* start_str, char** end_str) {
     if (!bool) {
         return NULL;
     }
-
     if (*start_str == 't') {
         memcpy(bool, start_str, 4);
         bool[4] = '\0';
@@ -1142,7 +1165,6 @@ static inline char* get_num(char* start_str, char** end_str) {
     if (!num) {
         return NULL;
     }
-
     for (i = 0; i < count; i++) {
         num[i] = (char)*start_str++;
     }
@@ -1165,9 +1187,9 @@ static char* get_null(char* start_str, char** end_str) {
     return null;
 }
 
-static int jsonc_get_vaue_and_type(struct jsonc_ele* ele,
-                                   char* start_str,
-                                   char** end_str) {
+static int jsonc_get_value_and_type(struct jsonc_ele* ele,
+                                    char* start_str,
+                                    char** end_str) {
     int ret = 0;
     // 获取值和类型
     skipspace(&start_str);
@@ -1207,29 +1229,38 @@ static int jsonc_get_vaue_and_type(struct jsonc_ele* ele,
     }
     if (!ele->value) {
         ret = -JSON_CPY;
+    } else {
+        mem_value++;
     }
     return ret;
 }
 
 static int jsonc_get_arr_ele(jsonc_arr_mem* mem, char* start_str, char** end_str) {
     int ret = 0;
-    ret = jsonc_get_vaue_and_type(mem, start_str, end_str);
+    ret = jsonc_get_value_and_type(mem, start_str, end_str);
     return ret;
 }
 
 static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
     struct jsonc_ele ele;
+    ele.name = NULL;
+    ele.value = NULL;
 
     // 获取元素的名称
     skipspace(&start_str);
     ele.name = get_string(&start_str);
-
+    if (ele.name == NULL) {
+        return ele;
+    }
+    mem_name++;
     // 获取值
     skipspace(&start_str);
     start_str++;
     skipspace(&start_str);
-    jsonc_get_vaue_and_type(&ele, start_str, end_str);
-
+    jsonc_get_value_and_type(&ele, start_str, end_str);
+    if (ele.value != NULL) {
+        return ele;
+    }
     return ele;
 }
 
@@ -1823,18 +1854,27 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
     buf++;
     skipspace(&buf);
     list = JSONCALLOC(sizeof(struct jsonc_ele*) * ele_num + 1);
+    if (!list) {
+        ret = -JSON_ALLOC;
+        goto end;
+    }
+    mem_list++;
 
     // 获取所有的 json 元素
     while (*buf != '}') {
         // 获取元素
         ele = JSONCALLOC(sizeof(struct jsonc_ele));
-        *ele = jsonc_get_ele(buf, &buf);
-        if (!(ele->name && ele->value)) {
-            jsonc_destroy_ele(ele);
-            jsonc_destroy_ele_list(list);
-            return -JSON_ELE;
+        if (!ele) {
+            ret = -JSON_ALLOC;
+            goto end;
         }
         list[count] = ele;
+        mem_ele++;
+        *ele = jsonc_get_ele(buf, &buf);
+        if (!(ele->name && ele->value)) {
+            ret = -JSON_ELE;
+            goto end;
+        }
         count++;
         list[count] = NULL;
         skipspace(&buf);
@@ -1941,7 +1981,10 @@ void* jsonc_serialize(char* buf, void* st, const struct type* type) {
 
 int jsonc_deserialize(char* buf, void* st, const struct type* type) {
     int ret = 0;
-
+    mem_name = 0;
+    mem_list = 0;
+    mem_value = 0;
+    mem_ele = 0;
     ret = jsonc_check_json(buf);
     if (ret) {
         return ret;
@@ -1949,6 +1992,19 @@ int jsonc_deserialize(char* buf, void* st, const struct type* type) {
 
     // 将json转换为复合对象
     ret = jsonc_change_to_obj(buf, st, type);
+
+    if (mem_name != 0) {
+        printf("mem_name = %d\n", mem_name);
+    }
+    if (mem_value != 0) {
+        printf("mem_value = %d\n", mem_value);
+    }
+    if (mem_list != 0) {
+        printf("mem_list = %d\n", mem_list);
+    }
+    if (mem_ele != 0) {
+        printf("mem_ele = %d\n", mem_ele);
+    }
 
     return ret;
 }

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-11 20:15:23
+ * @LastEditTime : 2023-01-13 08:27:06
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -102,7 +102,7 @@ int test_change_json_to_mult() {
                 ;
             } else {
                 sprintf(path,
-                        "json/%s/%s/%s/%s/%s.json",
+                        "./json/%s/%s/%s/%s/%s.json",
                         path1,
                         path2,
                         path3,
