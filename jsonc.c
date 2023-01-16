@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-14 15:01:04
+ * @LastEditTime : 2023-01-16 08:47:53
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -16,11 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-static int mem_name = 0;
-static int mem_value = 0;
-static int mem_ele = 0;
-static int mem_list = 0;
 
 enum c_base_type {
     cInt8,
@@ -75,6 +70,7 @@ static const char** jsonc_c_base_type[] = {jsonc_type_int8,
 /**
  * @description: jsonc 的错误定义
  */
+#define JSON_NORMAL 0 /* 正常 */
 #define JSON_NULL 1 /* 给定的 json 字符串是一个空字符串 */
 #define JSON_ROOT 2  /* 根节点错误，该 json 字符串不是一个有效的 json */
 #define JSON_OBJ 3   /* 对象错误，可能是由于括号或者引号不匹配引起 */
@@ -616,24 +612,6 @@ static inline void skipstr(char** s) {
     }
 }
 
-static inline void skiparr(char** s) {
-    int end = 1;
-    if (**s != '[') {
-        return;
-    }
-    (*s)++;
-    while (end != 0) {
-        if (**s == '[') {
-            end++;
-        } else if (**s == ']') {
-            end--;
-        } else if (**s == '"') {
-            skipstr(s);
-        }
-        (*s)++;
-    }
-}
-
 static int jsonc_check_number(char* start_num, char** end_num) {
     int sign, decimal, index;
     sign = 0;
@@ -987,12 +965,10 @@ static const struct struct_mem* jsonc_probe_mem_and_ele(const struct struct_mem*
 static inline void jsonc_destroy_ele(struct jsonc_ele* ele) {
     if (ele->name != NULL) {
         JSONFREE(ele->name);
-        mem_name--;
     }
     ele->name = NULL;
     if (ele->value != NULL) {
         JSONFREE(ele->value);
-        mem_value--;
     }
     ele->name = NULL;
 }
@@ -1003,12 +979,10 @@ static inline void jsonc_destroy_ele_list(struct jsonc_ele** list) {
         while (list[count] != NULL) {
             jsonc_destroy_ele(list[count]);
             JSONFREE(list[count]);
-            mem_ele--;
             list[count] = NULL;
             count++;
         }
         JSONFREE(list);
-        mem_list--;
     }
 }
 static inline char* get_double_quotes(char* src) {
@@ -1229,10 +1203,8 @@ static int jsonc_get_value_and_type(struct jsonc_ele* ele,
     if (end_str != NULL) {
         *end_str = start_str;
     }
-    if (!ele->value) {
+    if (ele->value == NULL) {
         ret = -JSON_CPY;
-    } else {
-        mem_value++;
     }
     return ret;
 }
@@ -1254,15 +1226,12 @@ static struct jsonc_ele jsonc_get_ele(char* start_str, char** end_str) {
     if (ele.name == NULL) {
         return ele;
     }
-    mem_name++;
+
     // 获取值
     skipspace(&start_str);
     start_str++;
     skipspace(&start_str);
     jsonc_get_value_and_type(&ele, start_str, end_str);
-    if (ele.value != NULL) {
-        return ele;
-    }
     return ele;
 }
 
@@ -1840,9 +1809,6 @@ int jsonc_get_json_ele_num(char* str) {
 
 int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
     int ret = 0;
-    (void)buf;
-    (void)st;
-    (void)type;
     int ele_num = 1;
     int count = 0;
     struct jsonc_ele** list;
@@ -1860,7 +1826,6 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
         ret = -JSON_ALLOC;
         goto end;
     }
-    mem_list++;
 
     // 获取所有的 json 元素
     while (*buf != '}') {
@@ -1871,7 +1836,7 @@ int jsonc_change_to_union(char* buf, void* st, const struct type* type) {
             goto end;
         }
         list[count] = ele;
-        mem_ele++;
+
         *ele = jsonc_get_ele(buf, &buf);
         if (ele->name == NULL || ele->value == NULL) {
             ret = -JSON_ELE;
@@ -1980,10 +1945,7 @@ void* jsonc_serialize(char* buf, void* st, const struct type* type) {
 
 int jsonc_deserialize(char* buf, void* st, const struct type* type) {
     int ret = 0;
-    mem_name = 0;
-    mem_list = 0;
-    mem_value = 0;
-    mem_ele = 0;
+
     ret = jsonc_check_json(buf);
     if (ret) {
         return ret;
@@ -1991,19 +1953,5 @@ int jsonc_deserialize(char* buf, void* st, const struct type* type) {
 
     // 将json转换为复合对象
     ret = jsonc_change_to_obj(buf, st, type);
-
-    if (mem_name != 0) {
-        printf("mem_name = %d\n", mem_name);
-    }
-    if (mem_value != 0) {
-        printf("mem_value = %d\n", mem_value);
-    }
-    if (mem_list != 0) {
-        printf("mem_list = %d\n", mem_list);
-    }
-    if (mem_ele != 0) {
-        printf("mem_ele = %d\n", mem_ele);
-    }
-
     return ret;
 }

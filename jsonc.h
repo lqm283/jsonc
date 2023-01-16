@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-01-13 11:33:52
+ * @LastEditTime : 2023-01-16 08:50:03
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -33,13 +33,6 @@ enum c_type {
     cPtrStructArr,
     cPtrUnionArr
 };
-
-struct list_head {
-    struct list_head *next, *prev;
-};
-
-typedef struct list_head jsonc_obj;
-typedef struct list_head jsonc_arr;
 
 /**
  * @description: 复合对象成员的相关参数和信息
@@ -82,25 +75,6 @@ typedef struct jsonc_ele jsonc_arr_mem;
 
 #define STRUCT_NAME(name) struct_type_##name
 #define struct_type_NULL NULL
-
-#define __COUNT_ARGS(_0,   \
-                     _1,   \
-                     _2,   \
-                     _3,   \
-                     _4,   \
-                     _5,   \
-                     _6,   \
-                     _7,   \
-                     _8,   \
-                     _9,   \
-                     _10,  \
-                     _11,  \
-                     _12,  \
-                     _n,   \
-                     X...) \
-    _n
-#define COUNT_ARGS(X...) \
-    __COUNT_ARGS(, ##X, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
 
 #define STR_CONNECT(str) ("" str)
 
