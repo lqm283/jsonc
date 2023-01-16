@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 12:54:14
- * @LastEditTime : 2023-01-13 15:24:38
+ * @LastEditTime : 2023-01-14 16:22:30
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -13,6 +13,7 @@
 
 #include "../include/obj.h"
 #include "char/test_char_mult_to_json.h"
+#include "com/test_comprehensive_mult_to_json.h"
 #include "double/test_double_mult_to_json.h"
 #include "float/test_float_mult_to_json.h"
 #include "int16/test_int16_mult_to_json.h"
@@ -26,50 +27,28 @@
 
 static const struct TestChangeToJson *ChangeToJson[] = {
     //
-    NonNonCharChangeToJson,
-    PtrNonCharChangeToJson,
-    NonArrCharChangeToJson,
-    PtrArrCharChangeToJson,
-    NonNonUint8ChangeToJson,
-    PtrNonUint8ChangeToJson,
-    NonArrUint8ChangeToJson,
-    PtrArrUint8ChangeToJson,
-    NonNonUnsignedCharChangeToJson,
-    PtrNonUnsignedCharChangeToJson,
-    NonArrUnsignedCharChangeToJson,
-    PtrArrUnsignedCharChangeToJson,
-    NonNonUint16ChangeToJson,
-    PtrNonUint16ChangeToJson,
-    NonArrUint16ChangeToJson,
-    PtrArrUint16ChangeToJson,
-    NonNonInt16ChangeToJson,
-    PtrNonInt16ChangeToJson,
-    NonArrInt16ChangeToJson,
-    PtrArrInt16ChangeToJson,
-    NonNonInt32ChangeToJson,
-    PtrNonInt32ChangeToJson,
-    NonArrInt32ChangeToJson,
-    PtrArrInt32ChangeToJson,
-    NonNonUint32ChangeToJson,
-    PtrNonUint32ChangeToJson,
-    NonArrUint32ChangeToJson,
-    PtrArrUint32ChangeToJson,
-    NonNonInt32ChangeToJson,
-    PtrNonInt32ChangeToJson,
-    NonArrInt32ChangeToJson,
-    PtrArrInt32ChangeToJson,
-    NonNonUint32ChangeToJson,
-    PtrNonUint32ChangeToJson,
-    NonArrUint32ChangeToJson,
-    PtrArrUint32ChangeToJson,
-    NonNonFloatChangeToJson,
-    PtrNonFloatChangeToJson,
-    NonArrFloatChangeToJson,
-    PtrArrFloatChangeToJson,
-    NonNonStructChangeToJson,
-    PtrNonStructChangeToJson,
-    NonArrStructChangeToJson,
-    PtrArrStructChangeToJson,
-    NULL};
+    NonNonCharChangeToJson,         PtrNonCharChangeToJson,
+    NonArrCharChangeToJson,         PtrArrCharChangeToJson,
+    NonNonUint8ChangeToJson,        PtrNonUint8ChangeToJson,
+    NonArrUint8ChangeToJson,        PtrArrUint8ChangeToJson,
+    NonNonUnsignedCharChangeToJson, PtrNonUnsignedCharChangeToJson,
+    NonArrUnsignedCharChangeToJson, PtrArrUnsignedCharChangeToJson,
+    NonNonUint16ChangeToJson,       PtrNonUint16ChangeToJson,
+    NonArrUint16ChangeToJson,       PtrArrUint16ChangeToJson,
+    NonNonInt16ChangeToJson,        PtrNonInt16ChangeToJson,
+    NonArrInt16ChangeToJson,        PtrArrInt16ChangeToJson,
+    NonNonInt32ChangeToJson,        PtrNonInt32ChangeToJson,
+    NonArrInt32ChangeToJson,        PtrArrInt32ChangeToJson,
+    NonNonUint32ChangeToJson,       PtrNonUint32ChangeToJson,
+    NonArrUint32ChangeToJson,       PtrArrUint32ChangeToJson,
+    NonNonInt32ChangeToJson,        PtrNonInt32ChangeToJson,
+    NonArrInt32ChangeToJson,        PtrArrInt32ChangeToJson,
+    NonNonUint32ChangeToJson,       PtrNonUint32ChangeToJson,
+    NonArrUint32ChangeToJson,       PtrArrUint32ChangeToJson,
+    NonNonFloatChangeToJson,        PtrNonFloatChangeToJson,
+    NonArrFloatChangeToJson,        PtrArrFloatChangeToJson,
+    NonNonStructChangeToJson,       PtrNonStructChangeToJson,
+    NonArrStructChangeToJson,       PtrArrStructChangeToJson,
+    NonNonComChangeToJson,          NULL};
 
 #endif

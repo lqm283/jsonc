@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-01-13 15:39:44
+ * @LastEditTime : 2023-01-14 15:01:04
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -967,7 +967,7 @@ static int jsonc_check_json(char* src) {
     return ret;
 }
 
-#define JSONCALLOC(size) calloc(1, size)
+#define JSONCALLOC(size) malloc(size)
 #define JSONFREE(json) free(json)
 
 static const struct struct_mem* jsonc_probe_mem_and_ele(const struct struct_mem* mem,
@@ -1150,7 +1150,8 @@ static char* get_bool(char* start_str, char** end_str) {
 }
 
 static inline char* get_num(char* start_str, char** end_str) {
-    char *num, *temp, count;
+    char *num, *temp;
+    int count;
     unsigned char i;
 
     temp = start_str;
@@ -1168,6 +1169,7 @@ static inline char* get_num(char* start_str, char** end_str) {
     for (i = 0; i < count; i++) {
         num[i] = (char)*start_str++;
     }
+    num[count] = '\0';
     if (end_str != NULL) {
         *end_str = start_str;
     }

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-01-13 08:27:06
+ * @LastEditTime : 2023-01-14 17:01:23
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -112,6 +112,7 @@ int test_change_json_to_mult() {
             }
             FILE* file = fopen(path, "r");
             if (!file) {
+                printf("path: %s\n", path);
                 printf("\033[0m\033[1;31mRead %s.json err:\033[0m file is not exist\n",
                        c->name);
                 ret++;
