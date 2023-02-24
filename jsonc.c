@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-02-14 11:15:09
+ * @LastEditTime : 2023-02-24 17:27:36
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1086,13 +1086,13 @@ static inline char* get_obj(char** src) {
 static inline char* get_arr(int* num, char** src) {
     int count = 0;
     char* str = *src;
-    if (**src != '[') {
+    if (*str++ != '[') {
         return NULL;
     }
     *num = 0;
     // 获取数组的结尾
     count++;
-    while (count != 0 && *str++ != '\0') {
+    while (count != 0 && *str != '\0') {
         if (*str != ']' && !isspace((int)*str) && *num == 0) {
             *num = 1;
         }
@@ -1106,8 +1106,8 @@ static inline char* get_arr(int* num, char** src) {
         } else if (*str == ',') {
             (*num)++;
         }
+        str++;
     }
-    str++;
     if (count != 0) {
         return NULL;
     }

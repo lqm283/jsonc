@@ -1,40 +1,29 @@
 {
-    "type": 1,
-    "id": 2165489,
-    "Num": 16548943,
-    "data": {
-        "id": 1,
-        "sn": "1234-abcd-2022",
-        "ext": true,
-        "chnum": 3,
-        "ch": [
-            {
-                "ch": 1,
-                "sn": "5468-adsgae-aeef",
-                "ft": [
-                    "4657486",
-                    "afeaf",
-                    "faefae"
-                ]
-            },
-            {
-                "ch": 2,
-                "sn": "3456-adsgae-adsf",
-                "ft": [
-                    "4657486",
-                    "afeaf",
-                    "faefae"
-                ]
-            },
-            {
-                "ch": 3,
-                "sn": "6574-adsgae-sdfg",
-                "ft": [
-                    "4657486",
-                    "afeaf",
-                    null
-                ]
-            }
-        ]
-    }
+    "id": 18,
+    "sn": "2023-2-12-SAGE3300",
+    "ext": 0,
+    "chnum": 3,
+    "ch": [
+        {
+            "ch": 1,
+            "sn": "2023-1-1-CH001",
+            "ft": [
+                "pressure"
+            ]
+        },
+        {
+            "ch": 1,
+            "sn": "2023-1-1-CH002",
+            "ft": [
+                "pressure"
+            ]
+        },
+        {
+            "ch": 1,
+            "sn": "2023-1-1-CH003",
+            "ft": [
+                "pressure"
+            ]
+        }
+    ]
 }
