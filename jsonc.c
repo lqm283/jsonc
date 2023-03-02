@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-02-24 17:27:36
+ * @LastEditTime : 2023-03-02 11:09:54
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -380,6 +380,17 @@ static int jsonc_change_bool_to_json(char* buf_start,
     return 0;
 }
 
+static int jsonc_change_obj_to_json(char* buf_start,
+                                     char** buf_end,
+                                     void* st) {
+    char *str = st;
+    while(*str!= '\0') {
+        *buf_start++ = *str++;
+    }
+    *buf_end = buf_start;
+    return 0;
+}
+
 static char* jsonc_change_cbase_to_json(char* buf,
                                         void* st,
                                         const struct struct_mem* mem) {
@@ -401,6 +412,9 @@ static char* jsonc_change_cbase_to_json(char* buf,
             break;
         case Bool:
             jsonc_change_bool_to_json(buf, &ret, st, mem);
+            break;
+        case Obj:
+            jsonc_change_obj_to_json(buf, &ret, st);
             break;
         default:
             break;

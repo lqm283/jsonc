@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-02-24 16:55:50
+ * @LastEditTime : 2023-03-02 11:16:06
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -18,48 +18,56 @@
 #include "jsonc.h"
 #include "test/include/test.h"
 
-char *str = "{\"type\":2,\"id\":1,\"num\":145785451,\"data\":{\"id\":18,\"chnum\":3,\"ch\":[{\"ch\":1,\"num\":\"A\"},{\"ch\":1,\"num\":\"B\"},{\"ch\":1,\"num\":\"C\"}]}}";
+struct A {
+    int a;
+    int b;
+};
+INIT(A, struct A,
+MEM(struct A, Num, int, a, NULL),
+MEM(struct A, Num, int, b, NULL));
+
+
+struct B{
+    int aa;
+    int bb;
+    void *data;
+};
+INIT(B, struct B,
+MEM(struct B, Num, int, aa, NULL),
+MEM(struct B, Num, int, bb, NULL),
+MEM(struct B, Obj, int *, data, NULL));
 
 int main(int argc, char** argv) {
     (void)argc;
     (void)argv;
-
     char buf[1024];
-    struct UnitHardInfo info;
+    char temp[1024];
 
-    for (int j = 0; j < sizeof(info.ch) / sizeof(struct ChHardInfo); j++) {
-        for (int i = 0; i < sizeof(info.ch[j].ft) / sizeof(char *); i++) {
-            info.ch[j].ft[i] = calloc(20,sizeof(char));
-        }
-    }
+    struct A a;
+    a.a = 20;
+    a.b = 30;
 
+    JsoncSerialize(temp,&a,A);
 
+    printf("temp = %s\n",temp);
 
-    FILE* f = fopen("./json/test.json", "rw");
-    if (f == NULL) {
-        printf("open json fail\n");
-        return -1;
-    }
+    struct B b;
+    b.aa = 23;
+    b.bb = 34;
+    b.data = temp;
+    JsoncSerialize(buf,&b,B);
 
+    printf("buf = %s\n",buf);
 
+    printf("%ld\n",sizeof(void *));
+    printf("%ld\n",sizeof(int *));
+    printf("%ld\n",sizeof(char *));
 
-    unsigned long len = fread(buf, 1, 1024, f);
-    if (!len) {
-        return -1;
-    }
-    fclose(f);
+    sprintf(temp,"%d",500);
 
-    printf("%s\n",buf);
+    JsoncSerialize(buf,&b,B);
 
-    int ret = JsoncDeserialize(buf, &info, UnitHardInfo);
-
-    for (int j = 0; j < sizeof(info.ch) / sizeof(struct ChHardInfo); j++) {
-        for (int i = 0; i < sizeof(info.ch[j].ft) / sizeof(char *); i++) {
-            free(info.ch[j].ft[i]);
-        }
-    }
-
-    // test();
+    printf("buf = %s\n",buf);
 
     return 0;
 }
