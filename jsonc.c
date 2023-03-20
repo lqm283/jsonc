@@ -344,7 +344,7 @@ static int jsonc_change_bool_to_json(char* buf_start,
                                      const struct struct_mem* mem) {
     char buf[8] = {0};
     char* str = buf;
-    const char* bool;
+    const char* bool = BOOL[False];
 
     switch (is_base_type(mem->mem_type)) {
         case cInt8:
@@ -370,6 +370,7 @@ static int jsonc_change_bool_to_json(char* buf_start,
             bool = BOOL[*(double*)st ? True : False];
             break;
         default:
+            bool = BOOL[False];
             break;
     }
     sprintf(buf, "%s", bool);
