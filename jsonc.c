@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-22 17:06:44
+ * @LastEditTime : 2023-03-22 17:14:09
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -808,25 +808,20 @@ static int jsonc_check_null(char* start_obj, char** end_obj) {
 }
 
 static int jsonc_check_bool(char* start_bool, char** end_bool) {
-    int i, length;
     int ret = 0;
-    const char* bool;
 
     if (*start_bool == 'f') {
-        bool = BOOL[0];
-        length = 5;
+        if (memcmp(start_bool, BOOL[False],5)) {
+            return -JSON_BOOL;
+        }
+        start_bool += 5;
     } else if (*start_bool == 't') {
-        bool = BOOL[1];
-        length = 4;
+        if (memcmp(start_bool, BOOL[True],4)) {
+            return -JSON_BOOL;
+        }
+        start_bool += 4;
     } else {
         return -JSON_BOOL;
-    }
-    for (i = 0; i < length; i++) {
-        if (*start_bool != bool[i]) {
-            ret = -JSON_BOOL;
-            return ret;
-        }
-        start_bool++;
     }
     if (!isspace((int)*(start_bool)) && *start_bool != ',' && *start_bool != ']' &&
         *start_bool != '}') {
