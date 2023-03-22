@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-02 11:09:54
+ * @LastEditTime : 2023-03-22 11:57:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -72,8 +72,8 @@ static const char** jsonc_c_base_type[] = {jsonc_type_int8,
  * @description: jsonc 的错误定义
  */
 #define JSON_NORMAL 0 /* 正常 */
-#define JSON_NULL 1 /* 给定的 json 字符串是一个空字符串 */
-#define JSON_ROOT 2  /* 根节点错误，该 json 字符串不是一个有效的 json */
+#define JSON_NULL 1   /* 给定的 json 字符串是一个空字符串 */
+#define JSON_ROOT 2   /* 根节点错误，该 json 字符串不是一个有效的 json */
 #define JSON_OBJ 3   /* 对象错误，可能是由于括号或者引号不匹配引起 */
 #define JSON_TRCOM 4 /*  对象出现尾随逗号 */
 #define JSON_EOFE 5  /* json 文件结尾存在多余的字符 */
@@ -96,23 +96,30 @@ static const char** jsonc_c_base_type[] = {jsonc_type_int8,
 #define JSON_GET_NUM 22     /* 获取num发生错误 */
 #define JSON_NULL_VAL 23    /* null值错误 */
 #define JSON_GET_NULL 24    /* 获取null发生错误 */
+#define JSON_OBJ_EMPTY 25   /* 预期序列化的对象是一个空对象 */
 
-static char* jsonc_change_cbasearr_to_json(char* buf,
+static int jsonc_change_cbasearr_to_json(char* buf_start,
+                                         char** buf_end,
+                                         void* st,
+                                         const struct struct_mem* mem);
+static int jsonc_change_cptrbase_to_json(char* buf_start,
+                                         char** buf_end,
                                            void* st,
                                            const struct struct_mem* mem);
-static char* jsonc_change_cptrbase_to_json(char* buf,
-                                           void* st,
-                                           const struct struct_mem* mem);
-static char* jsonc_change_cptrbasearr_to_json(char* buf,
+static int jsonc_change_cptrbasearr_to_json(char* buf_start,
+                                         char** buf_end,
                                               void* st,
                                               const struct struct_mem* mem);
-static char* jsonc_change_cstructarr_to_json(char* buf,
+static int jsonc_change_cstructarr_to_json(char* buf_start,
+                                         char** buf_end,
                                              void* st,
                                              const struct struct_mem* mem);
-static char* jsonc_change_cptrstruct_to_json(char* buf,
+static int jsonc_change_cptrstruct_to_json(char* buf_start,
+                                         char** buf_end,
                                              void* st,
                                              const struct struct_mem* mem);
-static char* jsonc_change_cptrstructarr_to_json(char* buf,
+static int jsonc_change_cptrstructarr_to_json(char* buf_start,
+                                         char** buf_end,
                                                 void* st,
                                                 const struct struct_mem* mem);
 
@@ -124,6 +131,7 @@ int jsonc_change_to_base(struct jsonc_ele* ele);
 int jsonc_change_to_union(char* buf, void* st, const struct type* type);
 int jsonc_change_to_struct(char* buf, void* st, const struct type* type);
 int jsonc_change_to_obj(char* buf, void* st, const struct type* type);
+static int jsonc_check_json(char* src);
 
 // 辅助函数
 
@@ -276,7 +284,7 @@ static int jsonc_change_char_to_json(char* buf_start, char** buf_end, const char
     return ret;
 }
 
-static int jsonc_change_string_to_json(char* buf_start, char** buf_end, const char* str) {
+static int jsonc_change_str_to_json(char* buf_start, char** buf_end, const char* str) {
     int ret = 0;
     char* buf = buf_start;
     *buf++ = '"';
@@ -381,41 +389,53 @@ static int jsonc_change_bool_to_json(char* buf_start,
     return 0;
 }
 
-static int jsonc_change_obj_to_json(char* buf_start,
-                                     char** buf_end,
-                                     void* st) {
-    char *str = st;
-    while(*str!= '\0') {
+static int jsonc_change_obj_to_json(char* buf_start, char** buf_end, void* st) {
+    // 处理空对象
+    if (st == NULL) {
+        strcpy(buf_start, "null");
+        *buf_end = buf_start + 4;
+        return 0;
+    }
+
+    // 检查对象 json 的合法性
+    int ret = jsonc_check_json((char*)st);
+    if (ret) {
+        return ret;
+    }
+
+    char* str = st;
+    while (*str != '\0') {
         *buf_start++ = *str++;
     }
     *buf_end = buf_start;
     return 0;
 }
 
-static char* jsonc_change_cbase_to_json(char* buf,
-                                        void* st,
-                                        const struct struct_mem* mem) {
-    char* ret = NULL;
+static int jsonc_change_cbase_to_json(char* buf_start,
+                                      char** buf_end,
+                                      void* st,
+                                      const struct struct_mem* mem) {
+    int ret = 0;
     switch (mem->struct_type) {
         case Str:
             if (jsonc_get_ctype(mem) == cPtrBase) {
-                jsonc_change_string_to_json(buf, &ret, st);
+                ret = jsonc_change_str_to_json(buf_start, buf_end, st);
             } else {
                 if (mem->mem_length / mem->type_length == 1) {
-                    jsonc_change_char_to_json(buf, &ret, st);
+                    ret = jsonc_change_char_to_json(buf_start, buf_end, st);
                 } else {
-                    jsonc_change_string_to_json(buf, &ret, st);
+                    ret = jsonc_change_str_to_json(buf_start, buf_end, st);
                 }
             }
             break;
         case Num:
-            jsonc_change_num_to_json(buf, &ret, st, mem);
+            ret = jsonc_change_num_to_json(buf_start, buf_end, st, mem);
             break;
         case Bool:
-            jsonc_change_bool_to_json(buf, &ret, st, mem);
+            ret = jsonc_change_bool_to_json(buf_start, buf_end, st, mem);
             break;
         case Obj:
-            jsonc_change_obj_to_json(buf, &ret, st);
+            ret = jsonc_change_obj_to_json(buf_start, buf_end, st);
             break;
         default:
             break;
@@ -423,70 +443,85 @@ static char* jsonc_change_cbase_to_json(char* buf,
     return ret;
 }
 
-static char* jsonc_change_cbasearr_to_json(char* buf,
-                                           void* st,
-                                           const struct struct_mem* mem) {
-    char* ret = NULL;
+static int jsonc_change_cbasearr_to_json(char* buf_start,
+                                         char** buf_end,
+                                         void* st,
+                                         const struct struct_mem* mem) {
+    int ret = 0;
     if (mem->struct_type == Str) {
-        jsonc_change_string_to_json(buf, &ret, st);
+        ret = jsonc_change_str_to_json(buf_start, &buf_start, st);
     } else {
         int length = mem->mem_length / mem->type_length;
-        *buf++ = '[';
+        *buf_start++ = '[';
 
         for (int i = 0; i < length; i++) {
-            buf = jsonc_change_cbase_to_json(buf, (void *)((long)st + (i * mem->type_length)), mem);
+            ret = jsonc_change_cbase_to_json(buf_start,&buf_start,
+                                             (void*)((long)st + (i * mem->type_length)),
+                                             mem);
             if ((i + 1) != length) {
-                *buf++ = ',';
+                *buf_start++ = ',';
             }
         }
 
-        *buf++ = ']';
-        return buf;
+        *buf_start++ = ']';
+        *buf_end = buf_start;
     }
     return ret;
 }
 
-static char* jsonc_change_cptrbase_to_json(char* buf,
+static int jsonc_change_cptrbase_to_json(char* buf_start,
+                                         char** buf_end,
                                            void* st,
                                            const struct struct_mem* mem) {
-    char* ret = NULL;
+    int ret = 0;
     st = (void*)(*(long*)st);
     if (st == NULL) {
-        jsonc_change_null_to_json(buf, &ret);
+        ret = jsonc_change_null_to_json(buf_start, &buf_start);
     } else {
-        ret = jsonc_change_cbase_to_json(buf, st, mem);
+        ret = jsonc_change_cbase_to_json(buf_start,&buf_start, st, mem);
     }
+    *buf_end = buf_start;
     return ret;
 }
 
-static char* jsonc_change_cptrbasearr_to_json(char* buf,
+static int jsonc_change_cptrbasearr_to_json(char* buf_start,
+                                         char** buf_end,
                                               void* st,
                                               const struct struct_mem* mem) {
     void* addr;
+    int ret = 0;
     int length = mem->mem_length / mem->type_length;
-    *buf++ = '[';
+    *buf_start++ = '[';
     for (int i = 0; i < length; i++) {
-        addr = (void *)((long)st + (i * mem->type_length));
+        addr = (void*)((long)st + (i * mem->type_length));
         addr = (void*)(*(long*)addr);
 
         if (addr == NULL) {
-            jsonc_change_null_to_json(buf, (void*)&buf);
+            ret = jsonc_change_null_to_json(buf_start, &buf_start);
         } else {
-            buf = jsonc_change_cbase_to_json(buf, addr, mem);
+            ret = jsonc_change_cbase_to_json(buf_start,&buf_start, addr, mem);
+        }
+        if(ret){
+            return ret;
         }
         if ((i + 1) != length) {
-            *buf++ = ',';
+            *buf_start++ = ',';
         }
     }
-    *buf++ = ']';
-    return buf;
+    *buf_start++ = ']';
+
+    *buf_end = buf_start;
+    return ret;
 }
 
-static char* jsonc_change_cstruct_to_json(char* buf, void* st, const struct type* type) {
+static int jsonc_change_cstruct_to_json(char* buf_start,
+                                        char** buf_end,
+                                        void* st,
+                                        const struct type* type) {
     char tag_name[100];
     const struct struct_mem* mem = type->mem;
-    (void)st;
-    *buf++ = '{';
+    int ret = 0;
+    *buf_start++ = '{';
     while (mem->mem_type != NULL) {
         enum c_type c_type = jsonc_get_ctype(mem);
 
@@ -502,100 +537,137 @@ static char* jsonc_change_cstruct_to_json(char* buf, void* st, const struct type
             // @todo 这个功能比较复杂，留待后续实现
         }
 
-        jsonc_change_string_to_json(buf,
-                                    (void*)&buf,
-                                    strcmp(tag_name, "") ? tag_name : mem->mem_name);
-        *buf++ = ':';
+        ret = jsonc_change_str_to_json(buf_start,
+                                       &buf_start,
+                                       strcmp(tag_name, "") ? tag_name : mem->mem_name);
+        *buf_start++ = ':';
         switch (c_type) {
             case cBase:
-                buf = jsonc_change_cbase_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret = jsonc_change_cbase_to_json(buf_start,
+                                                 &buf_start,
+                                                 (void*)((long)st + mem->mem_offset),
+                                                 mem);
                 break;
             case cStruct:
-                buf = jsonc_change_cstruct_to_json(buf,
-                                                   (void *)((long)st + mem->mem_offset),
+                ret = jsonc_change_cstruct_to_json(buf_start,&buf_start,
+                                                   (void*)((long)st + mem->mem_offset),
                                                    mem->type_info);
                 break;
             case cBaseArr:
-                buf = jsonc_change_cbasearr_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret = jsonc_change_cbasearr_to_json(buf_start,&buf_start,
+                                                    (void*)((long)st + mem->mem_offset),
+                                                    mem);
                 break;
             case cStructArr:
-                buf = jsonc_change_cstructarr_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret = jsonc_change_cstructarr_to_json(buf_start,&buf_start,
+                                                      (void*)((long)st + mem->mem_offset),
+                                                      mem);
                 break;
             case cPtrBase:
-                buf = jsonc_change_cptrbase_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret = jsonc_change_cptrbase_to_json(buf_start,&buf_start,
+                                                    (void*)((long)st + mem->mem_offset),
+                                                    mem);
                 break;
             case cPtrStruct:
-                buf = jsonc_change_cptrstruct_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret = jsonc_change_cptrstruct_to_json(buf_start,&buf_start,
+                                                      (void*)((long)st + mem->mem_offset),
+                                                      mem);
                 break;
             case cPtrBaseArr:
-                buf = jsonc_change_cptrbasearr_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret =
+                    jsonc_change_cptrbasearr_to_json(buf_start,&buf_start,
+                                                     (void*)((long)st + mem->mem_offset),
+                                                     mem);
                 break;
             case cPtrStructArr:
-                buf = jsonc_change_cptrstructarr_to_json(buf, (void *)((long)st + mem->mem_offset), mem);
+                ret = jsonc_change_cptrstructarr_to_json(
+                    buf_start,&buf_start,
+                    (void*)((long)st + mem->mem_offset),
+                    mem);
                 break;
             default:
                 break;
         }
+        if (ret) {
+            return ret;
+        }
         mem++;
         if (mem->mem_type != NULL) {
-            *buf++ = ',';
+            *buf_start++ = ',';
         }
     }
-    *buf++ = '}';
-    return buf;
-}
-
-static char* jsonc_change_cstructarr_to_json(char* buf,
-                                             void* st,
-                                             const struct struct_mem* mem) {
-    int length = mem->mem_length / mem->type_length;
-    *buf++ = '[';
-    for (int i = 0; i < length; i++) {
-        buf = jsonc_change_cstruct_to_json(buf,
-                                           (void *)((long)st + (i * mem->type_info->length)),
-                                           mem->type_info);
-        if ((i + 1) != length) {
-            *buf++ = ',';
-        }
-    }
-
-    *buf++ = ']';
-    return buf;
-}
-
-static char* jsonc_change_cptrstruct_to_json(char* buf,
-                                             void* st,
-                                             const struct struct_mem* mem) {
-    char* ret = NULL;
-    st = (void*)(*(long*)st);
-    if (st == NULL) {
-        jsonc_change_null_to_json(buf, &ret);
-    } else {
-        ret = jsonc_change_cstruct_to_json(buf, st, mem->type_info);
-    }
+    *buf_start++ = '}';
+    *buf_end = buf_start;
     return ret;
 }
 
-static char* jsonc_change_cptrstructarr_to_json(char* buf,
+static int jsonc_change_cstructarr_to_json(char* buf_start,
+                                         char** buf_end,
+                                             void* st,
+                                             const struct struct_mem* mem) {
+    int length = mem->mem_length / mem->type_length;
+    int ret = 0;
+
+    *buf_start++ = '[';
+    for (int i = 0; i < length; i++) {
+        ret =
+            jsonc_change_cstruct_to_json(buf_start,&buf_start,
+                                         (void*)((long)st + (i * mem->type_info->length)),
+                                         mem->type_info);
+        if(ret){
+            return ret;
+        }
+        if ((i + 1) != length) {
+            *buf_start++ = ',';
+        }
+    }
+
+    *buf_start++ = ']';
+    *buf_end = buf_start;
+    return ret;
+}
+
+static int jsonc_change_cptrstruct_to_json(char* buf_start,
+                                         char** buf_end,
+                                             void* st,
+                                             const struct struct_mem* mem) {
+    int ret = 0;
+    st = (void*)(*(long*)st);
+    if (st == NULL) {
+        ret = jsonc_change_null_to_json(buf_start, &buf_start);
+    } else {
+        ret = jsonc_change_cstruct_to_json(buf_start,&buf_start, st, mem->type_info);
+    }
+    *buf_end = buf_start;
+    return ret;
+}
+
+static int jsonc_change_cptrstructarr_to_json(char* buf_start,
+                                         char** buf_end,
                                                 void* st,
                                                 const struct struct_mem* mem) {
     void* addr;
+    int ret = 0;
     int length = mem->mem_length / mem->type_length;
-    *buf++ = '[';
+    *buf_start++ = '[';
     for (int i = 0; i < length; i++) {
-        addr = (void *)((long)st + (i * mem->type_length));
+        addr = (void*)((long)st + (i * mem->type_length));
         addr = (void*)(*(long*)addr);
         if (addr == NULL) {
-            jsonc_change_null_to_json(buf, (void*)&buf);
+            ret = jsonc_change_null_to_json(buf_start, (void*)&buf_start);
         } else {
-            buf = jsonc_change_cstruct_to_json(buf, addr, mem->type_info);
+            ret = jsonc_change_cstruct_to_json(buf_start,&buf_start, addr, mem->type_info);
+        }
+        if (ret) {
+            return ret;
         }
         if ((i + 1) != length) {
-            *buf++ = ',';
+            *buf_start++ = ',';
         }
     }
-    *buf++ = ']';
-    return buf;
+    *buf_start++ = ']';
+    *buf_end = buf_start;
+    return ret;
 }
 
 // 反序列化函数
@@ -1613,7 +1685,7 @@ static int jsonc_change_arr(struct jsonc_ele* ele) {
         if (ret != 0 && ret != -JSON_MATCH) {
             return ret;
         }
-        ele->mem_addr = (void *)((long)ele->mem_addr + mem.mem.type_length);
+        ele->mem_addr = (void*)((long)ele->mem_addr + mem.mem.type_length);
         skipspace(&value);
         if (*value == ',') {
             value++;
@@ -1650,7 +1722,7 @@ static int jsonc_change_ele_to_mem(void* st,
         return -JSON_MATCH;
     }
     ele->mem = *mem;
-    ele->mem_addr = (void *)((long)st + mem->mem_offset);
+    ele->mem_addr = (void*)((long)st + mem->mem_offset);
     ele->c_type = jsonc_get_ctype(mem);
 
     // @todo 跳过显然无法完成转换的匹配
@@ -1806,7 +1878,7 @@ static int jsonc_change_to_self_mem(void* st,
                 !strcmp(tag_name, (*list)->name)) {
                 // 根据该元素是不是数组来执行不同的操作
                 (*list)->mem = *mem;
-                (*list)->mem_addr = (void *)((long)st + mem->mem_offset);
+                (*list)->mem_addr = (void*)((long)st + mem->mem_offset);
                 (*list)->c_type = jsonc_get_ctype(mem);
 
                 // @todo 跳过显然无法完成转换的匹配
@@ -1984,17 +2056,18 @@ int jsonc_change_to_obj(char* buf, void* st, const struct type* type) {
 // 外部调用的函数
 
 void* jsonc_serialize(char* buf, void* st, const struct type* type) {
-    char* ret = NULL;
+    int ret = 0;
+    char* buf_start = buf;
 
     if (st == NULL) {
-        return ret;
+        return NULL;
     }
-    ret = jsonc_change_cstruct_to_json(buf, st, type);
+    ret = jsonc_change_cstruct_to_json(buf_start, &buf_start, st, type);
     if (ret) {
-        *ret++ = '\0';
-        return buf;
+        return NULL;
     }
-    return ret;
+    *buf_start++ = '\0';
+    return buf;
 }
 
 int jsonc_deserialize(char* buf, void* st, const struct type* type) {

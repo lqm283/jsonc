@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283 lanqianming@hotmail.com
  * @Date         : 2022-06-09 15:36:54
- * @LastEditTime : 2023-03-02 11:16:06
+ * @LastEditTime : 2023-03-22 12:29:33
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -59,12 +59,8 @@ int main(int argc, char** argv) {
 
     printf("buf = %s\n",buf);
 
-    printf("%ld\n",sizeof(void *));
-    printf("%ld\n",sizeof(int *));
-    printf("%ld\n",sizeof(char *));
-
     sprintf(temp,"%d",500);
-
+    b.data = NULL;
     JsoncSerialize(buf,&b,B);
 
     printf("buf = %s\n",buf);
