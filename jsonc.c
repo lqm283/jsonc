@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-22 14:50:02
+ * @LastEditTime : 2023-03-22 17:06:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -800,14 +800,10 @@ static int jsonc_check_string(char* start_str, char** end_str) {
 
 static int jsonc_check_null(char* start_obj, char** end_obj) {
     int ret = 0;
-    char temp[5];
-
-    memcpy(temp, start_obj, 4);
-    start_obj += 4;
-    if (strcmp(temp, "null") != 0) {
+    if (memcmp(start_obj, "null",4) != 0) {
         return -JSON_NULL_VAL;
     }
-    *end_obj = start_obj;
+    *end_obj = start_obj+4;
     return ret;
 }
 
