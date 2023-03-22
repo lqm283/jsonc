@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-14 16:45:30
+ * @LastEditTime : 2023-03-22 14:00:12
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -21,20 +21,20 @@
 */
 
 // 单个 struct 类型转换为 json
-char* test_change_non_non_single_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"s\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello world\",\"d\":true}}";
     struct TestNonNonSingleStruct s = {{10, 3.14159, "Hello world", 1}};
     ret = JsoncSerialize(real, &s, TestNonNonSingleStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 纯 struct 类型转换为 json
-char* test_change_non_non_mult1_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_mult1_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},\"s2\":{\"a\":33,\"b\":2.717300,\"c\":\"Good "
@@ -42,15 +42,15 @@ char* test_change_non_non_mult1_struct_to_json(char* exp, char* real) {
     struct TestNonNonMult1Struct s = {{10, 3.14159, "Hello world", 1},
                                       {33, 2.7173, "Good morning", 0}};
     ret = JsoncSerialize(real, &s, TestNonNonMult1Struct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 混合的 struct 类型转换为 json
-char* test_change_non_non_multmax_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_multmax_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},\"s2\":{\"a\":33,\"b\":2.717300,\"c\":\"Good "
@@ -61,7 +61,7 @@ char* test_change_non_non_multmax_struct_to_json(char* exp, char* real) {
                                         20,
                                         30};
     ret = JsoncSerialize(real, &s, TestNonNonMultMaxStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

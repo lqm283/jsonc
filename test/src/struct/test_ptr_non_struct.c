@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:46:01
- * @LastEditTime : 2023-01-11 16:51:02
+ * @LastEditTime : 2023-03-22 14:01:10
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -22,8 +22,8 @@
 */
 
 // 单个 struct 类型转换为 json
-char* test_change_ptr_non_single_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_single_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"s\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello world\",\"d\":true}}";
     struct TestPtrNonSingleStruct s;
 
@@ -33,15 +33,15 @@ char* test_change_ptr_non_single_struct_to_json(char* exp, char* real) {
     strcpy(s.s->c, "Hello world");
     s.s->d = 1;
     ret = JsoncSerialize(real, &s, TestPtrNonSingleStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 纯 struct 类型转换为 json
-char* test_change_ptr_non_mult1_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_mult1_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},\"s2\":{\"a\":33,\"b\":2.717300,\"c\":\"Good "
@@ -59,15 +59,15 @@ char* test_change_ptr_non_mult1_struct_to_json(char* exp, char* real) {
     strcpy(s.s2->c, "Good morning");
     s.s2->d = 0;
     ret = JsoncSerialize(real, &s, TestPtrNonMult1Struct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 混合的 struct 类型转换为 json
-char* test_change_ptr_non_multmax_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_multmax_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},\"s2\":{\"a\":33,\"b\":2.717300,\"c\":\"Good "
@@ -92,7 +92,7 @@ char* test_change_ptr_non_multmax_struct_to_json(char* exp, char* real) {
     *s.c = 30;
 
     ret = JsoncSerialize(real, &s, TestPtrNonMultMaxStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

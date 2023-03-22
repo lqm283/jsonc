@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-14 08:27:47
- * @LastEditTime : 2023-01-14 22:04:26
+ * @LastEditTime : 2023-03-22 14:21:31
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -17,8 +17,8 @@
 #include <string.h>
 
 // 发送
-char* test_change_non_non_single_com_uninfo_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_com_uninfo_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"type\":1,\"id\":2165489,\"Num\":16548943,\"data\":{\"id\":1,\"sn\":\"1234-"
         "abcd-2022\",\"ext\":true,\"chnum\":3,\"ch\":[{\"ch\":1,\"num\":\"A\",\"sn\":"
@@ -40,33 +40,33 @@ char* test_change_non_non_single_com_uninfo_to_json(char* exp, char* real) {
         60};
 
     ret = JsoncSerialize(real, &s, SendUnInfoFram);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
-char* test_change_non_non_single_com_ack_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_com_ack_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"type\":1,\"id\":2165489,\"num\":16548943,\"data\":{\"ack\":465746}}";
     struct SendAckFram s = {1, 2165489, 16548943, {465746}};
 
     ret = JsoncSerialize(real, &s, SendAckFram);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
-char* test_change_non_non_single_com_stream_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_com_stream_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"type\":1,\"id\":2165489,\"num\":16548943,\"data\":{\"ch\":1,\"a\":16,\"b\":1."
         "230000,\"c\":true}}";
     struct SendStreamFram s = {1, 2165489, 16548943, {1, 16, 1.23, 1}};
 
     ret = JsoncSerialize(real, &s, SendStreamFram);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

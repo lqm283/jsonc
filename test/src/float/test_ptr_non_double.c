@@ -21,36 +21,36 @@
 */
 
 // 单成员的 Num 类型的 char 类型转换为 json
-char* test_change_ptr_non_single_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_single_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":10.147000}";
     struct TestPtrNonSingleFloatNum num;
     num.num = malloc(sizeof(float));
     *num.num = 10.147;
     ret = JsoncSerialize(real, &num, TestPtrNonSingleFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 类型的 char 类型转换为 json
-char* test_change_ptr_non_single_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_single_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":true}";
     struct TestPtrNonSingleFloatBool b;
     b.b = malloc(sizeof(float));
     *b.b = 1;
     ret = JsoncSerialize(real, &b, TestPtrNonSingleFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Num 转换为 json
-char* test_change_ptr_non_mult_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_mult_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":-128.362000,\"num2\":-1.147000,\"num3\":0.000000,\"num4\":1.654000,"
         "\"num5\":127.125000}";
@@ -66,15 +66,15 @@ char* test_change_ptr_non_mult_float_num_to_json(char* exp, char* real) {
     *num.num4 = 1.654;
     *num.num5 = 127.125;
     ret = JsoncSerialize(real, &num, TestPtrNonMultFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Bool 转换为 json
-char* test_change_ptr_non_mult_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_non_mult_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"bool1\":true,\"bool2\":true,\"bool3\":false,\"bool4\":true,\"bool5\":true}";
     struct TestPtrNonMultFloatBool bool;
@@ -89,7 +89,7 @@ char* test_change_ptr_non_mult_float_bool_to_json(char* exp, char* real) {
     *bool.bool4 = 1;
     *bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestPtrNonMultFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

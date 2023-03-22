@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-11 08:26:21
+ * @LastEditTime : 2023-03-22 13:46:21
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
@@ -79,12 +79,12 @@ INIT(TestNonNonMultInt16Bool,
      MEM(struct TestNonNonMultInt16Bool, Bool, int16_t, bool5, NULL));
 
 // mult to json
-char* test_change_non_non_single_int16_str_to_json(char* exp, char* real);
-char* test_change_non_non_single_int16_num_to_json(char* exp, char* real);
-char* test_change_non_non_single_int16_bool_to_json(char* exp, char* real);
-char* test_change_non_non_mult_int16_str_to_json(char* exp, char* real);
-char* test_change_non_non_mult_int16_num_to_json(char* exp, char* real);
-char* test_change_non_non_mult_int16_bool_to_json(char* exp, char* real);
+int test_change_non_non_single_int16_str_to_json(char* exp, char* real);
+int test_change_non_non_single_int16_num_to_json(char* exp, char* real);
+int test_change_non_non_single_int16_bool_to_json(char* exp, char* real);
+int test_change_non_non_mult_int16_str_to_json(char* exp, char* real);
+int test_change_non_non_mult_int16_num_to_json(char* exp, char* real);
+int test_change_non_non_mult_int16_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_non_single_int16_num(char* json);

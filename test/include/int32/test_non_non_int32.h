@@ -79,12 +79,12 @@ INIT(TestNonNonMultInt32Bool,
      MEM(struct TestNonNonMultInt32Bool, Bool, int32_t, bool5, NULL));
 
 // mult to json
-char* test_change_non_non_single_int32_str_to_json(char* exp, char* real);
-char* test_change_non_non_single_int32_num_to_json(char* exp, char* real);
-char* test_change_non_non_single_int32_bool_to_json(char* exp, char* real);
-char* test_change_non_non_mult_int32_str_to_json(char* exp, char* real);
-char* test_change_non_non_mult_int32_num_to_json(char* exp, char* real);
-char* test_change_non_non_mult_int32_bool_to_json(char* exp, char* real);
+int test_change_non_non_single_int32_str_to_json(char* exp, char* real);
+int test_change_non_non_single_int32_num_to_json(char* exp, char* real);
+int test_change_non_non_single_int32_bool_to_json(char* exp, char* real);
+int test_change_non_non_mult_int32_str_to_json(char* exp, char* real);
+int test_change_non_non_mult_int32_num_to_json(char* exp, char* real);
+int test_change_non_non_mult_int32_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_non_single_int32_num(char* json);

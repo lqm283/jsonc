@@ -80,10 +80,10 @@ INIT(TestPtrNonMultFloatBool,
      MEM(struct TestPtrNonMultFloatBool, Bool, float*, bool5, NULL));
 
 // mult to json
-char* test_change_ptr_non_single_float_num_to_json(char* exp, char* real);
-char* test_change_ptr_non_single_float_bool_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_float_num_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_float_bool_to_json(char* exp, char* real);
+int test_change_ptr_non_single_float_num_to_json(char* exp, char* real);
+int test_change_ptr_non_single_float_bool_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_float_num_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_float_bool_to_json(char* exp, char* real);
 
 // json to mult
 

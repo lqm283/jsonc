@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-11 14:15:02
+ * @LastEditTime : 2023-03-22 14:22:53
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -23,8 +23,8 @@
 */
 
 // 单成员的 Num 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_double_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_double_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[10.147000,20.362000]}";
     struct TestPtrArrSingleDoubleNum num;
     double num1 = 10.147;
@@ -32,29 +32,29 @@ char* test_change_ptr_arr_single_double_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20.362;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleDoubleNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_double_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_double_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false]}";
     double bool1 = 1;
     double bool2 = 0;
     struct TestPtrArrSingleDoubleBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleDoubleBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Num 转换为 json
-char* test_change_ptr_arr_mult_double_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_double_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":[1.147000,2.147000],\"num2\":[3.654000,4.654000],\"num3\":[5.125000,6."
         "125000]}";
@@ -67,15 +67,15 @@ char* test_change_ptr_arr_mult_double_num_to_json(char* exp, char* real) {
 
     struct TestPtrArrMultDoubleNum num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultDoubleNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Bool 转换为 json
-char* test_change_ptr_arr_mult_double_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_double_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"bool1\":[false,true],\"bool2\":[true,false],\"bool3\":[false,true]}";
     double bool1 = 0;
     double bool2 = 1;
@@ -87,7 +87,7 @@ char* test_change_ptr_arr_mult_double_bool_to_json(char* exp, char* real) {
                                            {&bool3, &bool4},
                                            {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultDoubleBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

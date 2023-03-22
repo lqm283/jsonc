@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:11:24
- * @LastEditTime : 2023-01-10 20:49:05
+ * @LastEditTime : 2023-03-22 13:49:57
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/include/uint8/test_ptr_arr_unsignedchar.h
+ * @FilePath     : /jsonc/test/include/unsigned_char/test_ptr_arr_unsignedchar.h
  */
 
 #ifndef __TEST_PTR_ARR_UNSIGNED_CHAR_H_
@@ -72,12 +72,12 @@ INIT(TestPtrArrMultUnsignedCharBool,
      MEM(struct TestPtrArrMultUnsignedCharBool, Bool, unsigned char*, bool3, NULL));
 
 // mult to json
-char* test_change_ptr_arr_single_unsignedchar_str_to_json(char* exp, char* real);
-char* test_change_ptr_arr_single_unsignedchar_num_to_json(char* exp, char* real);
-char* test_change_ptr_arr_single_unsignedchar_bool_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_unsignedchar_str_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_unsignedchar_num_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_unsignedchar_bool_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_unsignedchar_str_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_unsignedchar_num_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_unsignedchar_bool_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_unsignedchar_str_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_unsignedchar_num_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_unsignedchar_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_ptr_arr_single_unsignedchar_str(char* json);

@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 13:46:39
- * @LastEditTime : 2023-01-11 08:17:08
+ * @LastEditTime : 2023-03-22 13:46:27
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -80,12 +80,12 @@ INIT(TestPtrNonMultInt16Bool,
      MEM(struct TestPtrNonMultInt16Bool, Bool, int16_t*, bool5, NULL));
 
 // mult to json
-char* test_change_ptr_non_single_int16_str_to_json(char* exp, char* real);
-char* test_change_ptr_non_single_int16_num_to_json(char* exp, char* real);
-char* test_change_ptr_non_single_int16_bool_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_int16_str_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_int16_num_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_int16_bool_to_json(char* exp, char* real);
+int test_change_ptr_non_single_int16_str_to_json(char* exp, char* real);
+int test_change_ptr_non_single_int16_num_to_json(char* exp, char* real);
+int test_change_ptr_non_single_int16_bool_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_int16_str_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_int16_num_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_int16_bool_to_json(char* exp, char* real);
 
 // json to mult
 

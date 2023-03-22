@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-22 12:43:17
+ * @LastEditTime : 2023-03-22 13:41:01
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -2067,19 +2067,16 @@ int jsonc_change_to_obj(char* buf, void* st, const struct type* type) {
 
 // 外部调用的函数
 
-void* jsonc_serialize(char* buf, void* st, const struct type* type) {
+int jsonc_serialize(char* buf, void* st, const struct type* type) {
     int ret = 0;
     char* buf_start = buf;
 
     if (st == NULL) {
-        return NULL;
+        return -JSON_OBJ_EMPTY;
     }
     ret = jsonc_change_cstruct_to_json(buf_start, &buf_start, st, type);
-    if (ret) {
-        return NULL;
-    }
     *buf_start++ = '\0';
-    return buf;
+    return ret;
 }
 
 int jsonc_deserialize(char* buf, void* st, const struct type* type) {

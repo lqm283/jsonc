@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-11 14:00:03
+ * @LastEditTime : 2023-03-22 14:24:42
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/src/float/test_ptr_arr_float.c
+ * @FilePath     : /jsonc/test/src/float/test_ptr_arr_double.c
  */
 
 #include "../../include/float/test_ptr_arr_float.h"
@@ -23,8 +23,8 @@
 */
 
 // 单成员的 Num 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[10.147000,20.362000]}";
     struct TestPtrArrSingleFloatNum num;
     float num1 = 10.147;
@@ -32,29 +32,29 @@ char* test_change_ptr_arr_single_float_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20.362;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false]}";
     float bool1 = 1;
     float bool2 = 0;
     struct TestPtrArrSingleFloatBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Num 转换为 json
-char* test_change_ptr_arr_mult_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":[1.147000,2.147000],\"num2\":[3.654000,4.654000],\"num3\":[5.125000,6."
         "125000]}";
@@ -67,15 +67,15 @@ char* test_change_ptr_arr_mult_float_num_to_json(char* exp, char* real) {
 
     struct TestPtrArrMultFloatNum num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Bool 转换为 json
-char* test_change_ptr_arr_mult_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"bool1\":[false,true],\"bool2\":[true,false],\"bool3\":[false,true]}";
     float bool1 = 0;
     float bool2 = 1;
@@ -87,7 +87,7 @@ char* test_change_ptr_arr_mult_float_bool_to_json(char* exp, char* real) {
                                            {&bool3, &bool4},
                                            {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

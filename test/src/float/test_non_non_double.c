@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-11 13:53:04
+ * @LastEditTime : 2023-03-22 14:24:11
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/src/float/test_non_non_float.c
+ * @FilePath     : /jsonc/test/src/float/test_non_non_double.c
  */
 
 #include "../../include/float/test_non_non_float.h"
@@ -20,34 +20,34 @@
 */
 
 // 单成员的 Num 类型的 char 类型转换为 json
-char* test_change_non_non_single_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":10.147000}";
     struct TestNonNonSingleFloatNum num;
     num.num = 10.147;
     ret = JsoncSerialize(real, &num, TestNonNonSingleFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 类型的 char 类型转换为 json
-char* test_change_non_non_single_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":true}";
     struct TestNonNonSingleFloatBool b;
     b.b = 1;
     ret = JsoncSerialize(real, &b, TestNonNonSingleFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Num 转换为 json
-char* test_change_non_non_mult_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_mult_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":-128.362000,\"num2\":-1.147000,\"num3\":0.000000,\"num4\":1.654000,"
         "\"num5\":127.125000}";
@@ -58,15 +58,15 @@ char* test_change_non_non_mult_float_num_to_json(char* exp, char* real) {
     num.num4 = 1.654;
     num.num5 = 127.125;
     ret = JsoncSerialize(real, &num, TestNonNonMultFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Bool 转换为 json
-char* test_change_non_non_mult_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_mult_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"bool1\":true,\"bool2\":true,\"bool3\":false,\"bool4\":true,\"bool5\":true}";
     struct TestNonNonMultFloatBool bool;
@@ -76,7 +76,7 @@ char* test_change_non_non_mult_float_bool_to_json(char* exp, char* real) {
     bool.bool4 = 1;
     bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestNonNonMultFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

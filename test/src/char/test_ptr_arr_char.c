@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 16:59:37
+ * @LastEditTime : 2023-03-22 14:19:56
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -22,23 +22,23 @@
 */
 
 // 单成员的 char 指针数组类型转换为 str 类型的 json
-char* test_change_ptr_arr_single_char_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_char_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"str\":[\"test change char * [0] str to json\",\"test change char * [1] str "
         "to json\"]}";
     struct TestPtrArrSingleCharStr str = {
         {"test change char * [0] str to json", "test change char * [1] str to json"}};
     ret = JsoncSerialize(real, &str, TestPtrArrSingleCharStr);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Num 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_char_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_char_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[10,20]}";
     struct TestPtrArrSingleCharNum num;
     char num1 = 10;
@@ -46,29 +46,29 @@ char* test_change_ptr_arr_single_char_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleCharNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_char_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_char_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false]}";
     char bool1 = 1;
     char bool2 = 0;
     struct TestPtrArrSingleCharBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleCharBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Str 转换为 json
-char* test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"str1\":[\"str1_0\",\"str1_1\"],\"str2\":[\"str2_0\",\"str2_1\"],\"str3\":["
         "\"str3_0\",\"str3_1\"]}";
@@ -76,15 +76,15 @@ char* test_change_ptr_arr_mult_char_str_to_json(char* exp, char* real) {
                                         {"str2_0", "str2_1"},
                                         {"str3_0", "str3_1"}};
     ret = JsoncSerialize(real, &str, TestPtrArrMultCharStr);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Num 转换为 json
-char* test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num1\":[1,2],\"num2\":[3,4],\"num3\":[5,6]}";
     char num1 = 1;
     char num2 = 2;
@@ -95,15 +95,15 @@ char* test_change_ptr_arr_mult_char_num_to_json(char* exp, char* real) {
 
     struct TestPtrArrMultCharNum num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultCharNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Bool 转换为 json
-char* test_change_ptr_arr_mult_char_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_char_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"bool1\":[false,true],\"bool2\":[true,false],\"bool3\":[false,true]}";
     char bool1 = 0;
     char bool2 = 1;
@@ -115,7 +115,7 @@ char* test_change_ptr_arr_mult_char_bool_to_json(char* exp, char* real) {
                                           {&bool3, &bool4},
                                           {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultCharBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

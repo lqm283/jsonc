@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 16:19:33
- * @LastEditTime : 2023-01-11 20:05:24
+ * @LastEditTime : 2023-03-22 13:59:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -23,8 +23,8 @@
 */
 
 // 单个 struct 类型转换为 json
-char* test_change_non_arr_single_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_single_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s\":[{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
@@ -32,15 +32,15 @@ char* test_change_non_arr_single_struct_to_json(char* exp, char* real) {
     struct TestNonArrSingleStruct s = {
         {{10, 3.14159, "Hello world", 1}, {10, 3.14159, "Hello world", 1}}};
     ret = JsoncSerialize(real, &s, TestNonArrSingleStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 纯 struct 类型转换为 json
-char* test_change_non_arr_mult1_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_mult1_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":[{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
@@ -51,15 +51,15 @@ char* test_change_non_arr_mult1_struct_to_json(char* exp, char* real) {
         {{10, 3.14159, "Hello world", 1}, {10, 3.14159, "Hello world", 1}},
         {{33, 2.7173, "Good morning", 0}, {33, 2.7173, "Good morning", 0}}};
     ret = JsoncSerialize(real, &s, TestNonArrMult1Struct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 混合的 struct 类型转换为 json
-char* test_change_non_arr_multmax_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_multmax_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":[{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
@@ -74,7 +74,7 @@ char* test_change_non_arr_multmax_struct_to_json(char* exp, char* real) {
         {20, 20},
         {30, 30}};
     ret = JsoncSerialize(real, &s, TestNonArrMultMaxStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

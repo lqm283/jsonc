@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:11:24
- * @LastEditTime : 2023-01-11 13:51:51
+ * @LastEditTime : 2023-03-22 13:46:10
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -72,10 +72,10 @@ INIT(TestPtrArrMultFloatBool,
      MEM(struct TestPtrArrMultFloatBool, Bool, float*, bool3, NULL));
 
 // mult to json
-char* test_change_ptr_arr_single_float_num_to_json(char* exp, char* real);
-char* test_change_ptr_arr_single_float_bool_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_float_num_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_float_bool_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_float_num_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_float_bool_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_float_num_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_float_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_ptr_arr_single_float_num(char* json);

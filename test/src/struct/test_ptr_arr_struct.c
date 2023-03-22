@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-11 20:22:27
+ * @LastEditTime : 2023-03-22 14:00:36
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -24,8 +24,8 @@
 */
 
 // 单个 struct 类型转换为 json
-char* test_change_ptr_arr_single_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s\":[{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
@@ -43,15 +43,15 @@ char* test_change_ptr_arr_single_struct_to_json(char* exp, char* real) {
     strcpy(s.s[1]->c, "Hello world");
     s.s[1]->d = 1;
     ret = JsoncSerialize(real, &s, TestPtrArrSingleStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 纯 struct 类型转换为 json
-char* test_change_ptr_arr_mult1_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult1_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":[{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
@@ -83,15 +83,15 @@ char* test_change_ptr_arr_mult1_struct_to_json(char* exp, char* real) {
     strcpy(s.s2[1]->c, "Good morning");
     s.s2[1]->d = 0;
     ret = JsoncSerialize(real, &s, TestPtrArrMult1Struct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 多个 混合的 struct 类型转换为 json
-char* test_change_ptr_arr_multmax_struct_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_multmax_struct_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"s1\":[{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
         "world\",\"d\":true},{\"a\":10,\"b\":3.141590,\"c\":\"Hello "
@@ -138,7 +138,7 @@ char* test_change_ptr_arr_multmax_struct_to_json(char* exp, char* real) {
     *s.c[1] = 30;
 
     ret = JsoncSerialize(real, &s, TestPtrArrMultMaxStruct);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

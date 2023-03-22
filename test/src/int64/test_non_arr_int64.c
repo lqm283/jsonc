@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 16:19:33
- * @LastEditTime : 2023-01-11 09:54:19
+ * @LastEditTime : 2023-03-22 13:56:41
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -21,32 +21,32 @@
 ----------------------------------------------
 */
 // 单成员的 Num 类型的 char 类型转换为 json
-char* test_change_non_arr_single_int64_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_single_int64_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[1,2,3,4,5]}";
     struct TestNonArrSingleInt64Num num = {{1, 2, 3, 4, 5}};
     ret = JsoncSerialize(real, &num, TestNonArrSingleInt64Num);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 类型的 char 类型转换为 json
-char* test_change_non_arr_single_int64_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_single_int64_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false,true,true,false]}";
     struct TestNonArrSingleInt64Bool b = {{1, 0, 1, 1, 0}};
     ret = JsoncSerialize(real, &b, TestNonArrSingleInt64Bool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Num 转换为 json
-char* test_change_non_arr_mult_int64_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_mult_int64_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":[128,255,0,1,127],\"num2\":[128,255,0,1,127],\"num3\":[128,255,0,1,"
         "127],\"num4\":[128,255,0,1,127],\"num5\":[128,255,0,1,127]}";
@@ -56,15 +56,15 @@ char* test_change_non_arr_mult_int64_num_to_json(char* exp, char* real) {
                                          {128, 255, 0, 1, 127},
                                          {128, 255, 0, 1, 127}};
     ret = JsoncSerialize(real, &num, TestNonArrMultInt64Num);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Bool 转换为 json
-char* test_change_non_arr_mult_int64_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_mult_int64_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"bool1\":[true,true,false,true,true],\"bool2\":[true,true,false,true,true],"
         "\"bool3\":[true,true,false,true,true],\"bool4\":[true,true,false,true,true],"
@@ -75,7 +75,7 @@ char* test_change_non_arr_mult_int64_bool_to_json(char* exp, char* real) {
                                            {128, 255, 0, 1, 127},
                                            {128, 255, 0, 1, 127}};
     ret = JsoncSerialize(real, &bool, TestNonArrMultInt64Bool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

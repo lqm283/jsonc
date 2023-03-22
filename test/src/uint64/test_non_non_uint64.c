@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-01-11 16:11:32
+ * @LastEditTime : 2023-03-22 14:12:00
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -20,62 +20,62 @@
 */
 
 // 单成员的 char 类型转换为 str 类型的 json
-char* test_change_non_non_single_uint64_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_uint64_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"str\":\"a\"}";
     struct TestNonNonSingleUint64Str str;
     str.str = 'a';
     ret = JsoncSerialize(real, &str, TestNonNonSingleUint64Str);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Num 类型的 char 类型转换为 json
-char* test_change_non_non_single_uint64_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_uint64_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":10}";
     struct TestNonNonSingleUint64Num num;
     num.num = 10;
     ret = JsoncSerialize(real, &num, TestNonNonSingleUint64Num);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 类型的 char 类型转换为 json
-char* test_change_non_non_single_uint64_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_single_uint64_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":true}";
     struct TestNonNonSingleUint64Bool b;
     b.b = 1;
     ret = JsoncSerialize(real, &b, TestNonNonSingleUint64Bool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Str 转换为 json
-char* test_change_non_non_mult_uint64_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_mult_uint64_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"str1\":\"a\",\"str2\":\"b\",\"str3\":\"c\"}";
     struct TestNonNonMultUint64Str str;
     str.str1 = 'a';
     str.str2 = 'b';
     str.str3 = 'c';
     ret = JsoncSerialize(real, &str, TestNonNonMultUint64Str);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Num 转换为 json
-char* test_change_non_non_mult_uint64_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_mult_uint64_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":4294967168,\"num2\":4294967295,\"num3\":0,\"num4\":1,\"num5\":127}";
     struct TestNonNonMultUint64Num num;
@@ -85,15 +85,15 @@ char* test_change_non_non_mult_uint64_num_to_json(char* exp, char* real) {
     num.num4 = 1;
     num.num5 = 127;
     ret = JsoncSerialize(real, &num, TestNonNonMultUint64Num);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Bool 转换为 json
-char* test_change_non_non_mult_uint64_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_non_mult_uint64_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"bool1\":true,\"bool2\":true,\"bool3\":false,\"bool4\":true,\"bool5\":true}";
     struct TestNonNonMultUint64Bool bool;
@@ -103,7 +103,7 @@ char* test_change_non_non_mult_uint64_bool_to_json(char* exp, char* real) {
     bool.bool4 = 1;
     bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestNonNonMultUint64Bool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

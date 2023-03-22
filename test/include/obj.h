@@ -13,7 +13,7 @@
 
 struct TestChangeToJson {
     const char* name;
-    char* (*test_change_to_json)(char* exp, char* real);
+    int (*test_change_to_json)(char* exp, char* real);
 };
 
 struct TestChangeToMult {

@@ -80,10 +80,10 @@ INIT(TestNonArrMultFloatBool,
      MEM(struct TestNonArrMultFloatBool, Bool, float, bool5, NULL));
 
 // mult to json
-char* test_change_non_arr_single_float_num_to_json(char* exp, char* real);
-char* test_change_non_arr_single_float_bool_to_json(char* exp, char* real);
-char* test_change_non_arr_mult_float_num_to_json(char* exp, char* real);
-char* test_change_non_arr_mult_float_bool_to_json(char* exp, char* real);
+int test_change_non_arr_single_float_num_to_json(char* exp, char* real);
+int test_change_non_arr_single_float_bool_to_json(char* exp, char* real);
+int test_change_non_arr_mult_float_num_to_json(char* exp, char* real);
+int test_change_non_arr_mult_float_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_arr_single_float_num(char* json);

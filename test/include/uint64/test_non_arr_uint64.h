@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 16:20:56
- * @LastEditTime : 2023-01-11 10:23:33
+ * @LastEditTime : 2023-03-22 14:10:47
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -80,10 +80,10 @@ INIT(TestNonArrMultUint64Bool,
      MEM(struct TestNonArrMultUint64Bool, Bool, uint64_t, bool5, NULL));
 
 // mult to json
-char* test_change_non_arr_single_uint64_num_to_json(char* exp, char* real);
-char* test_change_non_arr_single_uint64_bool_to_json(char* exp, char* real);
-char* test_change_non_arr_mult_uint64_num_to_json(char* exp, char* real);
-char* test_change_non_arr_mult_uint64_bool_to_json(char* exp, char* real);
+int test_change_non_arr_single_uint64_num_to_json(char* exp, char* real);
+int test_change_non_arr_single_uint64_bool_to_json(char* exp, char* real);
+int test_change_non_arr_mult_uint64_num_to_json(char* exp, char* real);
+int test_change_non_arr_mult_uint64_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_arr_single_uint64_num(char* json);

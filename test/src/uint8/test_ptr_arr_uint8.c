@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 21:42:00
+ * @LastEditTime : 2023-03-22 14:06:01
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -23,8 +23,8 @@
 */
 
 // 单成员的 char 指针数组类型转换为 str 类型的 json
-char* test_change_ptr_arr_single_uint8_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_uint8_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"str\":[\"test change char * [0] str to json\",\"test change char * [1] str "
         "to json\"]}";
@@ -32,15 +32,15 @@ char* test_change_ptr_arr_single_uint8_str_to_json(char* exp, char* real) {
         {(uint8_t*)"test change char * [0] str to json",
          (uint8_t*)"test change char * [1] str to json"}};
     ret = JsoncSerialize(real, &str, TestPtrArrSingleUint8Str);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Num 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_uint8_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_uint8_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[10,20]}";
     struct TestPtrArrSingleUint8Num num;
     uint8_t num1 = 10;
@@ -48,29 +48,29 @@ char* test_change_ptr_arr_single_uint8_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleUint8Num);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_uint8_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_uint8_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false]}";
     uint8_t bool1 = 1;
     uint8_t bool2 = 0;
     struct TestPtrArrSingleUint8Bool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleUint8Bool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Str 转换为 json
-char* test_change_ptr_arr_mult_uint8_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_uint8_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"str1\":[\"str1_0\",\"str1_1\"],\"str2\":[\"str2_0\",\"str2_1\"],\"str3\":["
         "\"str3_0\",\"str3_1\"]}";
@@ -78,15 +78,15 @@ char* test_change_ptr_arr_mult_uint8_str_to_json(char* exp, char* real) {
                                          {(uint8_t*)"str2_0", (uint8_t*)"str2_1"},
                                          {(uint8_t*)"str3_0", (uint8_t*)"str3_1"}};
     ret = JsoncSerialize(real, &str, TestPtrArrMultUint8Str);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Num 转换为 json
-char* test_change_ptr_arr_mult_uint8_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_uint8_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num1\":[1,2],\"num2\":[3,4],\"num3\":[5,6]}";
     uint8_t num1 = 1;
     uint8_t num2 = 2;
@@ -97,15 +97,15 @@ char* test_change_ptr_arr_mult_uint8_num_to_json(char* exp, char* real) {
 
     struct TestPtrArrMultUint8Num num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultUint8Num);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Bool 转换为 json
-char* test_change_ptr_arr_mult_uint8_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_uint8_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"bool1\":[false,true],\"bool2\":[true,false],\"bool3\":[false,true]}";
     uint8_t bool1 = 0;
     uint8_t bool2 = 1;
@@ -117,7 +117,7 @@ char* test_change_ptr_arr_mult_uint8_bool_to_json(char* exp, char* real) {
                                            {&bool3, &bool4},
                                            {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultUint8Bool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

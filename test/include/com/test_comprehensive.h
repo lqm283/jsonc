@@ -153,9 +153,9 @@ INIT(GetDataFram,
      MEM(struct GetDataFram, Num, union Data, Data, Data, "data"));
 
 // 发送测试函数
-char* test_change_non_non_single_com_uninfo_to_json(char* exp, char* real);
-char* test_change_non_non_single_com_ack_to_json(char* exp, char* real);
-char* test_change_non_non_single_com_stream_to_json(char* exp, char* real);
+int test_change_non_non_single_com_uninfo_to_json(char* exp, char* real);
+int test_change_non_non_single_com_ack_to_json(char* exp, char* real);
+int test_change_non_non_single_com_stream_to_json(char* exp, char* real);
 
 // 接收测试函数
 int test_change_single_uninfo_json_to_non_non_mult_com_data(char* json);

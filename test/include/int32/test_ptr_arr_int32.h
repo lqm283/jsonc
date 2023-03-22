@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:11:24
- * @LastEditTime : 2023-01-11 08:27:28
+ * @LastEditTime : 2023-03-22 13:47:03
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -72,12 +72,12 @@ INIT(TestPtrArrMultInt32Bool,
      MEM(struct TestPtrArrMultInt32Bool, Bool, int32_t*, bool3, NULL));
 
 // mult to json
-char* test_change_ptr_arr_single_int32_str_to_json(char* exp, char* real);
-char* test_change_ptr_arr_single_int32_num_to_json(char* exp, char* real);
-char* test_change_ptr_arr_single_int32_bool_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_int32_str_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_int32_num_to_json(char* exp, char* real);
-char* test_change_ptr_arr_mult_int32_bool_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_int32_str_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_int32_num_to_json(char* exp, char* real);
+int test_change_ptr_arr_single_int32_bool_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_int32_str_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_int32_num_to_json(char* exp, char* real);
+int test_change_ptr_arr_mult_int32_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_ptr_arr_single_int32_num(char* json);

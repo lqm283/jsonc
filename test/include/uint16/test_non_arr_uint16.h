@@ -80,10 +80,10 @@ INIT(TestNonArrMultUint16Bool,
      MEM(struct TestNonArrMultUint16Bool, Bool, uint16_t, bool5, NULL));
 
 // mult to json
-char* test_change_non_arr_single_uint16_num_to_json(char* exp, char* real);
-char* test_change_non_arr_single_uint16_bool_to_json(char* exp, char* real);
-char* test_change_non_arr_mult_uint16_num_to_json(char* exp, char* real);
-char* test_change_non_arr_mult_uint16_bool_to_json(char* exp, char* real);
+int test_change_non_arr_single_uint16_num_to_json(char* exp, char* real);
+int test_change_non_arr_single_uint16_bool_to_json(char* exp, char* real);
+int test_change_non_arr_mult_uint16_num_to_json(char* exp, char* real);
+int test_change_non_arr_mult_uint16_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_arr_single_uint16_num(char* json);

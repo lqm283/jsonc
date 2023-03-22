@@ -79,12 +79,12 @@ INIT(TestPtrNonMultUint8Bool,
      MEM(struct TestPtrNonMultUint8Bool, Bool, uint8_t*, bool5, NULL));
 
 // mult to json
-char* test_change_ptr_non_single_uint8_str_to_json(char* exp, char* real);
-char* test_change_ptr_non_single_uint8_num_to_json(char* exp, char* real);
-char* test_change_ptr_non_single_uint8_bool_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_uint8_str_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_uint8_num_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult_uint8_bool_to_json(char* exp, char* real);
+int test_change_ptr_non_single_uint8_str_to_json(char* exp, char* real);
+int test_change_ptr_non_single_uint8_num_to_json(char* exp, char* real);
+int test_change_ptr_non_single_uint8_bool_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_uint8_str_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_uint8_num_to_json(char* exp, char* real);
+int test_change_ptr_non_mult_uint8_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_ptr_non_single_uint8_str(char* json);

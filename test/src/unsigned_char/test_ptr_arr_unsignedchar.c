@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-09 22:10:48
- * @LastEditTime : 2023-01-10 21:42:00
+ * @LastEditTime : 2023-03-22 14:16:44
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/src/unsigned char/test_ptr_arr_unsignedchar.c
+ * @FilePath     : /jsonc/test/src/unsigned_char/test_ptr_arr_unsignedchar.c
  */
 
 #include "../../include/unsigned_char/test_ptr_arr_unsignedchar.h"
@@ -23,8 +23,8 @@
 */
 
 // 单成员的 char 指针数组类型转换为 str 类型的 json
-char* test_change_ptr_arr_single_unsignedchar_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_unsignedchar_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"str\":[\"test change char * [0] str to json\",\"test change char * [1] str "
         "to json\"]}";
@@ -32,15 +32,15 @@ char* test_change_ptr_arr_single_unsignedchar_str_to_json(char* exp, char* real)
         {(unsigned char*)"test change char * [0] str to json",
          (unsigned char*)"test change char * [1] str to json"}};
     ret = JsoncSerialize(real, &str, TestPtrArrSingleUnsignedCharStr);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Num 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_unsignedchar_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_unsignedchar_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[10,20]}";
     struct TestPtrArrSingleUnsignedCharNum num;
     unsigned char num1 = 10;
@@ -48,29 +48,29 @@ char* test_change_ptr_arr_single_unsignedchar_num_to_json(char* exp, char* real)
     num.num[1] = malloc(1);
     *num.num[1] = 20;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleUnsignedCharNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 指针数组类型的 char 类型转换为 json
-char* test_change_ptr_arr_single_unsignedchar_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_single_unsignedchar_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false]}";
     unsigned char bool1 = 1;
     unsigned char bool2 = 0;
     struct TestPtrArrSingleUnsignedCharBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleUnsignedCharBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Str 转换为 json
-char* test_change_ptr_arr_mult_unsignedchar_str_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_unsignedchar_str_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"str1\":[\"str1_0\",\"str1_1\"],\"str2\":[\"str2_0\",\"str2_1\"],\"str3\":["
         "\"str3_0\",\"str3_1\"]}";
@@ -79,15 +79,15 @@ char* test_change_ptr_arr_mult_unsignedchar_str_to_json(char* exp, char* real) {
         {(unsigned char*)"str2_0", (unsigned char*)"str2_1"},
         {(unsigned char*)"str3_0", (unsigned char*)"str3_1"}};
     ret = JsoncSerialize(real, &str, TestPtrArrMultUnsignedCharStr);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Num 转换为 json
-char* test_change_ptr_arr_mult_unsignedchar_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_unsignedchar_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num1\":[1,2],\"num2\":[3,4],\"num3\":[5,6]}";
     unsigned char num1 = 1;
     unsigned char num2 = 2;
@@ -100,15 +100,15 @@ char* test_change_ptr_arr_mult_unsignedchar_num_to_json(char* exp, char* real) {
                                                 {&num3, &num4},
                                                 {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultUnsignedCharNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 指针数组类型多成员 Bool 转换为 json
-char* test_change_ptr_arr_mult_unsignedchar_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_ptr_arr_mult_unsignedchar_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"bool1\":[false,true],\"bool2\":[true,false],\"bool3\":[false,true]}";
     unsigned char bool1 = 0;
     unsigned char bool2 = 1;
@@ -120,7 +120,7 @@ char* test_change_ptr_arr_mult_unsignedchar_bool_to_json(char* exp, char* real) 
                                                   {&bool3, &bool4},
                                                   {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultUnsignedCharBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

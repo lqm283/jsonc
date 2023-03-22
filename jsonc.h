@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-01-16 08:50:03
+ * @LastEditTime : 2023-03-22 13:39:45
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -96,7 +96,7 @@ typedef struct jsonc_ele jsonc_arr_mem;
          (sizeof(struct_mem_##s_name) / sizeof(struct struct_mem) - 1)}}
 #define L_STRUCT(name) struct_type_##name
 #define STRUCT(name) L_STRUCT(name)
-void* jsonc_serialize(char* buf, void* st, const struct type* type);
+int jsonc_serialize(char* buf, void* st, const struct type* type);
 int jsonc_deserialize(char* buf, void* st, const struct type* type);
 
 /**
@@ -124,7 +124,7 @@ int jsonc_deserialize(char* buf, void* st, const struct type* type);
  * @param {char*} buf 保存序列化后的json的缓存
  * @param {void*} st 需要序列化的结构体变量的地址
  * @param {type*} type 结构体变量的类型描述
- * @return {*} 指向json起始位置的指针
+ * @return {*} 0 成功序列化， 其它 失败
  */
 #define JsoncSerialize(buf, st, type) jsonc_serialize(buf, st, STRUCT(type))
 

@@ -21,32 +21,32 @@
 ----------------------------------------------
 */
 // 单成员的 Num 类型的 char 类型转换为 json
-char* test_change_non_arr_single_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_single_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"num\":[0.000000,2.147000,3.362000,4.654000,5.125000]}";
     struct TestNonArrSingleFloatNum num = {{0, 2.147, 3.362, 4.654, 5.125}};
     ret = JsoncSerialize(real, &num, TestNonArrSingleFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // 单成员的 Bool 类型的 char 类型转换为 json
-char* test_change_non_arr_single_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_single_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e = "{\"b\":[true,false,true,true,false]}";
     struct TestNonArrSingleFloatBool b = {{1, 0, 1, 1, 0}};
     ret = JsoncSerialize(real, &b, TestNonArrSingleFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Num 转换为 json
-char* test_change_non_arr_mult_float_num_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_mult_float_num_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"num1\":[128.362000,255.147003,0.000000,1.654000,127.125000],\"num2\":[128."
         "362000,255.147003,0.000000,1.654000,127.125000],\"num3\":[128.362000,255.147003,"
@@ -58,15 +58,15 @@ char* test_change_non_arr_mult_float_num_to_json(char* exp, char* real) {
                                          {128.362, 255.147, 0, 1.654, 127.125},
                                          {128.362, 255.147, 0, 1.654, 127.125}};
     ret = JsoncSerialize(real, &num, TestNonArrMultFloatNum);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;
 }
 
 // char 多成员 Bool 转换为 json
-char* test_change_non_arr_mult_float_bool_to_json(char* exp, char* real) {
-    char* ret = 0;
+int test_change_non_arr_mult_float_bool_to_json(char* exp, char* real) {
+    int ret = 0;
     char* e =
         "{\"bool1\":[true,true,false,true,true],\"bool2\":[true,true,false,true,true],"
         "\"bool3\":[true,true,false,true,true],\"bool4\":[true,true,false,true,true],"
@@ -77,7 +77,7 @@ char* test_change_non_arr_mult_float_bool_to_json(char* exp, char* real) {
                                            {128.362, 255.147, 0, 1.654, 127.125},
                                            {128.362, 255.147, 0, 1.654, 127.125}};
     ret = JsoncSerialize(real, &bool, TestNonArrMultFloatBool);
-    if (ret) {
+    if (!ret) {
         strcpy(exp, e);
     }
     return ret;

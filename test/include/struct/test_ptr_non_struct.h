@@ -52,9 +52,9 @@ INIT(TestPtrNonMultMaxStruct,
      MEM(struct TestPtrNonMultMaxStruct, Num, float*, c, NULL));
 
 // struct 类型转换为 json
-char* test_change_ptr_non_single_struct_to_json(char* exp, char* real);
-char* test_change_ptr_non_mult1_struct_to_json(char* exp, char* real);
-char* test_change_ptr_non_multmax_struct_to_json(char* exp, char* real);
+int test_change_ptr_non_single_struct_to_json(char* exp, char* real);
+int test_change_ptr_non_mult1_struct_to_json(char* exp, char* real);
+int test_change_ptr_non_multmax_struct_to_json(char* exp, char* real);
 
 // json 转换为 json 类型
 int test_change_single_str_json_to_ptr_non_single_struct_one(char* json);

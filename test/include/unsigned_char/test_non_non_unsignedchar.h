@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:07:42
- * @LastEditTime : 2023-01-11 12:31:35
+ * @LastEditTime : 2023-03-22 13:49:32
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : 测试常规的非数组非指针 char 类型
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/test/include/unsigned char/test_non_non_unsignedchar.h
+ * @FilePath     : /jsonc/test/include/unsigned_char/test_non_non_unsignedchar.h
  */
 #ifndef __TEST_NON_NON_UNSIGNED_CHAR_H_
 #define __TEST_NON_NON_UNSIGNED_CHAR_H_
@@ -79,12 +79,12 @@ INIT(TestNonNonMultUnsignedCharBool,
      MEM(struct TestNonNonMultUnsignedCharBool, Bool, unsigned char, bool5, NULL));
 
 // mult to json
-char* test_change_non_non_single_unsignedchar_str_to_json(char* exp, char* real);
-char* test_change_non_non_single_unsignedchar_num_to_json(char* exp, char* real);
-char* test_change_non_non_single_unsignedchar_bool_to_json(char* exp, char* real);
-char* test_change_non_non_mult_unsignedchar_str_to_json(char* exp, char* real);
-char* test_change_non_non_mult_unsignedchar_num_to_json(char* exp, char* real);
-char* test_change_non_non_mult_unsignedchar_bool_to_json(char* exp, char* real);
+int test_change_non_non_single_unsignedchar_str_to_json(char* exp, char* real);
+int test_change_non_non_single_unsignedchar_num_to_json(char* exp, char* real);
+int test_change_non_non_single_unsignedchar_bool_to_json(char* exp, char* real);
+int test_change_non_non_mult_unsignedchar_str_to_json(char* exp, char* real);
+int test_change_non_non_mult_unsignedchar_num_to_json(char* exp, char* real);
+int test_change_non_non_mult_unsignedchar_bool_to_json(char* exp, char* real);
 
 // json to mult
 int test_change_single_str_json_to_non_non_single_unsignedchar_str(char* json);
