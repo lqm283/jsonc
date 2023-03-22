@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:34
- * @LastEditTime : 2023-03-22 13:39:45
+ * @LastEditTime : 2023-03-22 14:59:35
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -124,7 +124,7 @@ int jsonc_deserialize(char* buf, void* st, const struct type* type);
  * @param {char*} buf 保存序列化后的json的缓存
  * @param {void*} st 需要序列化的结构体变量的地址
  * @param {type*} type 结构体变量的类型描述
- * @return {*} 0 成功序列化， 其它 失败
+ * @return {*} 负值  存在错误，序列化失败， 正值  序列化后的 json 字符串长度
  */
 #define JsoncSerialize(buf, st, type) jsonc_serialize(buf, st, STRUCT(type))
 
