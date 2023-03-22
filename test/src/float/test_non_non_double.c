@@ -26,7 +26,7 @@ int test_change_non_non_single_float_num_to_json(char* exp, char* real) {
     struct TestNonNonSingleFloatNum num;
     num.num = 10.147;
     ret = JsoncSerialize(real, &num, TestNonNonSingleFloatNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -39,7 +39,7 @@ int test_change_non_non_single_float_bool_to_json(char* exp, char* real) {
     struct TestNonNonSingleFloatBool b;
     b.b = 1;
     ret = JsoncSerialize(real, &b, TestNonNonSingleFloatBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -58,7 +58,7 @@ int test_change_non_non_mult_float_num_to_json(char* exp, char* real) {
     num.num4 = 1.654;
     num.num5 = 127.125;
     ret = JsoncSerialize(real, &num, TestNonNonMultFloatNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -76,7 +76,7 @@ int test_change_non_non_mult_float_bool_to_json(char* exp, char* real) {
     bool.bool4 = 1;
     bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestNonNonMultFloatBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

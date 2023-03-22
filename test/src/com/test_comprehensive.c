@@ -40,7 +40,7 @@ int test_change_non_non_single_com_uninfo_to_json(char* exp, char* real) {
         60};
 
     ret = JsoncSerialize(real, &s, SendUnInfoFram);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -52,7 +52,7 @@ int test_change_non_non_single_com_ack_to_json(char* exp, char* real) {
     struct SendAckFram s = {1, 2165489, 16548943, {465746}};
 
     ret = JsoncSerialize(real, &s, SendAckFram);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -66,7 +66,7 @@ int test_change_non_non_single_com_stream_to_json(char* exp, char* real) {
     struct SendStreamFram s = {1, 2165489, 16548943, {1, 16, 1.23, 1}};
 
     ret = JsoncSerialize(real, &s, SendStreamFram);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

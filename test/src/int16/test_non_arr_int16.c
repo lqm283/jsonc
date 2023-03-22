@@ -26,7 +26,7 @@ int test_change_non_arr_single_int16_num_to_json(char* exp, char* real) {
     char* e = "{\"num\":[1,2,3,4,5]}";
     struct TestNonArrSingleInt16Num num = {{1, 2, 3, 4, 5}};
     ret = JsoncSerialize(real, &num, TestNonArrSingleInt16Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -38,7 +38,7 @@ int test_change_non_arr_single_int16_bool_to_json(char* exp, char* real) {
     char* e = "{\"b\":[true,false,true,true,false]}";
     struct TestNonArrSingleInt16Bool b = {{1, 0, 1, 1, 0}};
     ret = JsoncSerialize(real, &b, TestNonArrSingleInt16Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -56,7 +56,7 @@ int test_change_non_arr_mult_int16_num_to_json(char* exp, char* real) {
                                          {128, 255, 0, 1, 127},
                                          {128, 255, 0, 1, 127}};
     ret = JsoncSerialize(real, &num, TestNonArrMultInt16Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -75,7 +75,7 @@ int test_change_non_arr_mult_int16_bool_to_json(char* exp, char* real) {
                                            {128, 255, 0, 1, 127},
                                            {128, 255, 0, 1, 127}};
     ret = JsoncSerialize(real, &bool, TestNonArrMultInt16Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

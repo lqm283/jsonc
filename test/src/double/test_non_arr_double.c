@@ -26,7 +26,7 @@ int test_change_non_arr_single_double_num_to_json(char* exp, char* real) {
     char* e = "{\"num\":[0.000000,2.147000,3.362000,4.654000,5.125000]}";
     struct TestNonArrSingleDoubleNum num = {{0, 2.147, 3.362, 4.654, 5.125}};
     ret = JsoncSerialize(real, &num, TestNonArrSingleDoubleNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -38,7 +38,7 @@ int test_change_non_arr_single_double_bool_to_json(char* exp, char* real) {
     char* e = "{\"b\":[true,false,true,true,false]}";
     struct TestNonArrSingleDoubleBool b = {{1, 0, 1, 1, 0}};
     ret = JsoncSerialize(real, &b, TestNonArrSingleDoubleBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -58,7 +58,7 @@ int test_change_non_arr_mult_double_num_to_json(char* exp, char* real) {
                                          {128.362, 255.147, 0, 1.654, 127.125},
                                          {128.362, 255.147, 0, 1.654, 127.125}};
     ret = JsoncSerialize(real, &num, TestNonArrMultDoubleNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -77,7 +77,7 @@ int test_change_non_arr_mult_double_bool_to_json(char* exp, char* real) {
                                            {128.362, 255.147, 0, 1.654, 127.125},
                                            {128.362, 255.147, 0, 1.654, 127.125}};
     ret = JsoncSerialize(real, &bool, TestNonArrMultDoubleBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

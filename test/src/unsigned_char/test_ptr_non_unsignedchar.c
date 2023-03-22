@@ -28,7 +28,7 @@ int test_change_ptr_non_single_unsignedchar_str_to_json(char* exp, char* real) {
     struct TestPtrNonSingleUnsignedCharStr str;
     str.str = s;
     ret = JsoncSerialize(real, &str, TestPtrNonSingleUnsignedCharStr);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -42,7 +42,7 @@ int test_change_ptr_non_single_unsignedchar_num_to_json(char* exp, char* real) {
     num.num = malloc(sizeof(unsigned char));
     *num.num = 10;
     ret = JsoncSerialize(real, &num, TestPtrNonSingleUnsignedCharNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -56,7 +56,7 @@ int test_change_ptr_non_single_unsignedchar_bool_to_json(char* exp, char* real) 
     b.b = malloc(sizeof(unsigned char));
     *b.b = 1;
     ret = JsoncSerialize(real, &b, TestPtrNonSingleUnsignedCharBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -72,7 +72,7 @@ int test_change_ptr_non_mult_unsignedchar_str_to_json(char* exp, char* real) {
     str.str2 = (unsigned char*)"I am str2";
     *str.str3 = 'c';
     ret = JsoncSerialize(real, &str, TestPtrNonMultUnsignedCharStr);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -94,7 +94,7 @@ int test_change_ptr_non_mult_unsignedchar_num_to_json(char* exp, char* real) {
     *num.num4 = 1;
     *num.num5 = 127;
     ret = JsoncSerialize(real, &num, TestPtrNonMultUnsignedCharNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -117,7 +117,7 @@ int test_change_ptr_non_mult_unsignedchar_bool_to_json(char* exp, char* real) {
     *bool.bool4 = 1;
     *bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestPtrNonMultUnsignedCharBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

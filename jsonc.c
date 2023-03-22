@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-22 13:41:01
+ * @LastEditTime : 2023-03-22 14:50:02
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1907,7 +1907,7 @@ static int jsonc_change_to_self_mem(void* st,
                 } else {
                     ret = jsonc_change_alone((*list));
                 }
-                if (!ret) {
+                if (ret) {
                     return ret;
                 }
             }
@@ -2075,7 +2075,13 @@ int jsonc_serialize(char* buf, void* st, const struct type* type) {
         return -JSON_OBJ_EMPTY;
     }
     ret = jsonc_change_cstruct_to_json(buf_start, &buf_start, st, type);
-    *buf_start++ = '\0';
+    if (ret) {
+        return ret;
+    }else{
+        ret = buf_start - buf;
+        *buf_start++ = '\0';
+    }
+
     return ret;
 }
 

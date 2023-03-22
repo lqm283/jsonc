@@ -33,7 +33,7 @@ int test_change_ptr_non_single_struct_to_json(char* exp, char* real) {
     strcpy(s.s->c, "Hello world");
     s.s->d = 1;
     ret = JsoncSerialize(real, &s, TestPtrNonSingleStruct);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -59,7 +59,7 @@ int test_change_ptr_non_mult1_struct_to_json(char* exp, char* real) {
     strcpy(s.s2->c, "Good morning");
     s.s2->d = 0;
     ret = JsoncSerialize(real, &s, TestPtrNonMult1Struct);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -92,7 +92,7 @@ int test_change_ptr_non_multmax_struct_to_json(char* exp, char* real) {
     *s.c = 30;
 
     ret = JsoncSerialize(real, &s, TestPtrNonMultMaxStruct);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

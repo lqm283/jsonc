@@ -26,7 +26,7 @@ int test_change_non_non_single_struct_to_json(char* exp, char* real) {
     char* e = "{\"s\":{\"a\":10,\"b\":3.141590,\"c\":\"Hello world\",\"d\":true}}";
     struct TestNonNonSingleStruct s = {{10, 3.14159, "Hello world", 1}};
     ret = JsoncSerialize(real, &s, TestNonNonSingleStruct);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -42,7 +42,7 @@ int test_change_non_non_mult1_struct_to_json(char* exp, char* real) {
     struct TestNonNonMult1Struct s = {{10, 3.14159, "Hello world", 1},
                                       {33, 2.7173, "Good morning", 0}};
     ret = JsoncSerialize(real, &s, TestNonNonMult1Struct);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -61,7 +61,7 @@ int test_change_non_non_multmax_struct_to_json(char* exp, char* real) {
                                         20,
                                         30};
     ret = JsoncSerialize(real, &s, TestNonNonMultMaxStruct);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

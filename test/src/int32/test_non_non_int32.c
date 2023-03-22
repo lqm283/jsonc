@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:06:59
- * @LastEditTime : 2023-03-22 13:54:16
+ * @LastEditTime : 2023-03-22 14:50:24
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -26,7 +26,7 @@ int test_change_non_non_single_int32_str_to_json(char* exp, char* real) {
     struct TestNonNonSingleInt32Str str;
     str.str = 'a';
     ret = JsoncSerialize(real, &str, TestNonNonSingleInt32Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -39,7 +39,7 @@ int test_change_non_non_single_int32_num_to_json(char* exp, char* real) {
     struct TestNonNonSingleInt32Num num;
     num.num = 10;
     ret = JsoncSerialize(real, &num, TestNonNonSingleInt32Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -52,7 +52,7 @@ int test_change_non_non_single_int32_bool_to_json(char* exp, char* real) {
     struct TestNonNonSingleInt32Bool b;
     b.b = 1;
     ret = JsoncSerialize(real, &b, TestNonNonSingleInt32Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -67,7 +67,7 @@ int test_change_non_non_mult_int32_str_to_json(char* exp, char* real) {
     str.str2 = 'b';
     str.str3 = 'c';
     ret = JsoncSerialize(real, &str, TestNonNonMultInt32Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -84,7 +84,7 @@ int test_change_non_non_mult_int32_num_to_json(char* exp, char* real) {
     num.num4 = 1;
     num.num5 = 127;
     ret = JsoncSerialize(real, &num, TestNonNonMultInt32Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -102,7 +102,7 @@ int test_change_non_non_mult_int32_bool_to_json(char* exp, char* real) {
     bool.bool4 = 1;
     bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestNonNonMultInt32Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

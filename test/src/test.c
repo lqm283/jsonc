@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2023-01-06 09:09:02
- * @LastEditTime : 2023-03-22 14:26:04
+ * @LastEditTime : 2023-03-22 14:52:53
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -25,7 +25,7 @@ int test_change_mult_to_json() {
              c++) {
             int ret = (c->test_change_to_json)(exp, real);
 
-            if (!ret) {
+            if (ret>0) {
                 if (strcmp(exp, real)) {
                     ret++;
                     printf(

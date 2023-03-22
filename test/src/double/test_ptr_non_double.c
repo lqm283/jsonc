@@ -28,7 +28,7 @@ int test_change_ptr_non_single_double_num_to_json(char* exp, char* real) {
     num.num = malloc(sizeof(double));
     *num.num = 10.147;
     ret = JsoncSerialize(real, &num, TestPtrNonSingleDoubleNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -42,7 +42,7 @@ int test_change_ptr_non_single_double_bool_to_json(char* exp, char* real) {
     b.b = malloc(sizeof(double));
     *b.b = 1;
     ret = JsoncSerialize(real, &b, TestPtrNonSingleDoubleBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -66,7 +66,7 @@ int test_change_ptr_non_mult_double_num_to_json(char* exp, char* real) {
     *num.num4 = 1.654;
     *num.num5 = 127.125;
     ret = JsoncSerialize(real, &num, TestPtrNonMultDoubleNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -89,7 +89,7 @@ int test_change_ptr_non_mult_double_bool_to_json(char* exp, char* real) {
     *bool.bool4 = 1;
     *bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestPtrNonMultDoubleBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

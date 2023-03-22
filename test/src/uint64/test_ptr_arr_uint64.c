@@ -32,7 +32,7 @@ int test_change_ptr_arr_single_uint64_str_to_json(char* exp, char* real) {
         {(uint64_t*)"test change char * [0] str to json",
          (uint64_t*)"test change char * [1] str to json"}};
     ret = JsoncSerialize(real, &str, TestPtrArrSingleUint64Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -48,7 +48,7 @@ int test_change_ptr_arr_single_uint64_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleUint64Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -62,7 +62,7 @@ int test_change_ptr_arr_single_uint64_bool_to_json(char* exp, char* real) {
     uint64_t bool2 = 0;
     struct TestPtrArrSingleUint64Bool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleUint64Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -78,7 +78,7 @@ int test_change_ptr_arr_mult_uint64_str_to_json(char* exp, char* real) {
                                           {(uint64_t*)"str2_0", (uint64_t*)"str2_1"},
                                           {(uint64_t*)"str3_0", (uint64_t*)"str3_1"}};
     ret = JsoncSerialize(real, &str, TestPtrArrMultUint64Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -97,7 +97,7 @@ int test_change_ptr_arr_mult_uint64_num_to_json(char* exp, char* real) {
 
     struct TestPtrArrMultUint64Num num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultUint64Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -117,7 +117,7 @@ int test_change_ptr_arr_mult_uint64_bool_to_json(char* exp, char* real) {
                                             {&bool3, &bool4},
                                             {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultUint64Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

@@ -27,7 +27,7 @@ int test_change_non_arr_single_uint8_str_to_json(char* exp, char* real) {
     char* e = "{\"str\":\"test change char * str to json\"}";
     struct TestNonArrSingleUint8Str str = {"test change char * str to json"};
     ret = JsoncSerialize(real, &str, TestNonArrSingleUint8Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -39,7 +39,7 @@ int test_change_non_arr_single_uint8_num_to_json(char* exp, char* real) {
     char* e = "{\"num\":[1,2,3,4,5]}";
     struct TestNonArrSingleUint8Num num = {{1, 2, 3, 4, 5}};
     ret = JsoncSerialize(real, &num, TestNonArrSingleUint8Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -51,7 +51,7 @@ int test_change_non_arr_single_uint8_bool_to_json(char* exp, char* real) {
     char* e = "{\"b\":[true,false,true,true,false]}";
     struct TestNonArrSingleUint8Bool b = {{1, 0, 1, 1, 0}};
     ret = JsoncSerialize(real, &b, TestNonArrSingleUint8Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -63,7 +63,7 @@ int test_change_non_arr_mult_uint8_str_to_json(char* exp, char* real) {
     char* e = "{\"str1\":\"I am str1\",\"str2\":\"I am str2\",\"str3\":\"c\"}";
     struct TestNonArrMultUint8Str str = {"I am str1", "I am str2", "c"};
     ret = JsoncSerialize(real, &str, TestNonArrMultUint8Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -81,7 +81,7 @@ int test_change_non_arr_mult_uint8_num_to_json(char* exp, char* real) {
                                          {128, 255, 0, 1, 127},
                                          {128, 255, 0, 1, 127}};
     ret = JsoncSerialize(real, &num, TestNonArrMultUint8Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -100,7 +100,7 @@ int test_change_non_arr_mult_uint8_bool_to_json(char* exp, char* real) {
                                            {128, 255, 0, 1, 127},
                                            {128, 255, 0, 1, 127}};
     ret = JsoncSerialize(real, &bool, TestNonArrMultUint8Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

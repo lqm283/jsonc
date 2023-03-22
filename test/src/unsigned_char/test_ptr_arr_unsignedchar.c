@@ -32,7 +32,7 @@ int test_change_ptr_arr_single_unsignedchar_str_to_json(char* exp, char* real) {
         {(unsigned char*)"test change char * [0] str to json",
          (unsigned char*)"test change char * [1] str to json"}};
     ret = JsoncSerialize(real, &str, TestPtrArrSingleUnsignedCharStr);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -48,7 +48,7 @@ int test_change_ptr_arr_single_unsignedchar_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleUnsignedCharNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -62,7 +62,7 @@ int test_change_ptr_arr_single_unsignedchar_bool_to_json(char* exp, char* real) 
     unsigned char bool2 = 0;
     struct TestPtrArrSingleUnsignedCharBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleUnsignedCharBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -79,7 +79,7 @@ int test_change_ptr_arr_mult_unsignedchar_str_to_json(char* exp, char* real) {
         {(unsigned char*)"str2_0", (unsigned char*)"str2_1"},
         {(unsigned char*)"str3_0", (unsigned char*)"str3_1"}};
     ret = JsoncSerialize(real, &str, TestPtrArrMultUnsignedCharStr);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -100,7 +100,7 @@ int test_change_ptr_arr_mult_unsignedchar_num_to_json(char* exp, char* real) {
                                                 {&num3, &num4},
                                                 {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultUnsignedCharNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -120,7 +120,7 @@ int test_change_ptr_arr_mult_unsignedchar_bool_to_json(char* exp, char* real) {
                                                   {&bool3, &bool4},
                                                   {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultUnsignedCharBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

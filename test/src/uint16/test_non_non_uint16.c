@@ -26,7 +26,7 @@ int test_change_non_non_single_uint16_str_to_json(char* exp, char* real) {
     struct TestNonNonSingleUint16Str str;
     str.str = 'a';
     ret = JsoncSerialize(real, &str, TestNonNonSingleUint16Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -39,7 +39,7 @@ int test_change_non_non_single_uint16_num_to_json(char* exp, char* real) {
     struct TestNonNonSingleUint16Num num;
     num.num = 10;
     ret = JsoncSerialize(real, &num, TestNonNonSingleUint16Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -52,7 +52,7 @@ int test_change_non_non_single_uint16_bool_to_json(char* exp, char* real) {
     struct TestNonNonSingleUint16Bool b;
     b.b = 1;
     ret = JsoncSerialize(real, &b, TestNonNonSingleUint16Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -67,7 +67,7 @@ int test_change_non_non_mult_uint16_str_to_json(char* exp, char* real) {
     str.str2 = 'b';
     str.str3 = 'c';
     ret = JsoncSerialize(real, &str, TestNonNonMultUint16Str);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -84,7 +84,7 @@ int test_change_non_non_mult_uint16_num_to_json(char* exp, char* real) {
     num.num4 = 1;
     num.num5 = 127;
     ret = JsoncSerialize(real, &num, TestNonNonMultUint16Num);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -102,7 +102,7 @@ int test_change_non_non_mult_uint16_bool_to_json(char* exp, char* real) {
     bool.bool4 = 1;
     bool.bool5 = 127;
     ret = JsoncSerialize(real, &bool, TestNonNonMultUint16Bool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;

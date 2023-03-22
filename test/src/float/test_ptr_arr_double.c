@@ -32,7 +32,7 @@ int test_change_ptr_arr_single_float_num_to_json(char* exp, char* real) {
     num.num[1] = malloc(1);
     *num.num[1] = 20.362;
     ret = JsoncSerialize(real, &num, TestPtrArrSingleFloatNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -46,7 +46,7 @@ int test_change_ptr_arr_single_float_bool_to_json(char* exp, char* real) {
     float bool2 = 0;
     struct TestPtrArrSingleFloatBool b = {{&bool1, &bool2}};
     ret = JsoncSerialize(real, &b, TestPtrArrSingleFloatBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -67,7 +67,7 @@ int test_change_ptr_arr_mult_float_num_to_json(char* exp, char* real) {
 
     struct TestPtrArrMultFloatNum num = {{&num1, &num2}, {&num3, &num4}, {&num5, &num6}};
     ret = JsoncSerialize(real, &num, TestPtrArrMultFloatNum);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
@@ -87,7 +87,7 @@ int test_change_ptr_arr_mult_float_bool_to_json(char* exp, char* real) {
                                            {&bool3, &bool4},
                                            {&bool5, &bool6}};
     ret = JsoncSerialize(real, &bool, TestPtrArrMultFloatBool);
-    if (!ret) {
+    if (ret > 0) {
         strcpy(exp, e);
     }
     return ret;
