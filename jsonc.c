@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-22 17:14:09
+ * @LastEditTime : 2023-03-27 19:42:54
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -800,10 +800,10 @@ static int jsonc_check_string(char* start_str, char** end_str) {
 
 static int jsonc_check_null(char* start_obj, char** end_obj) {
     int ret = 0;
-    if (memcmp(start_obj, "null",4) != 0) {
+    if (memcmp(start_obj, "null", 4) != 0) {
         return -JSON_NULL_VAL;
     }
-    *end_obj = start_obj+4;
+    *end_obj = start_obj + 4;
     return ret;
 }
 
@@ -811,12 +811,12 @@ static int jsonc_check_bool(char* start_bool, char** end_bool) {
     int ret = 0;
 
     if (*start_bool == 'f') {
-        if (memcmp(start_bool, BOOL[False],5)) {
+        if (memcmp(start_bool, BOOL[False], 5)) {
             return -JSON_BOOL;
         }
         start_bool += 5;
     } else if (*start_bool == 't') {
-        if (memcmp(start_bool, BOOL[True],4)) {
+        if (memcmp(start_bool, BOOL[True], 4)) {
             return -JSON_BOOL;
         }
         start_bool += 4;
@@ -1655,6 +1655,67 @@ int jsonc_change_to_base(struct jsonc_ele* ele) {
     return ret;
 }
 
+int jsonc_change_obj_to_any(struct jsonc_ele** ele) {
+    char *obj = malloc(strlen((*ele)->value) + 1);
+    strcpy(obj, (*ele)->value);
+    void **temp = (*ele)->mem_addr;
+    *temp = (void *)obj;
+    return 0;
+}
+
+int jsonc_change_num_to_any(struct jsonc_ele** ele) {
+    double *num = malloc(sizeof(double));
+    *num = strtod((*ele)->value, NULL);
+    void **temp = (*ele)->mem_addr;
+    *temp = (void *)num;
+    return 0;
+}
+
+int jsonc_change_bool_to_any(struct jsonc_ele** ele) {
+    double *bool = malloc(sizeof(double));
+    *bool = False;
+    if (!strcmp((*ele)->value, BOOL[True])) {
+        *bool = True;
+    }
+    void **temp = (*ele)->mem_addr;
+    *temp = (void *)bool;
+    return 0;
+}
+
+int jsonc_change_null_to_any(struct jsonc_ele** ele) {
+    (*ele)->mem_addr = NULL;
+    return 0;
+}
+
+int jsonc_change_any(struct jsonc_ele** ele) {
+    int ret = 0;
+    switch ((*ele)->type) {
+        case Obj:
+            ret = jsonc_change_obj_to_any(ele);
+            break;
+        case Arr:
+            ret = jsonc_change_obj_to_any(ele);
+            break;
+        case Str:
+            ret = jsonc_change_obj_to_any(ele);
+            break;
+        case Num:
+            ret = jsonc_change_num_to_any(ele);
+            break;
+        case Bool:
+            ret = jsonc_change_bool_to_any(ele);
+            break;
+        case Null:
+            ret = jsonc_change_null_to_any(ele);
+            break;
+        default:
+            ret = -JSON_TYPE;
+            break;
+    }
+
+    return ret;
+}
+
 static int jsonc_change_arr(struct jsonc_ele* ele) {
     int ret = 0;
     char* value = ele->value;
@@ -1733,6 +1794,11 @@ static int jsonc_change_ele_to_mem(void* st,
         (ele->type == Str || ele->type == Num || ele->type == Bool)) {
         return -JSON_MATCH;
         ;
+    }
+
+    if (mem->struct_type == Any) {
+        // ele->mem_addr = (void*)(*(long*)ele->mem_addr);
+        return jsonc_change_any(&ele);
     }
 
     // 根据对象成员是否是数组来执行操作
@@ -2068,7 +2134,7 @@ int jsonc_serialize(char* buf, void* st, const struct type* type) {
     ret = jsonc_change_cstruct_to_json(buf_start, &buf_start, st, type);
     if (ret) {
         return ret;
-    }else{
+    } else {
         ret = buf_start - buf;
         *buf_start++ = '\0';
     }

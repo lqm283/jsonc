@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum json_type { Str, Num, Bool, Obj, Arr, MultArr, Null };
+enum json_type { Str, Num, Bool, Obj, Arr, MultArr, Null,Any };
 
 enum json_bool { False, True };
 enum c_type {
