@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-27 19:42:54
+ * @LastEditTime : 2023-03-28 00:42:46
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /jsonc/jsonc.c
+ * @FilePath     : /unit/app/src/app/tools/jsonc.c
  */
 
 #include "jsonc.h"
@@ -97,6 +97,11 @@ static const char** jsonc_c_base_type[] = {jsonc_type_int8,
 #define JSON_NULL_VAL 23    /* null值错误 */
 #define JSON_GET_NULL 24    /* 获取null发生错误 */
 #define JSON_OBJ_EMPTY 25   /* 预期序列化的对象是一个空对象 */
+
+static int jsonc_check_number(char* start_num, char** end_num);
+static int jsonc_check_string(char* start_str, char** end_str);
+static int jsonc_check_array(char* start_array, char** end_array);
+static int jsonc_check_obj(char* start_obj, char** end_obj);
 
 static int jsonc_change_cbasearr_to_json(char* buf_start,
                                          char** buf_end,
@@ -398,7 +403,11 @@ static int jsonc_change_obj_to_json(char* buf_start, char** buf_end, void* st) {
         return 0;
     }
 
-    // 检查对象 json 的合法性
+    // 检查任意对象的合法性
+    if (jsonc_check_json((char*)st) && jsonc_check_string(st, NULL) &&
+        jsonc_check_number(st, NULL) && jsonc_check_array(st, NULL)) {
+        return -0xff;
+    }
     ret = jsonc_check_json((char*)st);
     if (ret) {
         return ret;
@@ -436,6 +445,7 @@ static int jsonc_change_cbase_to_json(char* buf_start,
             ret = jsonc_change_bool_to_json(buf_start, &buf_start, st, mem);
             break;
         case Obj:
+        case Any:
             ret = jsonc_change_obj_to_json(buf_start, &buf_start, st);
             break;
         default:
@@ -1656,34 +1666,37 @@ int jsonc_change_to_base(struct jsonc_ele* ele) {
 }
 
 int jsonc_change_obj_to_any(struct jsonc_ele** ele) {
-    char *obj = malloc(strlen((*ele)->value) + 1);
+    int len = strlen((*ele)->value);
+    char* obj = malloc(len + 1);
     strcpy(obj, (*ele)->value);
-    void **temp = (*ele)->mem_addr;
-    *temp = (void *)obj;
+    obj[len] = '\0';
+    void** temp = (*ele)->mem_addr;
+    *temp = (void*)obj;
     return 0;
 }
 
 int jsonc_change_num_to_any(struct jsonc_ele** ele) {
-    double *num = malloc(sizeof(double));
+    double* num = malloc(sizeof(double));
     *num = strtod((*ele)->value, NULL);
-    void **temp = (*ele)->mem_addr;
-    *temp = (void *)num;
+    void** temp = (*ele)->mem_addr;
+    *temp = (void*)num;
     return 0;
 }
 
 int jsonc_change_bool_to_any(struct jsonc_ele** ele) {
-    double *bool = malloc(sizeof(double));
+    double* bool = malloc(sizeof(double));
     *bool = False;
     if (!strcmp((*ele)->value, BOOL[True])) {
         *bool = True;
     }
-    void **temp = (*ele)->mem_addr;
-    *temp = (void *)bool;
+    void** temp = (*ele)->mem_addr;
+    *temp = (void*)bool;
     return 0;
 }
 
 int jsonc_change_null_to_any(struct jsonc_ele** ele) {
-    (*ele)->mem_addr = NULL;
+    void** temp = (*ele)->mem_addr;
+    *temp = NULL;
     return 0;
 }
 
