@@ -1,12 +1,12 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-03-28 00:42:46
+ * @LastEditTime : 2023-07-21 14:05:15
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
  * --------------------------------------------------------------------------------<
- * @FilePath     : /unit/app/src/app/tools/jsonc.c
+ * @FilePath     : /jsonc/jsonc.c
  */
 
 #include "jsonc.h"
@@ -395,10 +395,9 @@ static int jsonc_change_bool_to_json(char* buf_start,
 }
 
 static int jsonc_change_obj_to_json(char* buf_start, char** buf_end, void* st) {
-    int ret = 0;
     // 处理空对象
     if (st == NULL) {
-        ret = jsonc_change_null_to_json(buf_start, &buf_start);
+        jsonc_change_null_to_json(buf_start, &buf_start);
         *buf_end = buf_start;
         return 0;
     }
@@ -407,10 +406,6 @@ static int jsonc_change_obj_to_json(char* buf_start, char** buf_end, void* st) {
     if (jsonc_check_json((char*)st) && jsonc_check_string(st, NULL) &&
         jsonc_check_number(st, NULL) && jsonc_check_array(st, NULL)) {
         return -0xff;
-    }
-    ret = jsonc_check_json((char*)st);
-    if (ret) {
-        return ret;
     }
 
     char* str = st;
