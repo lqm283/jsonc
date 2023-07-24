@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-07-21 14:05:15
+ * @LastEditTime : 2023-07-24 11:06:03
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1394,13 +1394,10 @@ static int jsonc_jsonstr_to_multstr(const struct jsonc_ele* ele) {
                 length = capacity;
             }
             memcpy(ele->mem_addr, ele->value, length);
-            if (length > 1) {
-                char* end = (char*)ele->mem_addr;
-                if (length == capacity) {
-                    end[length - 1] = '\0';
-                } else {
-                    end[length] = '\0';
-                }
+            if (length == capacity) {
+                ((char*)ele->mem_addr)[length - 1] = '\0';
+            } else {
+                ((char*)ele->mem_addr)[length] = '\0';
             }
         }
     }
