@@ -1035,6 +1035,8 @@ static int jsonc_check_json(char* src) {
             skipspace(&str);
             if (*str != 0) {
                 return -JSON_EOFE;
+            }else{
+                break;
             }
         }
         // 跳过字符串
