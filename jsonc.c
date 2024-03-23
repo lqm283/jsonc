@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2023-07-24 11:06:03
+ * @LastEditTime : 2024-03-23 19:16:31
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -1424,7 +1424,7 @@ static int jsonc_jsonstr_to_multnum(const struct jsonc_ele* ele) {
             break;
         case cInt64:
         case cUInt64:
-            *(long*)ele->mem_addr = strtoll(ele->value, NULL, 0);
+            *(long long*)ele->mem_addr = strtoll(ele->value, NULL, 0);
             break;
         case cFloat:
             *(float*)ele->mem_addr = strtof(ele->value, NULL);
