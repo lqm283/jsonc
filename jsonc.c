@@ -1,7 +1,7 @@
 /*
  * @Author       : lqm283
  * @Date         : 2022-04-13 13:47:29
- * @LastEditTime : 2024-03-23 19:16:31
+ * @LastEditTime : 2024-03-25 08:17:48
  * @LastEditors  : lqm283
  * --------------------------------------------------------------------------------<
  * @Description  : Please edit a descrition about this file at here.
@@ -171,7 +171,7 @@ static int is_struct(const struct type* type) {
 static enum c_type jsonc_get_ctype(const struct struct_mem* mem) {
     enum c_type c_type = cBase;
 
-    if (mem->mem_length / mem->type_length > 1) {
+    if (mem->struct_type == Arr || mem->mem_length / mem->type_length > 1) {
         c_type |= cBaseArr;
     }
 
@@ -444,6 +444,7 @@ static int jsonc_change_cbase_to_json(char* buf_start,
             ret = jsonc_change_obj_to_json(buf_start, &buf_start, st);
             break;
         default:
+            ret = jsonc_change_num_to_json(buf_start, &buf_start, st, mem);
             break;
     }
     *buf_end = buf_start;
